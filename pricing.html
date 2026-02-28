@@ -454,7 +454,7 @@ h2.section-title {
 .price-ribbon { background: var(--accent); color: #fff; text-align: center; padding: 8px; font-size: .78rem; font-weight: 700; letter-spacing: .08em; }
 .price-header { padding: 2rem; background: var(--navy); color: var(--white); }
 .price-plan { font-size: .8rem; color: var(--gray); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem; }
-.price-amount { font-family: 'Syne', sans-serif; font-size: 2.8rem; font-weight: 800; line-height: 1; margin-bottom: .25rem; }
+.price-amount { font-family: 'Syne', sans-serif; font-size: clamp(2rem,7vw,2.8rem); font-weight: 800; line-height: 1; margin-bottom: .25rem; }
 .price-amount span { font-size: 1rem; font-weight: 400; color: var(--gray); }
 .price-note { font-size: .8rem; color: var(--gray); }
 .price-body { padding: 2rem; background: #fff; }
@@ -464,6 +464,8 @@ h2.section-title {
 .faq-mini { margin-top: 5rem; }
 .compare-table { width: 100%; border-collapse: collapse; margin-top: 3rem; }
 .compare-table th, .compare-table td { padding: 1rem 1.25rem; text-align: left; border-bottom: 1px solid var(--gray-lt); font-size: .9rem; }
+.compare-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:680px){.pricing-grid{grid-template-columns:1fr !important}.compare-table{min-width:500px}.compare-table th,.compare-table td{padding:.7rem .6rem;font-size:.78rem}.price-header{padding:1.5rem}.price-body{padding:1.5rem}}
 .compare-table thead th { background: var(--navy); color: var(--white); font-weight: 700; }
 .compare-table thead th:first-child { border-radius: 8px 0 0 0; }
 .compare-table thead th:last-child { border-radius: 0 8px 0 0; }
@@ -580,7 +582,7 @@ h2.section-title {
     <h2 class="section-title">汎用SaaSとの違い</h2>
     <p class="section-lead">既製品のSaaSと私たちのサービス、何が違うのかを整理しました。</p>
     <div style="overflow-x:auto">
-      <table class="compare-table">
+      <div class="compare-wrap"><table class="compare-table">
         <thead>
           <tr>
             <th>比較項目</th>
