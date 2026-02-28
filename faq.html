@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>よくある質問 | QuickShift DX</title>
+<meta name="description" content="QuickShift DXのよくある質問。導入要件・スマホ対応・不正打刻・深夜跨ぎ・料金・サポートについてお答えします。">
+<style>
+/* ===== QuickShift DX — Shared Styles ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Syne:wght@700;800&display=swap');
+
+:root {
+  --navy:       #0d1b2a;
+  --navy-mid:   #162032;
+  --navy-light: #1e2f45;
+  --accent:     #ff6b35;
+  --accent-lt:  #ff8c5a;
+  --white:      #fafaf8;
+  --gray:       #8a9bb0;
+  --gray-lt:    #e8edf3;
+  --text:       #1a2738;
+  --max-w:      1200px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; }
+
+/* ── CONTAINER ── */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 5%; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-block;
+  padding: 12px 26px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover {
+  background: var(--accent-lt);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,107,53,.4);
+}
+.btn-outline { background: transparent; border: 1.5px solid rgba(255,255,255,.3); color: var(--white); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.btn-outline-dark { background: transparent; border: 1.5px solid var(--gray-lt); color: var(--text); }
+.btn-outline-dark:hover { border-color: var(--accent); color: var(--accent); }
+.btn-white { background: #fff; color: var(--accent); }
+.btn-white:hover { background: var(--navy); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.2); }
+.btn-lg { padding: 16px 36px; font-size: 1.05rem; border-radius: 9px; }
+.btn-block { display: block; text-align: center; width: 100%; }
+
+/* ── HEADER ── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(13,27,42,.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  height: 64px;
+}
+.header-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 5%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -.02em;
+}
+.logo span { color: var(--accent); }
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+.site-nav a {
+  color: rgba(255,255,255,.7);
+  font-size: .84rem;
+  font-weight: 500;
+  transition: color .2s;
+}
+.site-nav a:hover, .site-nav a.active { color: var(--white); }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: all .3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 64px; left: 0; right: 0; bottom: 0;
+  background: var(--navy);
+  z-index: 190;
+  padding: 2rem 5%;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow-y: auto;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  padding-bottom: 1.25rem;
+}
+
+/* ── SECTION COMMONS ── */
+.section { padding: 100px 0; }
+.section-sm { padding: 70px 0; }
+.section-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+h2.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+.section-lead {
+  font-size: 1.05rem;
+  color: #556070;
+  line-height: 1.9;
+  max-width: 580px;
+  margin-bottom: 3rem;
+}
+.section-lead.wide { max-width: 720px; }
+
+/* dark variant */
+.bg-navy { background: var(--navy); }
+.bg-navy h2.section-title { color: var(--white); }
+.bg-navy .section-lead { color: var(--gray); }
+.bg-gray { background: #f5f7fa; }
+
+/* ── PAGE HERO ── */
+.page-hero {
+  background: var(--navy);
+  padding: 140px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -30%; right: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,107,53,.1) 0%, transparent 70%);
+}
+.page-hero .section-tag { margin-bottom: 1.2rem; }
+.page-hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -.03em;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+.page-hero h1 em { font-style: normal; color: var(--accent); }
+.page-hero p {
+  color: rgba(255,255,255,.65);
+  font-size: 1.1rem;
+  line-height: 1.85;
+  max-width: 560px;
+}
+.page-hero .hero-cta { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* ── FOOTER ── */
+.site-footer {
+  background: var(--navy);
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.footer-main {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 3rem;
+  padding: 4rem 0 3rem;
+}
+.footer-brand .logo { font-size: 1.4rem; margin-bottom: 1rem; }
+.footer-brand p { font-size: .85rem; color: var(--gray); line-height: 1.8; }
+.footer-col h4 { color: var(--white); font-size: .85rem; font-weight: 700; margin-bottom: 1.2rem; letter-spacing: .05em; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
+.footer-col ul a { color: var(--gray); font-size: .84rem; transition: color .2s; }
+.footer-col ul a:hover { color: var(--white); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 1.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-bottom p { color: rgba(255,255,255,.3); font-size: .78rem; }
+.footer-bottom-links { display: flex; gap: 1.5rem; }
+.footer-bottom-links a { color: rgba(255,255,255,.35); font-size: .78rem; }
+.footer-bottom-links a:hover { color: rgba(255,255,255,.7); }
+
+/* ── FLOATING CTA ── */
+.floating-cta {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  z-index: 180;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all .4s;
+  pointer-events: none;
+}
+.floating-cta.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+.floating-cta .btn { box-shadow: 0 8px 30px rgba(255,107,53,.5); }
+
+/* ── CARDS ── */
+.card {
+  background: #fff;
+  border: 1.5px solid var(--gray-lt);
+  border-radius: 14px;
+  padding: 2.5rem;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,27,42,.12); border-color: var(--accent); }
+.card:hover::before { transform: scaleX(1); }
+
+.card-dark {
+  background: var(--navy-mid);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px;
+  padding: 2.5rem;
+  transition: all .3s;
+}
+.card-dark:hover { background: var(--navy-light); transform: translateY(-4px); }
+
+/* ── FEATURE LIST ── */
+.feature-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
+.feature-list li { display: flex; align-items: flex-start; gap: 12px; font-size: .93rem; line-height: 1.65; }
+.feature-list li::before {
+  content: '✓';
+  min-width: 22px; height: 22px;
+  background: var(--accent); color: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700;
+  margin-top: 1px; flex-shrink: 0;
+}
+
+/* ── PROCESS STEPS ── */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+  margin-top: 3rem;
+}
+.steps-grid::before {
+  content: '';
+  position: absolute;
+  top: 32px; left: 12%; right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--gray-lt) 100%);
+}
+.step-item { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 1.25rem; }
+.step-num {
+  width: 64px; height: 64px;
+  background: var(--navy); color: var(--white);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem; font-weight: 800;
+  margin-bottom: 1.25rem;
+  position: relative; z-index: 1;
+  border: 3px solid var(--accent);
+}
+.step-item:last-child .step-num { background: var(--accent); }
+.step-item h3 { font-size: .98rem; font-weight: 700; margin-bottom: .5rem; }
+.step-item p { font-size: .84rem; color: #556070; line-height: 1.7; }
+
+/* ── FAQ ── */
+.faq-list { display: flex; flex-direction: column; border: 1.5px solid var(--gray-lt); border-radius: 12px; overflow: hidden; }
+.faq-item { border-bottom: 1px solid var(--gray-lt); }
+.faq-item:last-child { border-bottom: none; }
+.faq-q {
+  width: 100%; background: #fff; border: none;
+  padding: 1.4rem 1.75rem;
+  text-align: left;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: .94rem; font-weight: 700; color: var(--text);
+  cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  transition: background .2s;
+}
+.faq-q:hover { background: #fafafa; }
+.faq-q.open { background: #fff8f5; }
+.faq-icon {
+  min-width: 26px; height: 26px;
+  border: 2px solid var(--gray-lt); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: var(--gray); line-height: 1;
+  transition: all .3s; flex-shrink: 0;
+}
+.faq-q.open .faq-icon { background: var(--accent); border-color: var(--accent); color: #fff; transform: rotate(45deg); }
+.faq-a { display: none; padding: 0 1.75rem 1.4rem; font-size: .9rem; color: #556070; line-height: 1.9; background: #fff; }
+.faq-a.open { display: block; }
+
+/* ── FORM ── */
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: .82rem; font-weight: 700; }
+.form-label-dark { color: rgba(255,255,255,.7); }
+.required-mark { color: var(--accent); margin-left: 4px; }
+.form-input, .form-select, .form-textarea {
+  border-radius: 8px;
+  padding: 13px 16px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: .9rem;
+  outline: none;
+  transition: border-color .2s, background .2s;
+}
+.form-input-dark, .form-select-dark, .form-textarea-dark {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  color: var(--white);
+}
+.form-input-dark::placeholder, .form-textarea-dark::placeholder { color: rgba(255,255,255,.3); }
+.form-input-dark:focus, .form-select-dark:focus, .form-textarea-dark:focus {
+  border-color: var(--accent);
+  background: rgba(255,255,255,.09);
+}
+.form-select-dark option { background: var(--navy); color: var(--white); }
+.form-textarea { resize: vertical; min-height: 120px; }
+.radio-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+.radio-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: .9rem; }
+.radio-label input { accent-color: var(--accent); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.form-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* ── BADGE ── */
+.badge { padding: 3px 10px; border-radius: 12px; font-size: .72rem; font-weight: 700; }
+.badge-in  { background: rgba(52,211,153,.15); color: #34d399; }
+.badge-out { background: rgba(148,163,184,.15); color: #94a3b8; }
+.badge-new { background: rgba(255,107,53,.15); color: var(--accent); }
+
+/* ── ANIMATIONS ── */
+.fade-up { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up:nth-child(2) { transition-delay: .1s; }
+.fade-up:nth-child(3) { transition-delay: .2s; }
+.fade-up:nth-child(4) { transition-delay: .3s; }
+
+/* ── SUCCESS BANNER ── */
+.success-banner {
+  display: none;
+  background: #dcfce7; border: 1.5px solid #86efac;
+  border-radius: 10px; padding: 1.25rem 1.75rem;
+  color: #15803d; font-weight: 700; font-size: .95rem;
+  margin-top: 1.5rem;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb { display: flex; align-items: center; gap: .5rem; margin-bottom: 1.5rem; }
+.breadcrumb a { color: rgba(255,255,255,.45); font-size: .82rem; }
+.breadcrumb a:hover { color: rgba(255,255,255,.8); }
+.breadcrumb span { color: rgba(255,255,255,.25); font-size: .82rem; }
+.breadcrumb .current { color: rgba(255,255,255,.7); font-size: .82rem; }
+
+/* ── NOTICE ── */
+.notice {
+  background: rgba(255,107,53,.08);
+  border: 1px solid rgba(255,107,53,.2);
+  border-radius: 8px; padding: 1rem 1.25rem;
+  font-size: .88rem; color: #556070; line-height: 1.8;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .footer-main { grid-template-columns: 1fr 1fr; }
+  .steps-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .steps-grid::before { display: none; }
+}
+
+@media (max-width: 680px) {
+  .site-nav { display: none; }
+  .hamburger { display: flex; }
+  .footer-main { grid-template-columns: 1fr; gap: 2rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .section { padding: 70px 0; }
+  .page-hero { padding: 120px 0 60px; }
+}
+
+</style>
+<style>
+.faq-category { margin-bottom: 3rem; }
+.faq-category-title {
+  font-size: 1rem; font-weight: 700; color: var(--gray);
+  letter-spacing: .05em; text-transform: uppercase;
+  margin-bottom: 1.25rem; display: flex; align-items: center; gap: .75rem;
+}
+.faq-category-title::after {
+  content: ''; flex: 1; height: 1px; background: var(--gray-lt);
+}
+/* skeleton */
+.skeleton-faq { border-radius: 12px; overflow: hidden; border: 1.5px solid var(--gray-lt); animation: shimmer 1.5s infinite; }
+@keyframes shimmer { 0%,100%{background:#f9fafb} 50%{background:#f0f0f0} }
+.skeleton-faq-item { height: 60px; border-bottom: 1px solid var(--gray-lt); background: #f9fafb; display: flex; align-items: center; padding: 0 1.75rem; }
+.skeleton-line { height: 14px; background: #e8e8e8; border-radius: 4px; width: 55%; }
+.error-state { text-align:center; padding:4rem 2rem; background:#fef2f2; border-radius:14px; border:1px solid #fecaca; margin-top:2rem; }
+.error-state p { color:#dc2626; margin-bottom:1.5rem; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">Quick<span>Shift</span> DX</a>
+    <nav class="site-nav">
+      <a href="services.html">サービス</a><a href="product/time-shift.html">勤怠・シフト</a>
+      <a href="process.html">導入の流れ</a><a href="pricing.html">料金</a>
+      <a href="cases.html">事例</a><a href="faq.html">FAQ</a><a href="company.html">会社概要</a>
+      <a href="contact.html" class="btn btn-primary">無料相談する</a>
+    </nav>
+    <button class="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav class="mobile-nav">
+  <a href="index.html">トップ</a><a href="services.html">サービス</a>
+  <a href="product/time-shift.html">勤怠・シフトWeb化パック</a><a href="process.html">導入の流れ</a>
+  <a href="pricing.html">料金</a><a href="cases.html">事例・ユースケース</a>
+  <a href="faq.html">よくある質問</a><a href="company.html">会社概要</a>
+  <a href="contact.html" class="btn btn-primary" style="border-radius:8px;text-align:center;">無料相談する</a>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb"><a href="index.html">トップ</a><span>›</span><span class="current">よくある質問</span></nav>
+    <div class="section-tag">よくある質問</div>
+    <h1>疑問に<em>お答え</em>します</h1>
+    <p>よくいただくご質問をまとめました。ここにない質問はお気軽にお問い合わせください。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width:800px">
+
+    <!-- ローディング -->
+    <div id="loadingState">
+      <div class="skeleton-faq" style="margin-bottom:2.5rem">
+        <div class="skeleton-faq-item"><div class="skeleton-line"></div></div>
+        <div class="skeleton-faq-item"><div class="skeleton-line" style="width:70%"></div></div>
+        <div class="skeleton-faq-item"><div class="skeleton-line" style="width:45%"></div></div>
+      </div>
+      <div class="skeleton-faq" style="margin-bottom:2.5rem">
+        <div class="skeleton-faq-item"><div class="skeleton-line" style="width:60%"></div></div>
+        <div class="skeleton-faq-item"><div class="skeleton-line"></div></div>
+        <div class="skeleton-faq-item"><div class="skeleton-line" style="width:50%"></div></div>
+        <div class="skeleton-faq-item"><div class="skeleton-line" style="width:65%"></div></div>
+      </div>
+    </div>
+
+    <!-- エラー -->
+    <div id="errorState" class="error-state" style="display:none">
+      <p>⚠️ FAQデータの読み込みに失敗しました。</p>
+      <button onclick="loadFaqs()" class="btn btn-outline-dark">再読み込み</button>
+    </div>
+
+    <!-- データ -->
+    <div id="faqContent" style="display:none"></div>
+
+    <!-- 末尾CTA（常時表示） -->
+    <div id="faqCta" style="display:none; margin-top:4rem; background:#f5f7fa; border-radius:14px; padding:2.5rem; text-align:center">
+      <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:.75rem">ここにない質問は？</h3>
+      <p style="color:#556070; margin-bottom:1.5rem">お気軽にお問い合わせください。通常2営業日以内にご返信します。</p>
+      <a href="contact.html" class="btn btn-primary">質問・相談をする →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer"><div class="container">
+  <div class="footer-main">
+    <div class="footer-brand"><a href="index.html" class="logo">Quick<span>Shift</span> DX</a><p>飲食店・美容院の紙・手書き業務を最短2週間でWebに。現場に合わせて作るDX支援。</p></div>
+    <div class="footer-col"><h4>サービス</h4><ul><li><a href="services.html">DX支援サービス</a></li><li><a href="product/time-shift.html">勤怠・シフトWeb化パック</a></li><li><a href="pricing.html">料金</a></li></ul></div>
+    <div class="footer-col"><h4>導入</h4><ul><li><a href="process.html">導入の流れ</a></li><li><a href="cases.html">事例・ユースケース</a></li><li><a href="faq.html">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>会社</h4><ul><li><a href="company.html">会社概要</a></li><li><a href="contact.html">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li><li><a href="terms.html">利用規約</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2024 QuickShift DX株式会社</p><div class="footer-bottom-links"><a href="privacy.html">プライバシーポリシー</a><a href="terms.html">利用規約</a></div></div>
+</div></footer>
+<div class="floating-cta"><a href="contact.html" class="btn btn-primary">無料相談する →</a></div>
+
+<script>
+/* ===== QuickShift DX — Shared JS ===== */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ── Active nav link based on current page
+  const currentPath = window.location.pathname.replace(/\/$/, '') || '/index.html';
+  document.querySelectorAll('.site-nav a, .mobile-nav a').forEach(a => {
+    const href = a.getAttribute('href');
+    if (!href) return;
+    const normalized = href.replace(/\/$/, '');
+    if (currentPath.endsWith(normalized) && normalized !== '' && normalized !== '/') {
+      a.classList.add('active');
+    } else if ((currentPath === '/' || currentPath.endsWith('index.html')) && (href === '/' || href === 'index.html' || href === './index.html')) {
+      a.classList.add('active');
+    }
+  });
+
+  // ── Hamburger menu
+  const hamburger = document.querySelector('.hamburger');
+  const mobileNav = document.querySelector('.mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+    mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  // ── Scroll: floating CTA
+  const floatingCta = document.querySelector('.floating-cta');
+  if (floatingCta) {
+    window.addEventListener('scroll', () => {
+      floatingCta.classList.toggle('visible', window.scrollY > 500);
+    }, { passive: true });
+  }
+
+  // ── Intersection observer: fade-up
+  const fadeEls = document.querySelectorAll('.fade-up');
+  if (fadeEls.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => io.observe(el));
+  }
+
+  // ── FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const answer = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+      document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+      document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+      if (!isOpen) {
+        btn.classList.add('open');
+        answer.classList.add('open');
+      }
+    });
+  });
+
+  // ── Contact form submit (via Netlify Function)
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = contactForm.querySelector('.submit-btn');
+      const banner = document.getElementById('successBanner');
+      const errBanner = document.getElementById('errorBanner');
+
+      btn.textContent = '送信中...';
+      btn.disabled = true;
+      if (errBanner) errBanner.style.display = 'none';
+
+      const data = {
+        shopName:    contactForm.shopName.value,
+        name:        contactForm.personName.value,
+        email:       contactForm.email.value,
+        phone:       contactForm.phone?.value || '',
+        industry:    contactForm.industry.value,
+        staffCount:  contactForm.staffCount.value,
+        message:     contactForm.message.value,
+        contactPref: contactForm.contactPref.value,
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json();
+        if (res.ok && json.success) {
+          btn.textContent = '送信完了 ✓';
+          if (banner) banner.style.display = 'block';
+          contactForm.reset();
+          banner?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          throw new Error(json.error || '送信失敗');
+        }
+      } catch (err) {
+        btn.textContent = '送信する →';
+        btn.disabled = false;
+        if (errBanner) {
+          errBanner.textContent = `⚠️ ${err.message}`;
+          errBanner.style.display = 'block';
+        }
+      }
+    });
+  }
+
+});
+
+</script>
+<script>
+const CATEGORY_ICONS = {
+  '導入・準備':       '📦',
+  '機能・仕様':       '⚙️',
+  'セキュリティ・データ': '🔒',
+  '料金・契約':       '💰',
+  'サポート':         '🛠️',
+};
+
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderFaqs(faqs) {
+  // カテゴリ別グルーピング
+  const groups = {};
+  faqs.forEach(f => {
+    const cat = f.category || 'その他';
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(f);
+  });
+
+  return Object.entries(groups).map(([cat, items]) => {
+    const icon = CATEGORY_ICONS[cat] || '❓';
+    const itemsHtml = items.map(f => `
+      <div class="faq-item">
+        <button class="faq-q">${esc(f.question)}<span class="faq-icon">+</span></button>
+        <div class="faq-a">${esc(f.answer)}</div>
+      </div>
+    `).join('');
+    return `
+      <div class="faq-category">
+        <div class="faq-category-title">${icon} ${esc(cat)}</div>
+        <div class="faq-list">${itemsHtml}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function loadFaqs() {
+  const loadEl    = document.getElementById('loadingState');
+  const errEl     = document.getElementById('errorState');
+  const contentEl = document.getElementById('faqContent');
+  const ctaEl     = document.getElementById('faqCta');
+
+  loadEl.style.display='block'; errEl.style.display='none'; contentEl.style.display='none'; ctaEl.style.display='none';
+
+  try {
+    const res = await fetch('/api/content?type=faqs');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const { faqs } = await res.json();
+
+    loadEl.style.display = 'none';
+
+    if (!faqs || !faqs.length) {
+      contentEl.innerHTML = '<p style="color:#556070; padding:2rem 0">現在、FAQを準備中です。お問い合わせよりご相談ください。</p>';
+    } else {
+      contentEl.innerHTML = renderFaqs(faqs);
+    }
+
+    contentEl.style.display = 'block';
+    ctaEl.style.display = 'block';
+
+    // FAQ accordion を再初期化（main.js の querySelectorAll は DOM 生成前に走るため）
+    contentEl.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const answer = btn.nextElementSibling;
+        const isOpen = btn.classList.contains('open');
+        document.querySelectorAll('.faq-q').forEach(q=>q.classList.remove('open'));
+        document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+        if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
+      });
+    });
+
+  } catch(err) {
+    console.error(err);
+    loadEl.style.display = 'none';
+    errEl.style.display  = 'block';
+    ctaEl.style.display  = 'block';
+  }
+}
+
+loadFaqs();
+</script>
+</body>
+</html>

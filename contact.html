@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせ | QuickShift DX</title>
+<meta name="description" content="QuickShift DXへのお問い合わせ・無料相談・デモ依頼はこちら。飲食店・美容院の業務Web化について、まずはお気軽にご相談ください。">
+<style>
+/* ===== QuickShift DX — Shared Styles ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Syne:wght@700;800&display=swap');
+
+:root {
+  --navy:       #0d1b2a;
+  --navy-mid:   #162032;
+  --navy-light: #1e2f45;
+  --accent:     #ff6b35;
+  --accent-lt:  #ff8c5a;
+  --white:      #fafaf8;
+  --gray:       #8a9bb0;
+  --gray-lt:    #e8edf3;
+  --text:       #1a2738;
+  --max-w:      1200px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; }
+
+/* ── CONTAINER ── */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 5%; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-block;
+  padding: 12px 26px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover {
+  background: var(--accent-lt);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,107,53,.4);
+}
+.btn-outline { background: transparent; border: 1.5px solid rgba(255,255,255,.3); color: var(--white); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.btn-outline-dark { background: transparent; border: 1.5px solid var(--gray-lt); color: var(--text); }
+.btn-outline-dark:hover { border-color: var(--accent); color: var(--accent); }
+.btn-white { background: #fff; color: var(--accent); }
+.btn-white:hover { background: var(--navy); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.2); }
+.btn-lg { padding: 16px 36px; font-size: 1.05rem; border-radius: 9px; }
+.btn-block { display: block; text-align: center; width: 100%; }
+
+/* ── HEADER ── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(13,27,42,.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  height: 64px;
+}
+.header-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 5%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -.02em;
+}
+.logo span { color: var(--accent); }
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+.site-nav a {
+  color: rgba(255,255,255,.7);
+  font-size: .84rem;
+  font-weight: 500;
+  transition: color .2s;
+}
+.site-nav a:hover, .site-nav a.active { color: var(--white); }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: all .3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 64px; left: 0; right: 0; bottom: 0;
+  background: var(--navy);
+  z-index: 190;
+  padding: 2rem 5%;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow-y: auto;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  padding-bottom: 1.25rem;
+}
+
+/* ── SECTION COMMONS ── */
+.section { padding: 100px 0; }
+.section-sm { padding: 70px 0; }
+.section-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+h2.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+.section-lead {
+  font-size: 1.05rem;
+  color: #556070;
+  line-height: 1.9;
+  max-width: 580px;
+  margin-bottom: 3rem;
+}
+.section-lead.wide { max-width: 720px; }
+
+/* dark variant */
+.bg-navy { background: var(--navy); }
+.bg-navy h2.section-title { color: var(--white); }
+.bg-navy .section-lead { color: var(--gray); }
+.bg-gray { background: #f5f7fa; }
+
+/* ── PAGE HERO ── */
+.page-hero {
+  background: var(--navy);
+  padding: 140px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -30%; right: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,107,53,.1) 0%, transparent 70%);
+}
+.page-hero .section-tag { margin-bottom: 1.2rem; }
+.page-hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -.03em;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+.page-hero h1 em { font-style: normal; color: var(--accent); }
+.page-hero p {
+  color: rgba(255,255,255,.65);
+  font-size: 1.1rem;
+  line-height: 1.85;
+  max-width: 560px;
+}
+.page-hero .hero-cta { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* ── FOOTER ── */
+.site-footer {
+  background: var(--navy);
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.footer-main {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 3rem;
+  padding: 4rem 0 3rem;
+}
+.footer-brand .logo { font-size: 1.4rem; margin-bottom: 1rem; }
+.footer-brand p { font-size: .85rem; color: var(--gray); line-height: 1.8; }
+.footer-col h4 { color: var(--white); font-size: .85rem; font-weight: 700; margin-bottom: 1.2rem; letter-spacing: .05em; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
+.footer-col ul a { color: var(--gray); font-size: .84rem; transition: color .2s; }
+.footer-col ul a:hover { color: var(--white); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 1.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-bottom p { color: rgba(255,255,255,.3); font-size: .78rem; }
+.footer-bottom-links { display: flex; gap: 1.5rem; }
+.footer-bottom-links a { color: rgba(255,255,255,.35); font-size: .78rem; }
+.footer-bottom-links a:hover { color: rgba(255,255,255,.7); }
+
+/* ── FLOATING CTA ── */
+.floating-cta {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  z-index: 180;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all .4s;
+  pointer-events: none;
+}
+.floating-cta.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+.floating-cta .btn { box-shadow: 0 8px 30px rgba(255,107,53,.5); }
+
+/* ── CARDS ── */
+.card {
+  background: #fff;
+  border: 1.5px solid var(--gray-lt);
+  border-radius: 14px;
+  padding: 2.5rem;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,27,42,.12); border-color: var(--accent); }
+.card:hover::before { transform: scaleX(1); }
+
+.card-dark {
+  background: var(--navy-mid);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px;
+  padding: 2.5rem;
+  transition: all .3s;
+}
+.card-dark:hover { background: var(--navy-light); transform: translateY(-4px); }
+
+/* ── FEATURE LIST ── */
+.feature-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
+.feature-list li { display: flex; align-items: flex-start; gap: 12px; font-size: .93rem; line-height: 1.65; }
+.feature-list li::before {
+  content: '✓';
+  min-width: 22px; height: 22px;
+  background: var(--accent); color: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700;
+  margin-top: 1px; flex-shrink: 0;
+}
+
+/* ── PROCESS STEPS ── */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+  margin-top: 3rem;
+}
+.steps-grid::before {
+  content: '';
+  position: absolute;
+  top: 32px; left: 12%; right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--gray-lt) 100%);
+}
+.step-item { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 1.25rem; }
+.step-num {
+  width: 64px; height: 64px;
+  background: var(--navy); color: var(--white);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem; font-weight: 800;
+  margin-bottom: 1.25rem;
+  position: relative; z-index: 1;
+  border: 3px solid var(--accent);
+}
+.step-item:last-child .step-num { background: var(--accent); }
+.step-item h3 { font-size: .98rem; font-weight: 700; margin-bottom: .5rem; }
+.step-item p { font-size: .84rem; color: #556070; line-height: 1.7; }
+
+/* ── FAQ ── */
+.faq-list { display: flex; flex-direction: column; border: 1.5px solid var(--gray-lt); border-radius: 12px; overflow: hidden; }
+.faq-item { border-bottom: 1px solid var(--gray-lt); }
+.faq-item:last-child { border-bottom: none; }
+.faq-q {
+  width: 100%; background: #fff; border: none;
+  padding: 1.4rem 1.75rem;
+  text-align: left;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: .94rem; font-weight: 700; color: var(--text);
+  cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  transition: background .2s;
+}
+.faq-q:hover { background: #fafafa; }
+.faq-q.open { background: #fff8f5; }
+.faq-icon {
+  min-width: 26px; height: 26px;
+  border: 2px solid var(--gray-lt); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: var(--gray); line-height: 1;
+  transition: all .3s; flex-shrink: 0;
+}
+.faq-q.open .faq-icon { background: var(--accent); border-color: var(--accent); color: #fff; transform: rotate(45deg); }
+.faq-a { display: none; padding: 0 1.75rem 1.4rem; font-size: .9rem; color: #556070; line-height: 1.9; background: #fff; }
+.faq-a.open { display: block; }
+
+/* ── FORM ── */
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: .82rem; font-weight: 700; }
+.form-label-dark { color: rgba(255,255,255,.7); }
+.required-mark { color: var(--accent); margin-left: 4px; }
+.form-input, .form-select, .form-textarea {
+  border-radius: 8px;
+  padding: 13px 16px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: .9rem;
+  outline: none;
+  transition: border-color .2s, background .2s;
+}
+.form-input-dark, .form-select-dark, .form-textarea-dark {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  color: var(--white);
+}
+.form-input-dark::placeholder, .form-textarea-dark::placeholder { color: rgba(255,255,255,.3); }
+.form-input-dark:focus, .form-select-dark:focus, .form-textarea-dark:focus {
+  border-color: var(--accent);
+  background: rgba(255,255,255,.09);
+}
+.form-select-dark option { background: var(--navy); color: var(--white); }
+.form-textarea { resize: vertical; min-height: 120px; }
+.radio-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+.radio-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: .9rem; }
+.radio-label input { accent-color: var(--accent); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.form-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* ── BADGE ── */
+.badge { padding: 3px 10px; border-radius: 12px; font-size: .72rem; font-weight: 700; }
+.badge-in  { background: rgba(52,211,153,.15); color: #34d399; }
+.badge-out { background: rgba(148,163,184,.15); color: #94a3b8; }
+.badge-new { background: rgba(255,107,53,.15); color: var(--accent); }
+
+/* ── ANIMATIONS ── */
+.fade-up { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up:nth-child(2) { transition-delay: .1s; }
+.fade-up:nth-child(3) { transition-delay: .2s; }
+.fade-up:nth-child(4) { transition-delay: .3s; }
+
+/* ── SUCCESS BANNER ── */
+.success-banner {
+  display: none;
+  background: #dcfce7; border: 1.5px solid #86efac;
+  border-radius: 10px; padding: 1.25rem 1.75rem;
+  color: #15803d; font-weight: 700; font-size: .95rem;
+  margin-top: 1.5rem;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb { display: flex; align-items: center; gap: .5rem; margin-bottom: 1.5rem; }
+.breadcrumb a { color: rgba(255,255,255,.45); font-size: .82rem; }
+.breadcrumb a:hover { color: rgba(255,255,255,.8); }
+.breadcrumb span { color: rgba(255,255,255,.25); font-size: .82rem; }
+.breadcrumb .current { color: rgba(255,255,255,.7); font-size: .82rem; }
+
+/* ── NOTICE ── */
+.notice {
+  background: rgba(255,107,53,.08);
+  border: 1px solid rgba(255,107,53,.2);
+  border-radius: 8px; padding: 1rem 1.25rem;
+  font-size: .88rem; color: #556070; line-height: 1.8;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .footer-main { grid-template-columns: 1fr 1fr; }
+  .steps-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .steps-grid::before { display: none; }
+}
+
+@media (max-width: 680px) {
+  .site-nav { display: none; }
+  .hamburger { display: flex; }
+  .footer-main { grid-template-columns: 1fr; gap: 2rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .section { padding: 70px 0; }
+  .page-hero { padding: 120px 0 60px; }
+}
+
+</style>
+<style>
+.contact-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+.contact-sidebar {
+  position: sticky;
+  top: 90px;
+}
+.sidebar-box {
+  background: var(--navy-mid);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+.sidebar-box h3 { color: var(--white); font-size: 1rem; font-weight: 700; margin-bottom: 1rem; }
+.sidebar-box p, .sidebar-box li { color: var(--gray); font-size: .88rem; line-height: 1.8; }
+.sidebar-box ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; padding: 0; }
+.sidebar-box ul li { display: flex; align-items: flex-start; gap: 8px; }
+.sidebar-box ul li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+.error-banner {
+  display: none;
+  background: #fef2f2; border: 1.5px solid #fca5a5;
+  border-radius: 10px; padding: 1.25rem 1.75rem;
+  color: #dc2626; font-weight: 700; font-size: .9rem;
+  margin-top: 1.5rem;
+}
+
+  .contact-sidebar { position: static; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">Quick<span>Shift</span> DX</a>
+    <nav class="site-nav">
+      <a href="services.html">サービス</a>
+      <a href="product/time-shift.html">勤怠・シフト</a>
+      <a href="process.html">導入の流れ</a>
+      <a href="pricing.html">料金</a>
+      <a href="cases.html">事例</a>
+      <a href="faq.html">FAQ</a>
+      <a href="company.html">会社概要</a>
+      <a href="contact.html" class="btn btn-primary">無料相談する</a>
+    </nav>
+    <button class="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav class="mobile-nav">
+  <a href="index.html">トップ</a>
+  <a href="services.html">サービス</a>
+  <a href="product/time-shift.html">勤怠・シフトWeb化パック</a>
+  <a href="process.html">導入の流れ</a>
+  <a href="pricing.html">料金</a>
+  <a href="cases.html">事例・ユースケース</a>
+  <a href="faq.html">よくある質問</a>
+  <a href="company.html">会社概要</a>
+  <a href="contact.html" class="btn btn-primary" style="border-radius:8px; text-align:center;">無料相談する</a>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="index.html">トップ</a><span>›</span>
+      <span class="current">お問い合わせ</span>
+    </nav>
+    <div class="section-tag">お問い合わせ</div>
+    <h1>無料相談・<br>デモ依頼はこちら</h1>
+    <p>まずは現状を聞かせてください。通常2営業日以内にご返信します。<br>「これって対応できる？」という確認だけでも歓迎です。</p>
+  </div>
+</section>
+
+<section class="section bg-navy">
+  <div class="container">
+    <div class="contact-layout">
+      <!-- FORM -->
+      <div>
+        <form class="form-stack" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label-dark">会社・店舗名<span class="required-mark">*</span></label>
+              <input class="form-input form-input-dark" type="text" name="shopName" placeholder="〇〇居酒屋 渋谷店" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label-dark">担当者名<span class="required-mark">*</span></label>
+              <input class="form-input form-input-dark" type="text" name="personName" placeholder="山田 太郎" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label-dark">メールアドレス<span class="required-mark">*</span></label>
+              <input class="form-input form-input-dark" type="email" name="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label-dark">電話番号（任意）</label>
+              <input class="form-input form-input-dark" type="tel" name="phone" placeholder="090-1234-5678">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label-dark">業種<span class="required-mark">*</span></label>
+              <select class="form-select form-select-dark" name="industry" required>
+                <option value="">選択してください</option>
+                <option value="飲食店">飲食店（居酒屋・レストランなど）</option>
+                <option value="美容院">美容院・サロン</option>
+                <option value="小売">小売・販売</option>
+                <option value="その他">その他</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label-dark">スタッフ人数<span class="required-mark">*</span></label>
+              <select class="form-select form-select-dark" name="staffCount" required>
+                <option value="">選択してください</option>
+                <option value="5名未満">5名未満</option>
+                <option value="5〜10名">5〜10名</option>
+                <option value="11〜30名">11〜30名</option>
+                <option value="31〜50名">31〜50名</option>
+                <option value="51名以上">51名以上</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label-dark">相談内容<span class="required-mark">*</span></label>
+            <textarea class="form-textarea form-textarea-dark" name="message" placeholder="現在の課題、導入を検討しているツール、ご質問など、自由にお書きください。" required></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label-dark">ご希望の連絡方法</label>
+            <div class="radio-group">
+              <label class="radio-label" style="color:rgba(255,255,255,.7)">
+                <input type="radio" name="contactPref" value="email" checked> メール
+              </label>
+              <label class="radio-label" style="color:rgba(255,255,255,.7)">
+                <input type="radio" name="contactPref" value="phone"> 電話
+              </label>
+              <label class="radio-label" style="color:rgba(255,255,255,.7)">
+                <input type="radio" name="contactPref" value="online"> オンライン面談
+              </label>
+            </div>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary btn-lg submit-btn">送信する →</button>
+          </div>
+          <div class="success-banner" id="successBanner">
+            ✅ お問い合わせを受け付けました。2営業日以内にご連絡いたします。ありがとうございます。
+          </div>
+          <div class="error-banner" id="errorBanner"></div>
+        </form>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="contact-sidebar">
+        <div class="sidebar-box">
+          <h3>📞 こんなご相談に対応します</h3>
+          <ul>
+            <li>勤怠・シフトのWeb化を検討したい</li>
+            <li>今の運用をどう改善すればいいか整理したい</li>
+            <li>SaaSを入れたが定着しなかった</li>
+            <li>複数店舗をまとめて管理したい</li>
+            <li>費用感・納期を知りたい</li>
+            <li>まずデモを見てみたい</li>
+          </ul>
+        </div>
+        <div class="sidebar-box">
+          <h3>⏱️ 対応について</h3>
+          <p>通常2営業日以内にご返信します。<br><br>面談は<strong style="color:var(--white)">オンライン（Zoom等）</strong>で対応しています。<br><br>相談料は<strong style="color:var(--accent)">無料</strong>です。</p>
+        </div>
+        <div class="sidebar-box">
+          <h3>📧 直接メールでも</h3>
+          <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f666169604f7e7a666c647c6766697b226b7721657f">[email&#160;protected]</a><br><br>件名に「相談希望」とご記入ください。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand"><a href="index.html" class="logo">Quick<span>Shift</span> DX</a><p>飲食店・美容院の紙・手書き業務を最短2週間でWebに。現場に合わせて作るDX支援。</p></div>
+      <div class="footer-col"><h4>サービス</h4><ul><li><a href="services.html">DX支援サービス</a></li><li><a href="product/time-shift.html">勤怠・シフトWeb化パック</a></li><li><a href="pricing.html">料金</a></li></ul></div>
+      <div class="footer-col"><h4>導入</h4><ul><li><a href="process.html">導入の流れ</a></li><li><a href="cases.html">事例・ユースケース</a></li><li><a href="faq.html">よくある質問</a></li></ul></div>
+      <div class="footer-col"><h4>会社</h4><ul><li><a href="company.html">会社概要</a></li><li><a href="contact.html">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li><li><a href="terms.html">利用規約</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 QuickShift DX株式会社</p>
+      <div class="footer-bottom-links"><a href="privacy.html">プライバシーポリシー</a><

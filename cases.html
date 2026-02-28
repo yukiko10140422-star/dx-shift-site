@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事例・ユースケース | QuickShift DX</title>
+<meta name="description" content="飲食店・美容院のDX支援事例。紙の勤怠・シフト管理をWeb化した現場のBefore/After事例をご紹介します。">
+<style>
+/* ===== QuickShift DX — Shared Styles ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Syne:wght@700;800&display=swap');
+
+:root {
+  --navy:       #0d1b2a;
+  --navy-mid:   #162032;
+  --navy-light: #1e2f45;
+  --accent:     #ff6b35;
+  --accent-lt:  #ff8c5a;
+  --white:      #fafaf8;
+  --gray:       #8a9bb0;
+  --gray-lt:    #e8edf3;
+  --text:       #1a2738;
+  --max-w:      1200px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; }
+
+/* ── CONTAINER ── */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 5%; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-block;
+  padding: 12px 26px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover {
+  background: var(--accent-lt);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,107,53,.4);
+}
+.btn-outline { background: transparent; border: 1.5px solid rgba(255,255,255,.3); color: var(--white); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.btn-outline-dark { background: transparent; border: 1.5px solid var(--gray-lt); color: var(--text); }
+.btn-outline-dark:hover { border-color: var(--accent); color: var(--accent); }
+.btn-white { background: #fff; color: var(--accent); }
+.btn-white:hover { background: var(--navy); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.2); }
+.btn-lg { padding: 16px 36px; font-size: 1.05rem; border-radius: 9px; }
+.btn-block { display: block; text-align: center; width: 100%; }
+
+/* ── HEADER ── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(13,27,42,.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  height: 64px;
+}
+.header-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 5%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -.02em;
+}
+.logo span { color: var(--accent); }
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+.site-nav a {
+  color: rgba(255,255,255,.7);
+  font-size: .84rem;
+  font-weight: 500;
+  transition: color .2s;
+}
+.site-nav a:hover, .site-nav a.active { color: var(--white); }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: all .3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 64px; left: 0; right: 0; bottom: 0;
+  background: var(--navy);
+  z-index: 190;
+  padding: 2rem 5%;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow-y: auto;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  padding-bottom: 1.25rem;
+}
+
+/* ── SECTION COMMONS ── */
+.section { padding: 100px 0; }
+.section-sm { padding: 70px 0; }
+.section-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+h2.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+.section-lead {
+  font-size: 1.05rem;
+  color: #556070;
+  line-height: 1.9;
+  max-width: 580px;
+  margin-bottom: 3rem;
+}
+.section-lead.wide { max-width: 720px; }
+
+/* dark variant */
+.bg-navy { background: var(--navy); }
+.bg-navy h2.section-title { color: var(--white); }
+.bg-navy .section-lead { color: var(--gray); }
+.bg-gray { background: #f5f7fa; }
+
+/* ── PAGE HERO ── */
+.page-hero {
+  background: var(--navy);
+  padding: 140px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -30%; right: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,107,53,.1) 0%, transparent 70%);
+}
+.page-hero .section-tag { margin-bottom: 1.2rem; }
+.page-hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -.03em;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+.page-hero h1 em { font-style: normal; color: var(--accent); }
+.page-hero p {
+  color: rgba(255,255,255,.65);
+  font-size: 1.1rem;
+  line-height: 1.85;
+  max-width: 560px;
+}
+.page-hero .hero-cta { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* ── FOOTER ── */
+.site-footer {
+  background: var(--navy);
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.footer-main {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 3rem;
+  padding: 4rem 0 3rem;
+}
+.footer-brand .logo { font-size: 1.4rem; margin-bottom: 1rem; }
+.footer-brand p { font-size: .85rem; color: var(--gray); line-height: 1.8; }
+.footer-col h4 { color: var(--white); font-size: .85rem; font-weight: 700; margin-bottom: 1.2rem; letter-spacing: .05em; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
+.footer-col ul a { color: var(--gray); font-size: .84rem; transition: color .2s; }
+.footer-col ul a:hover { color: var(--white); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 1.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-bottom p { color: rgba(255,255,255,.3); font-size: .78rem; }
+.footer-bottom-links { display: flex; gap: 1.5rem; }
+.footer-bottom-links a { color: rgba(255,255,255,.35); font-size: .78rem; }
+.footer-bottom-links a:hover { color: rgba(255,255,255,.7); }
+
+/* ── FLOATING CTA ── */
+.floating-cta {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  z-index: 180;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all .4s;
+  pointer-events: none;
+}
+.floating-cta.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+.floating-cta .btn { box-shadow: 0 8px 30px rgba(255,107,53,.5); }
+
+/* ── CARDS ── */
+.card {
+  background: #fff;
+  border: 1.5px solid var(--gray-lt);
+  border-radius: 14px;
+  padding: 2.5rem;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,27,42,.12); border-color: var(--accent); }
+.card:hover::before { transform: scaleX(1); }
+
+.card-dark {
+  background: var(--navy-mid);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px;
+  padding: 2.5rem;
+  transition: all .3s;
+}
+.card-dark:hover { background: var(--navy-light); transform: translateY(-4px); }
+
+/* ── FEATURE LIST ── */
+.feature-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
+.feature-list li { display: flex; align-items: flex-start; gap: 12px; font-size: .93rem; line-height: 1.65; }
+.feature-list li::before {
+  content: '✓';
+  min-width: 22px; height: 22px;
+  background: var(--accent); color: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700;
+  margin-top: 1px; flex-shrink: 0;
+}
+
+/* ── PROCESS STEPS ── */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+  margin-top: 3rem;
+}
+.steps-grid::before {
+  content: '';
+  position: absolute;
+  top: 32px; left: 12%; right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--gray-lt) 100%);
+}
+.step-item { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 1.25rem; }
+.step-num {
+  width: 64px; height: 64px;
+  background: var(--navy); color: var(--white);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem; font-weight: 800;
+  margin-bottom: 1.25rem;
+  position: relative; z-index: 1;
+  border: 3px solid var(--accent);
+}
+.step-item:last-child .step-num { background: var(--accent); }
+.step-item h3 { font-size: .98rem; font-weight: 700; margin-bottom: .5rem; }
+.step-item p { font-size: .84rem; color: #556070; line-height: 1.7; }
+
+/* ── FAQ ── */
+.faq-list { display: flex; flex-direction: column; border: 1.5px solid var(--gray-lt); border-radius: 12px; overflow: hidden; }
+.faq-item { border-bottom: 1px solid var(--gray-lt); }
+.faq-item:last-child { border-bottom: none; }
+.faq-q {
+  width: 100%; background: #fff; border: none;
+  padding: 1.4rem 1.75rem;
+  text-align: left;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: .94rem; font-weight: 700; color: var(--text);
+  cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  transition: background .2s;
+}
+.faq-q:hover { background: #fafafa; }
+.faq-q.open { background: #fff8f5; }
+.faq-icon {
+  min-width: 26px; height: 26px;
+  border: 2px solid var(--gray-lt); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: var(--gray); line-height: 1;
+  transition: all .3s; flex-shrink: 0;
+}
+.faq-q.open .faq-icon { background: var(--accent); border-color: var(--accent); color: #fff; transform: rotate(45deg); }
+.faq-a { display: none; padding: 0 1.75rem 1.4rem; font-size: .9rem; color: #556070; line-height: 1.9; background: #fff; }
+.faq-a.open { display: block; }
+
+/* ── FORM ── */
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: .82rem; font-weight: 700; }
+.form-label-dark { color: rgba(255,255,255,.7); }
+.required-mark { color: var(--accent); margin-left: 4px; }
+.form-input, .form-select, .form-textarea {
+  border-radius: 8px;
+  padding: 13px 16px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: .9rem;
+  outline: none;
+  transition: border-color .2s, background .2s;
+}
+.form-input-dark, .form-select-dark, .form-textarea-dark {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  color: var(--white);
+}
+.form-input-dark::placeholder, .form-textarea-dark::placeholder { color: rgba(255,255,255,.3); }
+.form-input-dark:focus, .form-select-dark:focus, .form-textarea-dark:focus {
+  border-color: var(--accent);
+  background: rgba(255,255,255,.09);
+}
+.form-select-dark option { background: var(--navy); color: var(--white); }
+.form-textarea { resize: vertical; min-height: 120px; }
+.radio-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+.radio-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: .9rem; }
+.radio-label input { accent-color: var(--accent); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.form-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* ── BADGE ── */
+.badge { padding: 3px 10px; border-radius: 12px; font-size: .72rem; font-weight: 700; }
+.badge-in  { background: rgba(52,211,153,.15); color: #34d399; }
+.badge-out { background: rgba(148,163,184,.15); color: #94a3b8; }
+.badge-new { background: rgba(255,107,53,.15); color: var(--accent); }
+
+/* ── ANIMATIONS ── */
+.fade-up { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up:nth-child(2) { transition-delay: .1s; }
+.fade-up:nth-child(3) { transition-delay: .2s; }
+.fade-up:nth-child(4) { transition-delay: .3s; }
+
+/* ── SUCCESS BANNER ── */
+.success-banner {
+  display: none;
+  background: #dcfce7; border: 1.5px solid #86efac;
+  border-radius: 10px; padding: 1.25rem 1.75rem;
+  color: #15803d; font-weight: 700; font-size: .95rem;
+  margin-top: 1.5rem;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb { display: flex; align-items: center; gap: .5rem; margin-bottom: 1.5rem; }
+.breadcrumb a { color: rgba(255,255,255,.45); font-size: .82rem; }
+.breadcrumb a:hover { color: rgba(255,255,255,.8); }
+.breadcrumb span { color: rgba(255,255,255,.25); font-size: .82rem; }
+.breadcrumb .current { color: rgba(255,255,255,.7); font-size: .82rem; }
+
+/* ── NOTICE ── */
+.notice {
+  background: rgba(255,107,53,.08);
+  border: 1px solid rgba(255,107,53,.2);
+  border-radius: 8px; padding: 1rem 1.25rem;
+  font-size: .88rem; color: #556070; line-height: 1.8;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .footer-main { grid-template-columns: 1fr 1fr; }
+  .steps-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .steps-grid::before { display: none; }
+}
+
+@media (max-width: 680px) {
+  .site-nav { display: none; }
+  .hamburger { display: flex; }
+  .footer-main { grid-template-columns: 1fr; gap: 2rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .section { padding: 70px 0; }
+  .page-hero { padding: 120px 0 60px; }
+}
+
+</style>
+<style>
+.cases-full { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2.5rem; margin-top: 3rem; }
+.case-full-card { border-radius: 16px; overflow: hidden; border: 1.5px solid var(--gray-lt); transition: all .3s; }
+.case-full-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(13,27,42,.12); }
+.case-header { background: var(--navy); padding: 2rem; position: relative; overflow: hidden; }
+.case-header::before { content:''; position:absolute; top:-50%; right:-30%; width:200px; height:200px; background:radial-gradient(circle, rgba(255,107,53,.15) 0%, transparent 70%); }
+.case-tag { display:inline-block; background:rgba(255,107,53,.15); color:var(--accent); border:1px solid rgba(255,107,53,.3); padding:4px 12px; border-radius:4px; font-size:.75rem; font-weight:700; margin-bottom:1rem; }
+.case-header h3 { color:var(--white); font-size:1.1rem; font-weight:700; line-height:1.55; margin-bottom:1.5rem; }
+.metrics { display:flex; gap:2rem; flex-wrap:wrap; }
+.metric-val { font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:800; color:var(--accent); line-height:1; }
+.metric-label { font-size:.75rem; color:var(--gray); margin-top:4px; }
+.case-body { background:#fff; padding:2rem; }
+.before-after { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem; }
+.ba-box { padding:1rem; border-radius:8px; }
+.ba-box.before { background:#fef2f2; border:1px solid #fecaca; }
+.ba-box.after  { background:#f0fdf4; border:1px solid #bbf7d0; }
+.ba-label { font-size:.72rem; font-weight:700; margin-bottom:.5rem; letter-spacing:.08em; }
+.ba-box.before .ba-label { color:#dc2626; }
+.ba-box.after  .ba-label { color:#059669; }
+.ba-box p { font-size:.84rem; color:#374151; line-height:1.7; }
+/* skeleton */
+.loading-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:2.5rem; margin-top:3rem; }
+.skeleton { border-radius:16px; overflow:hidden; animation:shimmer 1.5s infinite; }
+@keyframes shimmer { 0%,100%{background:#f0f0f0} 50%{background:#e0e0e0} }
+.skeleton-header { height:180px; background:#e0e4ea; }
+.skeleton-body { padding:2rem; }
+.skeleton-line { height:13px; background:#e0e0e0; border-radius:4px; margin-bottom:10px; }
+.skeleton-line.short { width:60%; }
+.error-state { text-align:center; padding:4rem 2rem; background:#fef2f2; border-radius:14px; border:1px solid #fecaca; margin-top:3rem; }
+.error-state p { color:#dc2626; margin-bottom:1.5rem; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">Quick<span>Shift</span> DX</a>
+    <nav class="site-nav">
+      <a href="services.html">サービス</a><a href="product/time-shift.html">勤怠・シフト</a>
+      <a href="process.html">導入の流れ</a><a href="pricing.html">料金</a>
+      <a href="cases.html">事例</a><a href="faq.html">FAQ</a><a href="company.html">会社概要</a>
+      <a href="contact.html" class="btn btn-primary">無料相談する</a>
+    </nav>
+    <button class="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav class="mobile-nav">
+  <a href="index.html">トップ</a><a href="services.html">サービス</a>
+  <a href="product/time-shift.html">勤怠・シフトWeb化パック</a><a href="process.html">導入の流れ</a>
+  <a href="pricing.html">料金</a><a href="cases.html">事例・ユースケース</a>
+  <a href="faq.html">よくある質問</a><a href="company.html">会社概要</a>
+  <a href="contact.html" class="btn btn-primary" style="border-radius:8px;text-align:center;">無料相談する</a>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb"><a href="index.html">トップ</a><span>›</span><span class="current">事例・ユースケース</span></nav>
+    <div class="section-tag">事例・ユースケース</div>
+    <h1>現場が変わった<br><em>Before / After</em></h1>
+    <p>実際の導入後の変化をイメージいただくための参考事例です。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="notice" id="estimatedNotice" style="display:none; margin-bottom:3rem">
+      📝 現在掲載している事例は「想定ケース」として作成したものです。実際の導入事例ではありませんが、類似の現場でよく起きる課題を参考にしています。
+    </div>
+    <div id="loadingState" class="loading-grid">
+      <div class="skeleton"><div class="skeleton-header"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line"></div></div></div>
+      <div class="skeleton"><div class="skeleton-header"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line"></div></div></div>
+      <div class="skeleton"><div class="skeleton-header"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line"></div></div></div>
+    </div>
+    <div id="errorState" class="error-state" style="display:none">
+      <p>⚠️ 事例データの読み込みに失敗しました。</p>
+      <button onclick="loadCases()" class="btn btn-outline-dark">再読み込み</button>
+    </div>
+    <div id="casesGrid" class="cases-full" style="display:none"></div>
+  </div>
+</section>
+
+<section class="section bg-gray">
+  <div class="container">
+    <div class="section-tag">よくある導入パターン</div>
+    <h2 class="section-title">こんな現場からの<br>ご相談が多いです</h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1.5rem; margin-top:2.5rem">
+      <div style="background:#fff; border:1.5px solid var(--gray-lt); border-radius:12px; padding:1.75rem"><div style="font-size:1.5rem; margin-bottom:.75rem">📝</div><h3 style="font-size:.98rem; font-weight:700; margin-bottom:.5rem">紙の勤怠票をなくしたい</h3><p style="font-size:.85rem; color:#556070; line-height:1.75">月末集計が手書き転記で大変。→ 打刻アプリ導入で解決。</p></div>
+      <div style="background:#fff; border:1.5px solid var(--gray-lt); border-radius:12px; padding:1.75rem"><div style="font-size:1.5rem; margin-bottom:.75rem">📱</div><h3 style="font-size:.98rem; font-weight:700; margin-bottom:.5rem">LINEシフト管理から脱却したい</h3><p style="font-size:.85rem; color:#556070; line-height:1.75">シフト連絡がLINEに埋もれる。→ シフト提出・確定システムで解決。</p></div>
+      <div style="background:#fff; border:1.5px solid var(--gray-lt); border-radius:12px; padding:1.75rem"><div style="font-size:1.5rem; margin-bottom:.75rem">💼</div><h3 style="font-size:.98rem; font-weight:700; margin-bottom:.5rem">Excelの集計作業をなくしたい</h3><p style="font-size:.85rem; color:#556070; line-height:1.75">毎月給与計算のためにExcelを手入力。→ CSV出力の自動化で解決。</p></div>
+      <div style="background:#fff; border:1.5px solid var(--gray-lt); border-radius:12px; padding:1.75rem"><div style="font-size:1.5rem; margin-bottom:.75rem">🏪</div><h3 style="font-size:.98rem; font-weight:700; margin-bottom:.5rem">複数店舗をまとめて管理したい</h3><p style="font-size:.85rem; color:#556070; line-height:1.75">店舗ごとのExcelを統合したい。→ 複数店舗対応の一元管理で解決。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band"><div class="container">
+  <h2>あなたの現場の課題も<br>解決できるかもしれません</h2>
+  <p>まずは現状を聞かせてください。30分のヒアリングで整理します。</p>
+  <a href="contact.html" class="btn btn-white btn-lg">無料相談する →</a>
+</div></section>
+
+<footer class="site-footer"><div class="container">
+  <div class="footer-main">
+    <div class="footer-brand"><a href="index.html" class="logo">Quick<span>Shift</span> DX</a><p>飲食店・美容院の紙・手書き業務を最短2週間でWebに。現場に合わせて作るDX支援。</p></div>
+    <div class="footer-col"><h4>サービス</h4><ul><li><a href="services.html">DX支援サービス</a></li><li><a href="product/time-shift.html">勤怠・シフトWeb化パック</a></li><li><a href="pricing.html">料金</a></li></ul></div>
+    <div class="footer-col"><h4>導入</h4><ul><li><a href="process.html">導入の流れ</a></li><li><a href="cases.html">事例・ユースケース</a></li><li><a href="faq.html">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>会社</h4><ul><li><a href="company.html">会社概要</a></li><li><a href="contact.html">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li><li><a href="terms.html">利用規約</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2024 QuickShift DX株式会社</p><div class="footer-bottom-links"><a href="privacy.html">プライバシーポリシー</a><a href="terms.html">利用規約</a></div></div>
+</div></footer>
+<div class="floating-cta"><a href="contact.html" class="btn btn-primary">無料相談する →</a></div>
+
+<script>
+/* ===== QuickShift DX — Shared JS ===== */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ── Active nav link based on current page
+  const currentPath = window.location.pathname.replace(/\/$/, '') || '/index.html';
+  document.querySelectorAll('.site-nav a, .mobile-nav a').forEach(a => {
+    const href = a.getAttribute('href');
+    if (!href) return;
+    const normalized = href.replace(/\/$/, '');
+    if (currentPath.endsWith(normalized) && normalized !== '' && normalized !== '/') {
+      a.classList.add('active');
+    } else if ((currentPath === '/' || currentPath.endsWith('index.html')) && (href === '/' || href === 'index.html' || href === './index.html')) {
+      a.classList.add('active');
+    }
+  });
+
+  // ── Hamburger menu
+  const hamburger = document.querySelector('.hamburger');
+  const mobileNav = document.querySelector('.mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+    mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  // ── Scroll: floating CTA
+  const floatingCta = document.querySelector('.floating-cta');
+  if (floatingCta) {
+    window.addEventListener('scroll', () => {
+      floatingCta.classList.toggle('visible', window.scrollY > 500);
+    }, { passive: true });
+  }
+
+  // ── Intersection observer: fade-up
+  const fadeEls = document.querySelectorAll('.fade-up');
+  if (fadeEls.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => io.observe(el));
+  }
+
+  // ── FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const answer = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+      document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+      document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+      if (!isOpen) {
+        btn.classList.add('open');
+        answer.classList.add('open');
+      }
+    });
+  });
+
+  // ── Contact form submit (via Netlify Function)
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = contactForm.querySelector('.submit-btn');
+      const banner = document.getElementById('successBanner');
+      const errBanner = document.getElementById('errorBanner');
+
+      btn.textContent = '送信中...';
+      btn.disabled = true;
+      if (errBanner) errBanner.style.display = 'none';
+
+      const data = {
+        shopName:    contactForm.shopName.value,
+        name:        contactForm.personName.value,
+        email:       contactForm.email.value,
+        phone:       contactForm.phone?.value || '',
+        industry:    contactForm.industry.value,
+        staffCount:  contactForm.staffCount.value,
+        message:     contactForm.message.value,
+        contactPref: contactForm.contactPref.value,
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json();
+        if (res.ok && json.success) {
+          btn.textContent = '送信完了 ✓';
+          if (banner) banner.style.display = 'block';
+          contactForm.reset();
+          banner?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          throw new Error(json.error || '送信失敗');
+        }
+      } catch (err) {
+        btn.textContent = '送信する →';
+        btn.disabled = false;
+        if (errBanner) {
+          errBanner.textContent = `⚠️ ${err.message}`;
+          errBanner.style.display = 'block';
+        }
+      }
+    });
+  }
+
+});
+
+</script>
+<script>
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderCase(c) {
+  const metrics = (c.metrics||[]).map(m=>`<div><div class="metric-val">${esc(m.value)}</div><div class="metric-label">${esc(m.label)}</div></div>`).join('');
+  const estimatedBadge = c.isEstimated ? '<span style="font-size:.7rem;color:rgba(255,255,255,.4);margin-left:.5rem">（想定ケース）</span>' : '';
+  const baHtml = (c.before && c.after) ? `<div class="before-after"><div class="ba-box before"><div class="ba-label">BEFORE</div><p>${esc(c.before)}</p></div><div class="ba-box after"><div class="ba-label">AFTER</div><p>${esc(c.after)}</p></div></div>` : '';
+  const pointHtml = c.point ? `<p style="font-size:.88rem;color:#556070;line-height:1.8"><strong>導入のポイント：</strong>${esc(c.point)}</p>` : '';
+  return `<div class="case-full-card"><div class="case-header"><div class="case-tag">${esc(c.tag)}</div><h3>${esc(c.title)}${estimatedBadge}</h3><div class="metrics">${metrics}</div></div><div class="case-body">${baHtml}${pointHtml}</div></div>`;
+}
+
+async function loadCases() {
+  const loadEl  = document.getElementById('loadingState');
+  const errEl   = document.getElementById('errorState');
+  const gridEl  = document.getElementById('casesGrid');
+  const noticeEl= document.getElementById('estimatedNotice');
+  loadEl.style.display='grid'; errEl.style.display='none'; gridEl.style.display='none';
+  try {
+    const res = await fetch('/api/content?type=cases');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const { cases } = await res.json();
+    loadEl.style.display = 'none';
+    if (!cases || !cases.length) {
+      gridEl.innerHTML = '<p style="color:#556070;padding:2rem 0">現在、事例を準備中です。お問い合わせよりご相談ください。</p>';
+      gridEl.style.display = 'block';
+      return;
+    }
+    if (cases.some(c=>c.isEstimated)) noticeEl.style.display = 'block';
+    gridEl.innerHTML = cases.map(renderCase).join('');
+    gridEl.style.display = 'grid';
+    gridEl.querySelectorAll('.case-full-card').forEach((el,i)=>{
+      el.style.opacity='0'; el.style.transform='translateY(20px)';
+      setTimeout(()=>{ el.style.transition='opacity .5s ease, transform .5s ease'; el.style.opacity='1'; el.style.transform='translateY(0)'; }, i*120);
+    });
+  } catch(err) {
+    console.error(err); loadEl.style.display='none'; errEl.style.display='block';
+  }
+}
+loadCases();
+</script>
+</body>
+</html>
