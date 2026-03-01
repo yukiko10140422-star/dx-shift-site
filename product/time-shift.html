@@ -485,40 +485,209 @@ h2.section-title {
 .security-card h4 { font-size: .95rem; font-weight: 700; margin-bottom: .5rem; }
 .security-card p { font-size: .85rem; color: #556070; line-height: 1.7; }
 
-/* mock demo */
-.demo-wrapper { background: var(--navy); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; }
-.demo-wrapper::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--accent),transparent); }
-.demo-tabs { display: flex; gap: 8px; margin-bottom: 1.5rem; }
-.demo-tab {
-  padding: 6px 16px; border-radius: 20px; font-size: .78rem; font-weight: 700;
-  border: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.5);
-  cursor: pointer; transition: all .2s; background: none;
-  font-family: 'Noto Sans JP', sans-serif;
+/* ===== RICH DEMO STYLES ===== */
+.demo-wrapper {
+  background: linear-gradient(160deg, #0a1628 0%, var(--navy) 100%);
+  border-radius: 20px; padding: 1.5rem;
+  position: relative; overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 30px 80px rgba(0,0,0,.4);
 }
-.demo-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-.demo-screen { display: none; }
-.demo-screen.active { display: block; }
-.mock-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-radius: 8px; margin-bottom: 8px; font-size: .82rem; }
-.mock-row:nth-child(odd) { background: rgba(255,255,255,.04); }
-.mock-name { color: rgba(255,255,255,.8); font-weight: 500; }
-.mock-time { color: var(--gray); font-size: .78rem; }
-.shift-cell { padding: 6px 12px; border-radius: 6px; font-size: .75rem; font-weight: 700; }
-.shift-work { background: rgba(52,211,153,.15); color: #34d399; }
-.shift-off { background: rgba(148,163,184,.1); color: #64748b; }
-.shift-wish { background: rgba(255,107,53,.15); color: var(--accent); }
-.punch-btn {
-  width: 100%; padding: 1.25rem; border-radius: 12px; border: none; cursor: pointer;
-  font-family: 'Noto Sans JP', sans-serif; font-size: 1rem; font-weight: 700;
-  margin-bottom: 1rem; transition: all .2s;
+.demo-wrapper::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent),#ff8c5a,transparent); }
+.demo-wrapper::after { content:''; position:absolute; top:-100px; right:-80px; width:280px; height:280px; background:radial-gradient(circle,rgba(255,107,53,.07) 0%,transparent 70%); pointer-events:none; }
+.demo-tabs { display:flex; gap:6px; margin-bottom:1.25rem; flex-wrap:wrap; }
+.demo-tab { display:flex; align-items:center; gap:5px; padding:8px 14px; border-radius:10px; border:1.5px solid rgba(255,255,255,.1); background:rgba(255,255,255,.04); color:rgba(255,255,255,.45); font-family:'Noto Sans JP',sans-serif; font-size:.78rem; font-weight:700; cursor:pointer; transition:all .2s; }
+.demo-tab:hover { border-color:rgba(255,255,255,.25); color:rgba(255,255,255,.75); }
+.demo-tab.active { background:var(--accent); border-color:var(--accent); color:#fff; box-shadow:0 4px 16px rgba(255,107,53,.4); }
+.demo-tab-icon { font-size:1rem; }
+.demo-screen { display:none; }
+.demo-screen.active { display:block; animation:demoSlideIn .35s cubic-bezier(.22,.68,0,1.2) forwards; }
+@keyframes demoSlideIn {
+  from { opacity:0; transform:translateY(12px) scale(.98); }
+  to   { opacity:1; transform:translateY(0)   scale(1); }
 }
-.punch-in { background: rgba(52,211,153,.15); color: #34d399; border: 1.5px solid rgba(52,211,153,.3); }
-.punch-out { background: rgba(255,107,53,.12); color: var(--accent); border: 1.5px solid rgba(255,107,53,.25); }
-.punch-in:hover { background: rgba(52,211,153,.25); }
-.punch-out:hover { background: rgba(255,107,53,.2); }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+@keyframes pulseGreen {
+  0%,100% { box-shadow: 0 0 0 0 rgba(52,211,153,.4); }
+  50%     { box-shadow: 0 0 0 8px rgba(52,211,153,0); }
+}
+@keyframes pulseOrange {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,107,53,.4); }
+  50%     { box-shadow: 0 0 0 8px rgba(255,107,53,0); }
+}
+@keyframes countUp {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes shimmerBar {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes rowSlideIn {
+  from { opacity:0; transform:translateX(-10px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+@keyframes badgePop {
+  0%   { transform:scale(0.6); opacity:0; }
+  70%  { transform:scale(1.15); }
+  100% { transform:scale(1);   opacity:1; }
+}
+@keyframes clockTick {
+  0%,100% { opacity:1; }
+  49%     { opacity:1; }
+  50%     { opacity:.4; }
+}
+
+/* アニメーション適用 */
+.demo-wrapper { animation: none; }
+.punch-clock { animation: clockTick 2s step-end infinite; }
+.punch-big-in:not(:disabled) { animation: pulseGreen 2.5s infinite; }
+.punch-result.in-type { animation: demoSlideIn .4s cubic-bezier(.22,.68,0,1.2); }
+.punch-result.out-type { animation: demoSlideIn .4s cubic-bezier(.22,.68,0,1.2); }
+.staff-chip { animation: rowSlideIn .3s ease both; }
+.staff-chip:nth-child(1){animation-delay:.03s}
+.staff-chip:nth-child(2){animation-delay:.06s}
+.staff-chip:nth-child(3){animation-delay:.09s}
+.staff-chip:nth-child(4){animation-delay:.12s}
+.staff-chip:nth-child(5){animation-delay:.15s}
+.staff-chip:nth-child(6){animation-delay:.18s}
+.shift-table tbody tr { animation: rowSlideIn .3s ease both; }
+.shift-table tbody tr:nth-child(1){animation-delay:.05s}
+.shift-table tbody tr:nth-child(2){animation-delay:.10s}
+.shift-table tbody tr:nth-child(3){animation-delay:.15s}
+.shift-table tbody tr:nth-child(4){animation-delay:.20s}
+.shift-table tbody tr:nth-child(5){animation-delay:.25s}
+.admin-kpi-num { animation: countUp .5s ease both; }
+.admin-kpi:nth-child(1) .admin-kpi-num{animation-delay:.05s}
+.admin-kpi:nth-child(2) .admin-kpi-num{animation-delay:.12s}
+.admin-kpi:nth-child(3) .admin-kpi-num{animation-delay:.19s}
+.admin-kpi:nth-child(4) .admin-kpi-num{animation-delay:.26s}
+.admin-row { animation: rowSlideIn .3s ease both; }
+.admin-row:nth-child(1){animation-delay:.06s}
+.admin-row:nth-child(2){animation-delay:.12s}
+.admin-row:nth-child(3){animation-delay:.18s}
+.admin-row:nth-child(4){animation-delay:.24s}
+.admin-row:nth-child(5){animation-delay:.30s}
+.admin-row:nth-child(6){animation-delay:.36s}
+.admin-row:nth-child(7){animation-delay:.42s}
+.badge { animation: badgePop .4s cubic-bezier(.22,.68,0,1.2) both; }
+.shift-cell { animation: badgePop .3s ease both; }
+
+/* デモタブ切替時にアニメーション再適用 */
+.demo-screen.active .staff-chip,
+.demo-screen.active .shift-table tbody tr,
+.demo-screen.active .admin-row,
+.demo-screen.active .badge,
+.demo-screen.active .shift-cell,
+.demo-screen.active .admin-kpi-num { animation-play-state: running; }
+
+/* punch-bigホバー時のグロウ */
+.punch-big-out:not(:disabled):hover { animation: pulseOrange 1s infinite; }
+
+/* demo-wrapperのグラデーションシマーライン */
+.demo-wrapper::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, var(--accent) 0%, #ff8c5a 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmerBar 3s linear infinite;
+}
+
+/* 打刻 */
+.punch-device { background:var(--navy-mid); border-radius:14px; border:1px solid rgba(255,255,255,.07); overflow:hidden; }
+.punch-store-bar { background:rgba(255,107,53,.08); border-bottom:1px solid rgba(255,107,53,.15); padding:8px 14px; display:flex; align-items:center; gap:8px; font-size:.73rem; color:rgba(255,255,255,.5); font-weight:700; }
+.punch-store-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); animation:blink 2s infinite; }
+.punch-main { padding:1.5rem; }
+.punch-clock-wrap { text-align:center; margin-bottom:1.5rem; }
+.punch-clock { font-family:'Syne',sans-serif; font-size:3.5rem; font-weight:800; color:var(--white); line-height:1; letter-spacing:-.04em; }
+.punch-date { font-size:.82rem; color:var(--gray); margin-top:.25rem; }
+.punch-staff-label { font-size:.75rem; color:var(--gray); font-weight:700; margin-bottom:.75rem; letter-spacing:.06em; }
+.punch-staff-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.staff-chip { padding:10px 6px; border-radius:10px; background:rgba(255,255,255,.05); border:1.5px solid rgba(255,255,255,.08); color:rgba(255,255,255,.75); font-size:.78rem; font-weight:700; font-family:'Noto Sans JP',sans-serif; cursor:pointer; transition:all .2s; text-align:center; white-space:nowrap; }
+.staff-chip:hover { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.2); }
+.staff-chip.selected { background:rgba(255,107,53,.15); border-color:var(--accent); color:var(--accent); }
+.punch-selected-name { text-align:center; font-size:1.1rem; font-weight:700; color:var(--white); }
+.punch-btns { text-align:center; }
+.punch-big { flex:1; padding:16px 12px; border-radius:12px; border:none; font-family:'Noto Sans JP',sans-serif; font-size:.9rem; font-weight:700; cursor:pointer; transition:all .25s; display:flex; flex-direction:column; align-items:center; gap:6px; }
+.punch-big-in { background:rgba(52,211,153,.15); color:#34d399; border:1.5px solid rgba(52,211,153,.3); }
+.punch-big-in:hover:not(:disabled) { background:rgba(52,211,153,.28); transform:scale(1.03); box-shadow:0 6px 20px rgba(52,211,153,.2); }
+.punch-big-out { background:rgba(255,107,53,.12); color:var(--accent); border:1.5px solid rgba(255,107,53,.3); }
+.punch-big-out:hover:not(:disabled) { background:rgba(255,107,53,.22); transform:scale(1.03); box-shadow:0 6px 20px rgba(255,107,53,.2); }
+.punch-big:disabled { opacity:.4; cursor:not-allowed; transform:none !important; }
+.punch-result { margin-top:1rem; padding:1rem 1.25rem; border-radius:12px; font-size:.9rem; font-weight:700; text-align:center; line-height:1.6; }
+.punch-result.in-type { background:rgba(52,211,153,.1); border:1.5px solid rgba(52,211,153,.3); color:#34d399; }
+.punch-result.out-type { background:rgba(255,107,53,.1); border:1.5px solid rgba(255,107,53,.3); color:var(--accent); }
+
+/* シフト */
+.shift-device { background:var(--navy-mid); border-radius:14px; border:1px solid rgba(255,255,255,.07); overflow:hidden; }
+.shift-header-bar { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:var(--navy-light); border-bottom:1px solid rgba(255,255,255,.06); }
+.shift-confirmed-badge { background:rgba(52,211,153,.15); color:#34d399; border:1px solid rgba(52,211,153,.3); border-radius:20px; padding:3px 10px; font-size:.7rem; font-weight:700; }
+.week-nav { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.05); }
+.week-btn { background:rgba(255,255,255,.07); border:none; color:rgba(255,255,255,.6); width:28px; height:28px; border-radius:50%; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; transition:all .2s; }
+.week-btn:hover { background:rgba(255,255,255,.15); color:#fff; }
+.week-label { font-size:.78rem; color:rgba(255,255,255,.7); font-weight:700; }
+.shift-table { width:100%; border-collapse:collapse; font-size:.76rem; min-width:300px; }
+.shift-th-name { color:var(--gray); text-align:left; padding:8px 10px; font-weight:700; white-space:nowrap; background:rgba(255,255,255,.03); }
+.shift-th-day { color:var(--gray); text-align:center; padding:6px 4px; font-weight:700; background:rgba(255,255,255,.03); line-height:1.3; }
+.today-col { color:var(--accent) !important; }
+.shift-table tbody tr { border-bottom:1px solid rgba(255,255,255,.04); }
+.shift-td-name { color:rgba(255,255,255,.8); padding:8px 10px; white-space:nowrap; font-weight:500; }
+.shift-td-cell { text-align:center; padding:5px 3px; }
+.shift-cell { padding:4px 8px; border-radius:6px; font-size:.7rem; font-weight:700; display:inline-block; }
+.shift-work { background:rgba(52,211,153,.15); color:#34d399; }
+.shift-off { background:rgba(148,163,184,.1); color:#64748b; }
+.shift-wish { background:rgba(255,107,53,.15); color:var(--accent); }
+.shift-legend { padding:10px 14px; font-size:.72rem; color:var(--gray); display:flex; align-items:center; gap:6px; flex-wrap:wrap; background:rgba(0,0,0,.15); }
+
+/* 管理者 */
+.admin-device { background:var(--navy-mid); border-radius:14px; border:1px solid rgba(255,255,255,.07); overflow:hidden; }
+.admin-titlebar { background:#1a1a2e; padding:10px 14px; display:flex; align-items:center; gap:10px; border-bottom:1px solid rgba(255,255,255,.06); }
+.mac-dot { width:10px; height:10px; border-radius:50%; }
+.admin-title-text { flex:1; font-size:.75rem; color:rgba(255,255,255,.4); text-align:center; }
+.admin-live-badge { font-size:.68rem; font-weight:700; color:#34d399; animation:blink 2s infinite; }
+.admin-body { padding:1.25rem; }
+.admin-kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:1.1rem; }
+.admin-kpi { border-radius:10px; padding:.75rem .5rem; text-align:center; }
+.admin-kpi-green { background:rgba(52,211,153,.1); border:1px solid rgba(52,211,153,.2); }
+.admin-kpi-gray { background:rgba(148,163,184,.07); border:1px solid rgba(148,163,184,.15); }
+.admin-kpi-orange { background:rgba(255,107,53,.08); border:1px solid rgba(255,107,53,.18); }
+.admin-kpi-blue { background:rgba(99,102,241,.08); border:1px solid rgba(99,102,241,.18); }
+.admin-kpi-num { font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:800; line-height:1; }
+.admin-kpi-green .admin-kpi-num { color:#34d399; }
+.admin-kpi-gray .admin-kpi-num { color:#94a3b8; }
+.admin-kpi-orange .admin-kpi-num { color:var(--accent); }
+.admin-kpi-blue .admin-kpi-num { color:#818cf8; }
+.admin-kpi-label { font-size:.65rem; color:var(--gray); margin-top:4px; }
+.admin-staff-list { display:flex; flex-direction:column; gap:2px; margin-bottom:1rem; }
+.admin-row { display:flex; align-items:center; padding:8px 10px; border-radius:8px; background:rgba(255,255,255,.03); gap:8px; transition:background .2s; }
+.admin-row:hover { background:rgba(255,255,255,.06); }
+.admin-name { flex:1; color:rgba(255,255,255,.8); font-size:.82rem; font-weight:500; white-space:nowrap; }
+.admin-time { color:var(--gray); font-size:.72rem; white-space:nowrap; margin-right:4px; }
+.admin-footer-bar { display:flex; align-items:center; justify-content:space-between; background:rgba(0,0,0,.2); border-radius:10px; padding:.85rem 1rem; }
+.admin-csv-area { display:flex; flex-direction:column; gap:3px; }
+.admin-csv-btn { background:var(--accent); color:#fff; border:none; border-radius:8px; padding:8px 16px; font-family:'Noto Sans JP',sans-serif; font-size:.8rem; font-weight:700; cursor:pointer; transition:all .2s; }
+.admin-csv-btn:hover { background:var(--accent-lt); transform:translateY(-1px); box-shadow:0 4px 14px rgba(255,107,53,.4); }
+.admin-csv-btn.downloading { background:#34d399; }
+
+/* スマホ対応 */
+
+  .punch-clock { font-size:2.8rem; }
+  .admin-kpi-row { grid-template-columns:repeat(2,1fr); }
+  .admin-kpi-num { font-size:1.2rem; }
+}
 
 
   .spec-table td { font-size: .82rem; }
 }
+
+/* ── SVG Icons ── */
+.svg-icon { display:inline-flex; align-items:center; justify-content:center; }
+.svg-icon svg { width:100%; height:100%; }
+.svg-icon-block { display:flex; align-items:center; justify-content:center; }
+.svg-icon-block svg { width:100%; height:100%; }
+.demo-tab-icon { display:inline-flex; align-items:center; }
+.demo-tab-icon svg { width:1em; height:1em; }
+.problem-icon .svg-icon svg { stroke: var(--accent); }
+.service-icon .svg-icon svg { stroke: var(--accent); }
 </style>
 </head>
 <body>
@@ -574,92 +743,159 @@ h2.section-title {
     <div style="display:grid; grid-template-columns:1.1fr .9fr; gap:4rem; align-items:start">
       <div>
         <div class="section-tag">インタラクティブデモ</div>
-        <h2 class="section-title" style="margin-bottom:2rem">実際の画面を<br>触ってみてください</h2>
+        <h2 class="section-title" style="margin-bottom:.75rem">実際の画面を<br>触ってみてください</h2>
+        <p style="color:#556070; font-size:.9rem; margin-bottom:1.75rem; line-height:1.7">ボタンを押すと実際に動きます。スマホでもPCでも同じ操作感です。</p>
+
         <div class="demo-wrapper">
+          <!-- タブ -->
           <div class="demo-tabs">
-            <button class="demo-tab active" onclick="switchDemo('attendance', this)">出退勤打刻</button>
-            <button class="demo-tab" onclick="switchDemo('shift', this)">シフト一覧</button>
-            <button class="demo-tab" onclick="switchDemo('admin', this)">管理者画面</button>
+            <button class="demo-tab active" onclick="switchDemo('attendance',this)">
+              <span class="svg-icon demo-tab-icon" style="width:1rem;height:1rem;display:inline-block;vertical-align:middle;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>出退勤打刻
+            </button>
+            <button class="demo-tab" onclick="switchDemo('shift',this)">
+              <span class="svg-icon demo-tab-icon" style="width:1rem;height:1rem;display:inline-block;vertical-align:middle;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>シフト管理
+            </button>
+            <button class="demo-tab" onclick="switchDemo('admin',this)">
+              <span class="svg-icon demo-tab-icon" style="width:1rem;height:1rem;display:inline-block;vertical-align:middle;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>管理者画面
+            </button>
           </div>
 
-          <!-- 打刻デモ -->
+          <!-- ① 打刻デモ -->
           <div class="demo-screen active" id="demo-attendance">
-            <div style="background:var(--navy-mid); border-radius:12px; padding:1.5rem; border:1px solid rgba(255,255,255,.08)">
-              <p style="color:var(--gray); font-size:.78rem; margin-bottom:.5rem; font-weight:700">田中 さくら さん</p>
-              <p style="color:var(--white); font-size:2rem; font-weight:800; font-family:'Syne',sans-serif; line-height:1; margin-bottom:.25rem" id="demoTime">17:32</p>
-              <p style="color:var(--gray); font-size:.82rem; margin-bottom:1.5rem">2024年3月15日（金）</p>
-              <button class="punch-btn punch-in" onclick="punchIn(this)">▶ 出勤する</button>
-              <button class="punch-btn punch-out" onclick="punchOut(this)">■ 退勤する</button>
-              <div id="punchMsg" style="display:none; margin-top:.75rem; background:rgba(52,211,153,.1); border:1px solid rgba(52,211,153,.3); border-radius:8px; padding:.75rem 1rem; color:#34d399; font-size:.88rem; font-weight:700; text-align:center"></div>
+            <div class="punch-device">
+              <!-- 店舗名バー -->
+              <div class="punch-store-bar">
+                <span class="punch-store-dot"></span>
+                <span>桜居酒屋 渋谷店 — 共有タブレット</span>
+              </div>
+              <!-- メイン -->
+              <div class="punch-main">
+                <div class="punch-clock-wrap">
+                  <div class="punch-clock" id="demoTime">--:--</div>
+                  <div class="punch-date" id="demoDate">読み込み中...</div>
+                </div>
+                <!-- スタッフ選択 -->
+                <div class="punch-staff-label">スタッフを選択</div>
+                <div class="punch-staff-grid" id="staffGrid">
+                  <button class="staff-chip" onclick="selectStaff(this,'田中 さくら')">田中 さくら</button>
+                  <button class="staff-chip" onclick="selectStaff(this,'鈴木 健太')">鈴木 健太</button>
+                  <button class="staff-chip" onclick="selectStaff(this,'山田 花音')">山田 花音</button>
+                  <button class="staff-chip" onclick="selectStaff(this,'佐藤 大輝')">佐藤 大輝</button>
+                  <button class="staff-chip" onclick="selectStaff(this,'中村 あい')">中村 あい</button>
+                  <button class="staff-chip" onclick="selectStaff(this,'高橋 誠')">高橋 誠</button>
+                </div>
+                <!-- 打刻ボタン -->
+                <div class="punch-btns" id="punchBtns" style="display:none">
+                  <div class="punch-selected-name" id="selectedName"></div>
+                  <div style="display:flex;gap:.75rem;margin-top:1rem">
+                    <button class="punch-big punch-big-in" id="btnIn" onclick="doPunch('in')">
+                      <span style="font-size:1.5rem">▶</span>
+                      <span>出勤する</span>
+                    </button>
+                    <button class="punch-big punch-big-out" id="btnOut" onclick="doPunch('out')">
+                      <span style="font-size:1.5rem">■</span>
+                      <span>退勤する</span>
+                    </button>
+                  </div>
+                  <button onclick="resetPunch()" style="background:none;border:none;color:rgba(255,255,255,.35);font-size:.78rem;cursor:pointer;margin-top:.75rem;font-family:inherit">← 選択し直す</button>
+                </div>
+                <!-- 完了メッセージ -->
+                <div id="punchResult" class="punch-result" style="display:none"></div>
+              </div>
             </div>
           </div>
 
-          <!-- シフトデモ -->
+          <!-- ② シフトデモ -->
           <div class="demo-screen" id="demo-shift">
-            <div style="background:var(--navy-mid); border-radius:12px; padding:1.25rem; border:1px solid rgba(255,255,255,.08)">
-              <p style="color:rgba(255,255,255,.7); font-size:.82rem; font-weight:700; margin-bottom:1rem">3月 シフト（確定）</p>
-              <div style="overflow-x:auto">
-                <table style="width:100%; border-collapse:collapse; font-size:.78rem">
+            <div class="shift-device">
+              <div class="shift-header-bar">
+                <span style="font-size:.82rem;font-weight:700;color:var(--white);display:flex;align-items:center;gap:6px"><span class="svg-icon " style="width:1rem;height:1rem;display:inline-block;vertical-align:middle;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> 3月 シフト表</span>
+                <span class="shift-confirmed-badge">確定済</span>
+              </div>
+              <!-- 週ナビ -->
+              <div class="week-nav">
+                <button class="week-btn" onclick="changeWeek(-1)">‹</button>
+                <span class="week-label" id="weekLabel">3/14（木）〜 3/18（月）</span>
+                <button class="week-btn" onclick="changeWeek(1)">›</button>
+              </div>
+              <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+                <table class="shift-table" id="shiftTable">
                   <thead>
                     <tr>
-                      <th style="color:var(--gray); text-align:left; padding:6px 8px; white-space:nowrap">スタッフ</th>
-                      <th style="color:var(--gray); text-align:center; padding:6px 4px">14日</th>
-                      <th style="color:var(--gray); text-align:center; padding:6px 4px">15日</th>
-                      <th style="color:var(--gray); text-align:center; padding:6px 4px">16日</th>
-                      <th style="color:var(--gray); text-align:center; padding:6px 4px">17日</th>
-                      <th style="color:var(--gray); text-align:center; padding:6px 4px">18日</th>
+                      <th class="shift-th-name">スタッフ</th>
+                      <th class="shift-th-day" id="d0">14日<br><small>木</small></th>
+                      <th class="shift-th-day" id="d1">15日<br><small>金</small></th>
+                      <th class="shift-th-day today-col" id="d2">16日<br><small>土 ★</small></th>
+                      <th class="shift-th-day" id="d3">17日<br><small>日</small></th>
+                      <th class="shift-th-day" id="d4">18日<br><small>月</small></th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr><td style="color:rgba(255,255,255,.8); padding:8px; white-space:nowrap">田中 さくら</td><td style="text-align:center;padding:4px"><span class="shift-cell shift-work">17-23</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-work">17-23</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-off">休</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-work">18-23</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-off">休</span></td></tr>
-                    <tr><td style="color:rgba(255,255,255,.8); padding:8px; white-space:nowrap">鈴木 健太</td><td style="text-align:center;padding:4px"><span class="shift-cell shift-off">休</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-work">17-22</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-work">18-23</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-off">休</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-work">17-23</span></td></tr>
-                    <tr><td style="color:rgba(255,255,255,.8); padding:8px; white-space:nowrap">山田 花音</td><td style="text-align:center;padding:4px"><span class="shift-cell shift-work">14-18</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-off">休</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-work">14-18</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-work">14-19</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-off">休</span></td></tr>
-                    <tr><td style="color:rgba(255,255,255,.8); padding:8px; white-space:nowrap">佐藤 大輝</td><td style="text-align:center;padding:4px"><span class="shift-cell shift-wish">希望</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-work">19-23</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-off">休</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-work">19-23</span></td><td style="text-align:center;padding:4px"><span class="shift-cell shift-work">17-23</span></td></tr>
-                  </tbody>
+                  <tbody id="shiftBody"></tbody>
                 </table>
               </div>
-              <p style="color:var(--gray); font-size:.75rem; margin-top:1rem">🟢 確定 / 🟠 希望申請中</p>
+              <div class="shift-legend">
+                <span class="shift-cell shift-work" style="font-size:.7rem">17-23</span>勤務
+                <span class="shift-cell shift-off" style="font-size:.7rem;margin-left:.75rem">休</span>休み
+                <span class="shift-cell shift-wish" style="font-size:.7rem;margin-left:.75rem">希望</span>申請中
+              </div>
             </div>
           </div>
 
-          <!-- 管理者デモ -->
+          <!-- ③ 管理者デモ -->
           <div class="demo-screen" id="demo-admin">
-            <div style="background:var(--navy-mid); border-radius:12px; border:1px solid rgba(255,255,255,.08); overflow:hidden">
-              <div style="background:var(--navy-light); padding:10px 16px; display:flex; align-items:center; gap:8px; border-bottom:1px solid rgba(255,255,255,.06)">
-                <div style="width:8px;height:8px;border-radius:50%;background:#ff5f57"></div>
-                <div style="width:8px;height:8px;border-radius:50%;background:#febc2e"></div>
-                <div style="width:8px;height:8px;border-radius:50%;background:#28c840"></div>
-                <span style="font-size:.75rem; color:rgba(255,255,255,.4); margin-left:8px">本日の勤怠状況 — 3/15</span>
+            <div class="admin-device">
+              <div class="admin-titlebar">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div class="mac-dot" style="background:#ff5f57"></div>
+                  <div class="mac-dot" style="background:#febc2e"></div>
+                  <div class="mac-dot" style="background:#28c840"></div>
+                </div>
+                <span class="admin-title-text">管理者ダッシュボード</span>
+                <span class="admin-live-badge">● LIVE</span>
               </div>
-              <div style="padding:1.25rem">
-                <div style="display:flex; gap:1rem; margin-bottom:1.25rem; flex-wrap:wrap">
-                  <div style="flex:1; min-width:80px; background:rgba(52,211,153,.1); border:1px solid rgba(52,211,153,.2); border-radius:8px; padding:.75rem; text-align:center">
-                    <div style="font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; color:#34d399">4</div>
-                    <div style="font-size:.72rem; color:var(--gray)">出勤中</div>
+              <div class="admin-body">
+                <!-- KPIカード -->
+                <div class="admin-kpi-row">
+                  <div class="admin-kpi admin-kpi-green">
+                    <div class="admin-kpi-num" id="kpiIn">4</div>
+                    <div class="admin-kpi-label">出勤中</div>
                   </div>
-                  <div style="flex:1; min-width:80px; background:rgba(148,163,184,.08); border:1px solid rgba(148,163,184,.15); border-radius:8px; padding:.75rem; text-align:center">
-                    <div style="font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; color:#94a3b8">1</div>
-                    <div style="font-size:.72rem; color:var(--gray)">退勤済</div>
+                  <div class="admin-kpi admin-kpi-gray">
+                    <div class="admin-kpi-num" id="kpiOut">2</div>
+                    <div class="admin-kpi-label">退勤済</div>
                   </div>
-                  <div style="flex:1; min-width:80px; background:rgba(255,107,53,.08); border:1px solid rgba(255,107,53,.15); border-radius:8px; padding:.75rem; text-align:center">
-                    <div style="font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; color:var(--accent)">1</div>
-                    <div style="font-size:.72rem; color:var(--gray)">未打刻</div>
+                  <div class="admin-kpi admin-kpi-orange">
+                    <div class="admin-kpi-num" id="kpiPending">1</div>
+                    <div class="admin-kpi-label">未打刻</div>
+                  </div>
+                  <div class="admin-kpi admin-kpi-blue">
+                    <div class="admin-kpi-num">7</div>
+                    <div class="admin-kpi-label">本日出勤</div>
                   </div>
                 </div>
-                <div class="mock-row"><span class="mock-name">田中 さくら</span><span class="mock-time">17:02 出勤</span><span class="badge badge-in">出勤中</span></div>
-                <div class="mock-row"><span class="mock-name">鈴木 健太</span><span class="mock-time">16:55 出勤</span><span class="badge badge-in">出勤中</span></div>
-                <div class="mock-row"><span class="mock-name">山田 花音</span><span class="mock-time">14:00〜17:02</span><span class="badge badge-out">退勤済</span></div>
-                <div class="mock-row"><span class="mock-name">佐藤 大輝</span><span class="mock-time">19:00 予定</span><span class="badge badge-new">未打刻</span></div>
-                <div style="margin-top:1rem; display:flex; gap:.75rem">
-                  <div style="flex:1; background:rgba(255,107,53,.08); border:1px solid rgba(255,107,53,.2); border-radius:8px; padding:.75rem; display:flex; justify-content:space-between; align-items:center">
-                    <span style="font-size:.78rem; color:var(--gray)">今月の集計</span>
-                    <span style="font-size:.8rem; color:var(--accent); font-weight:700; cursor:pointer">↓ CSV</span>
+                <!-- スタッフリスト -->
+                <div class="admin-staff-list" id="adminStaffList">
+                  <div class="admin-row"><span class="admin-name">田中 さくら</span><span class="admin-time">17:02 出勤</span><span class="badge badge-in">出勤中</span></div>
+                  <div class="admin-row"><span class="admin-name">鈴木 健太</span><span class="admin-time">16:55 出勤</span><span class="badge badge-in">出勤中</span></div>
+                  <div class="admin-row"><span class="admin-name">山田 花音</span><span class="admin-time">14:00〜17:02</span><span class="badge badge-out">退勤済</span></div>
+                  <div class="admin-row"><span class="admin-name">中村 あい</span><span class="admin-time">18:00〜22:30</span><span class="badge badge-out">退勤済</span></div>
+                  <div class="admin-row"><span class="admin-name">佐藤 大輝</span><span class="admin-time">19:00 予定</span><span class="badge badge-new">未打刻</span></div>
+                  <div class="admin-row"><span class="admin-name">高橋 誠</span><span class="admin-time">17:30 出勤</span><span class="badge badge-in">出勤中</span></div>
+                  <div class="admin-row"><span class="admin-name">木村 りか</span><span class="admin-time">19:00 出勤</span><span class="badge badge-in">出勤中</span></div>
+                </div>
+                <!-- フッタ -->
+                <div class="admin-footer-bar">
+                  <div class="admin-csv-area">
+                    <span style="font-size:.78rem;color:var(--gray)">今月の総勤務時間</span>
+                    <span style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--accent)">342h</span>
                   </div>
+                  <button class="admin-csv-btn" onclick="fakeCSV(this)">↓ CSV出力</button>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+
+        </div><!-- /demo-wrapper -->
       </div>
 
       <div>
@@ -705,17 +941,17 @@ h2.section-title {
     <div class="security-options">
       <div class="security-card recommended">
         <div class="security-badge">推奨</div>
-        <div style="font-size:1.75rem; margin-bottom:.75rem">📱</div>
+        <div style="margin-bottom:.75rem"><span class="svg-icon " style="width:1.75rem;height:1.75rem;display:inline-block;vertical-align:middle;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg></span></div>
         <h4>端末固定打刻</h4>
         <p>店舗に設置したタブレット1台のみで打刻可能にする。最もシンプルで確実な方法。タブレット代のみの追加コスト。</p>
       </div>
       <div class="security-card">
-        <div style="font-size:1.75rem; margin-bottom:.75rem">📡</div>
+        <div style="margin-bottom:.75rem"><span class="svg-icon " style="width:1.75rem;height:1.75rem;display:inline-block;vertical-align:middle;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12" y2="20.01"/></svg></span></div>
         <h4>Wi-Fi制限</h4>
         <p>店内のWi-Fiに接続している時のみ打刻可能にする設定。自前のスマホでも不正打刻を防げる。</p>
       </div>
       <div class="security-card">
-        <div style="font-size:1.75rem; margin-bottom:.75rem">📋</div>
+        <div style="margin-bottom:.75rem"><span class="svg-icon " style="width:1.75rem;height:1.75rem;display:inline-block;vertical-align:middle;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></span></div>
         <h4>ルール・承認運用</h4>
         <p>打刻後に管理者が承認するワークフローを設ける。小規模・信頼ベースの職場に適した方法。</p>
       </div>
@@ -738,7 +974,7 @@ h2.section-title {
       <tr><th>運用開始サポート</th><td>オンライン立ち会い（最大2時間）</td></tr>
     </table>
     <div class="notice" style="margin-top:2rem">
-      💡 深夜割増の時間設定、給与ソフトのCSVフォーマット対応など、現場固有の要件はヒアリング時に確認します。
+      <span class="svg-icon " style="width:1rem;height:1rem;display:inline-block;vertical-align:middle;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></span> 深夜割増の時間設定、給与ソフトのCSVフォーマット対応など、現場固有の要件はヒアリング時に確認します。
     </div>
   </div>
 </section>
@@ -891,6 +1127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </script>
 <script>
+// ── Tab switch
 function switchTab(id, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -901,37 +1138,120 @@ function switchDemo(id, btn) {
   document.querySelectorAll('.demo-tab').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.demo-screen').forEach(s => s.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('demo-' + id).classList.add('active');
+  const screen = document.getElementById('demo-' + id);
+  screen.classList.add('active');
+  // アニメーションをリセット・再生
+  screen.querySelectorAll('.staff-chip,.shift-table tbody tr,.admin-row,.badge,.shift-cell,.admin-kpi-num').forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight; // reflow
+    el.style.animation = '';
+  });
 }
-function punchIn(btn) {
-  const msg = document.getElementById('punchMsg');
+
+// ── Live clock
+function updateClock() {
   const now = new Date();
-  const t = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
-  msg.textContent = `✅ ${t} に出勤しました`;
-  msg.style.display = 'block';
-  btn.textContent = '▶ 出勤済み';
-  btn.disabled = true;
-  btn.style.opacity = '.5';
-}
-function punchOut(btn) {
-  const msg = document.getElementById('punchMsg');
-  const now = new Date();
-  const t = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
-  msg.textContent = `👋 ${t} に退勤しました。お疲れ様でした！`;
-  msg.style.background = 'rgba(255,107,53,.1)';
-  msg.style.borderColor = 'rgba(255,107,53,.3)';
-  msg.style.color = 'var(--accent)';
-  msg.style.display = 'block';
-  btn.textContent = '■ 退勤済み';
-  btn.disabled = true;
-  btn.style.opacity = '.5';
-}
-// Clock
-setInterval(() => {
-  const n = new Date();
+  const hh = now.getHours().toString().padStart(2,'0');
+  const mm = now.getMinutes().toString().padStart(2,'0');
+  const ss = now.getSeconds().toString().padStart(2,'0');
   const el = document.getElementById('demoTime');
-  if (el) el.textContent = n.getHours().toString().padStart(2,'0') + ':' + n.getMinutes().toString().padStart(2,'0');
-}, 1000);
+  if (el) el.textContent = hh + ':' + mm;
+  const days = ['日','月','火','水','木','金','土'];
+  const dateEl = document.getElementById('demoDate');
+  if (dateEl) dateEl.textContent = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日（${days[now.getDay()]}）`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// ── Staff selection
+let selectedStaff = null;
+function selectStaff(el, name) {
+  document.querySelectorAll('.staff-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedStaff = name;
+  document.getElementById('selectedName').textContent = selectedStaff + ' さん';
+  document.getElementById('staffGrid').style.display = 'none';
+  document.getElementById('punchBtns').style.display = 'block';
+  document.getElementById('punchResult').style.display = 'none';
+  document.getElementById('btnIn').disabled = false;
+  document.getElementById('btnOut').disabled = false;
+}
+function resetPunch() {
+  selectedStaff = null;
+  document.getElementById('staffGrid').style.display = 'grid';
+  document.getElementById('punchBtns').style.display = 'none';
+  document.getElementById('punchResult').style.display = 'none';
+  document.querySelectorAll('.staff-chip').forEach(c => c.classList.remove('selected'));
+}
+function doPunch(type) {
+  const now = new Date();
+  const t = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  const res = document.getElementById('punchResult');
+  document.getElementById('btnIn').disabled = true;
+  document.getElementById('btnOut').disabled = true;
+  if (type === 'in') {
+    res.className = 'punch-result in-type';
+    res.innerHTML = `✅ <strong>${selectedStaff}</strong> さん<br>${t} に出勤しました！`;
+  } else {
+    res.className = 'punch-result out-type';
+    res.innerHTML = `👋 <strong>${selectedStaff}</strong> さん<br>${t} に退勤しました。お疲れ様！`;
+  }
+  res.style.display = 'block';
+  setTimeout(() => {
+    resetPunch();
+  }, 3500);
+}
+
+// ── Shift table
+const shiftData = [
+  { name:'田中 さくら', days:['17-23','17-23','休','18-23','休'] },
+  { name:'鈴木 健太',   days:['休','17-22','18-23','休','17-23'] },
+  { name:'山田 花音',   days:['14-18','休','14-18','14-19','休'] },
+  { name:'佐藤 大輝',   days:['希望','19-23','休','19-23','17-23'] },
+  { name:'中村 あい',   days:['休','18-22','17-22','休','19-23'] },
+];
+const weeks = [
+  { label:'3/7（土）〜 3/11（水）', today:2, days:['3/7','3/8','3/9','3/10','3/11'], dayW:['土★','日','月','火','水'] },
+  { label:'3/14（木）〜 3/18（月）', today:2, days:['3/14','3/15','3/16★','3/17','3/18'], dayW:['木','金','土★','日','月'] },
+  { label:'3/21（金）〜 3/25（火）', today:-1, days:['3/21','3/22','3/23','3/24','3/25'], dayW:['金','土','日','月','火'] },
+];
+let weekIdx = 1;
+
+function renderShift() {
+  const w = weeks[weekIdx];
+  document.getElementById('weekLabel').textContent = w.label;
+  const headers = document.querySelectorAll('.shift-th-day');
+  headers.forEach((th, i) => {
+    th.innerHTML = w.days[i] + '<br><small>' + w.dayW[i] + '</small>';
+    th.className = 'shift-th-day' + (i === w.today ? ' today-col' : '');
+  });
+  const tbody = document.getElementById('shiftBody');
+  tbody.innerHTML = shiftData.map(s => {
+    const cells = s.days.map((d, i) => {
+      let cls = d === '休' ? 'shift-off' : d === '希望' ? 'shift-wish' : 'shift-work';
+      return `<td class="shift-td-cell"><span class="shift-cell ${cls}">${d}</span></td>`;
+    }).join('');
+    return `<tr><td class="shift-td-name">${s.name}</td>${cells}</tr>`;
+  }).join('');
+}
+function changeWeek(dir) {
+  weekIdx = Math.max(0, Math.min(weeks.length - 1, weekIdx + dir));
+  renderShift();
+}
+renderShift();
+
+// ── CSV fake download
+function fakeCSV(btn) {
+  btn.textContent = '出力中...';
+  btn.classList.add('downloading');
+  setTimeout(() => {
+    btn.textContent = '✓ 完了';
+    setTimeout(() => {
+      btn.textContent = '↓ CSV出力';
+      btn.classList.remove('downloading');
+    }, 1800);
+  }, 900);
+}
 </script>
 </body>
 </html>

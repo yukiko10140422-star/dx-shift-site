@@ -1,751 +1,633 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>よくある質問 | QuickShift DX</title>
-<meta name="description" content="QuickShift DXのよくある質問。導入要件・スマホ対応・不正打刻・深夜跨ぎ・料金・サポートについてお答えします。">
+<meta name="description" content="QuickShift DXのよくある質問。導入・機能・料金・サポートについてお答えします。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Syne:wght@700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ===== QuickShift DX — Shared Styles ===== */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Syne:wght@700;800&display=swap');
+/* =====================================================
+   QuickShift DX — Unified Design System 2025
+   Theme: Industrial Warm / Tech-Forward (Dark)
+   Fonts: Syne (display) · Noto Sans JP (body) · DM Mono (code)
+===================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Syne:wght@700;800;900&family=DM+Mono:wght@400;500&display=swap');
 
+/* ── CSS VARIABLES ── */
 :root {
-  --navy:       #0d1b2a;
-  --navy-mid:   #162032;
-  --navy-light: #1e2f45;
-  --accent:     #ff6b35;
-  --accent-lt:  #ff8c5a;
-  --white:      #fafaf8;
-  --gray:       #8a9bb0;
-  --gray-lt:    #e8edf3;
-  --text:       #1a2738;
-  --max-w:      1200px;
+  --navy:      #0a1628;
+  --navy-2:    #0f1f38;
+  --navy-3:    #162847;
+  --navy-4:    #1e3354;
+  --accent:    #ff6b35;
+  --accent-2:  #ff9460;
+  --gold:      #f5c842;
+  --mango:     #ff8c00;
+  --white:     #f8f6f2;
+  --gray:      #7a8fa8;
+  --gray-lt:   #b0c0d4;
+  --green:     #22c55e;
+  --radius:    14px;
+  --radius-sm: 8px;
+  --max-w:     1240px;
+  --header-h:  66px;
 }
 
+/* ── RESET ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 16px; }
 body {
   font-family: 'Noto Sans JP', sans-serif;
-  background: var(--white);
-  color: var(--text);
+  background: var(--navy);
+  color: var(--white);
   overflow-x: hidden;
+  line-height: 1.7;
 }
+a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
-a { text-decoration: none; }
+ul, ol { list-style: none; }
+button { font-family: inherit; cursor: pointer; }
 
-/* ── CONTAINER ── */
-.container { max-width: var(--max-w); margin: 0 auto; padding: 0 5%; }
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: .3;
+}
 
-/* ── BUTTONS ── */
-.btn {
-  display: inline-block;
-  padding: 12px 26px;
-  border-radius: 7px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
-  font-family: 'Noto Sans JP', sans-serif;
-  line-height: 1;
-}
-.btn-primary { background: var(--accent); color: #fff; }
-.btn-primary:hover {
-  background: var(--accent-lt);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255,107,53,.4);
-}
-.btn-outline { background: transparent; border: 1.5px solid rgba(255,255,255,.3); color: var(--white); }
-.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-.btn-outline-dark { background: transparent; border: 1.5px solid var(--gray-lt); color: var(--text); }
-.btn-outline-dark:hover { border-color: var(--accent); color: var(--accent); }
-.btn-white { background: #fff; color: var(--accent); }
-.btn-white:hover { background: var(--navy); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.2); }
-.btn-lg { padding: 16px 36px; font-size: 1.05rem; border-radius: 9px; }
-.btn-block { display: block; text-align: center; width: 100%; }
-
-/* ── HEADER ── */
-.site-header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 200;
-  background: rgba(13,27,42,.96);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  height: 64px;
-}
-.header-inner {
+/* ── LAYOUT ── */
+.container {
   max-width: var(--max-w);
   margin: 0 auto;
   padding: 0 5%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+.section { padding: 100px 0; }
+.section-sm { padding: 70px 0; }
+.bg-navy-2 { background: var(--navy-2); }
+.bg-navy-3 { background: var(--navy-3); }
+
+/* ── TYPOGRAPHY ── */
+.section-label {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: .7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1rem;
+}
+.section-label::before {
+  content: ''; width: 24px; height: 2px;
+  background: var(--accent); flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 900; line-height: 1.08;
+  letter-spacing: -.03em; color: var(--white);
+  margin-bottom: 1.25rem;
+}
+.section-title em { font-style: normal; color: var(--accent); }
+.section-sub {
+  font-size: clamp(.9rem, 1.5vw, 1rem);
+  color: var(--gray); line-height: 1.9;
+  max-width: 560px;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px; border-radius: 9px;
+  font-weight: 700; font-size: .88rem;
+  cursor: pointer; transition: all .2s ease;
+  border: none; font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1; white-space: nowrap;
+}
+.btn-primary {
+  background: var(--accent); color: #fff;
+  box-shadow: 0 4px 20px rgba(255,107,53,.3);
+}
+.btn-primary:hover {
+  background: var(--accent-2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(255,107,53,.5);
+}
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,.2);
+  color: var(--white);
+}
+.btn-outline:hover {
+  border-color: var(--accent); color: var(--accent);
+}
+.btn-gold {
+  background: var(--gold); color: var(--navy);
+  font-weight: 900; box-shadow: 0 4px 20px rgba(245,200,66,.25);
+}
+.btn-gold:hover {
+  background: #ffe06b; transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(245,200,66,.45);
+}
+.btn-ghost {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  color: var(--white);
+}
+.btn-ghost:hover { background: rgba(255,255,255,.1); }
+.btn-lg { padding: 17px 40px; font-size: 1rem; border-radius: 11px; }
+.btn-sm { padding: 9px 18px; font-size: .8rem; border-radius: 7px; }
+
+/* ── HEADER ── */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 500; height: var(--header-h);
+  background: rgba(10,22,40,.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  transition: border-color .3s;
+}
+.site-header.scrolled { border-bottom-color: rgba(255,107,53,.15); }
+.header-inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 0 5%;
+  height: 100%; display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
 }
 .logo {
+  display: flex; align-items: center; gap: 10px;
   font-family: 'Syne', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--white);
-  letter-spacing: -.02em;
+  font-size: 1.1rem; font-weight: 900; color: var(--white);
+  flex-shrink: 0;
 }
-.logo span { color: var(--accent); }
-.site-nav {
-  display: flex;
-  align-items: center;
-  gap: 1.6rem;
+.logo-mark {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: .85rem; font-weight: 900; color: #fff;
 }
+.site-nav { display: flex; align-items: center; gap: .1rem; }
 .site-nav a {
-  color: rgba(255,255,255,.7);
-  font-size: .84rem;
-  font-weight: 500;
-  transition: color .2s;
+  padding: 8px 12px; border-radius: 7px;
+  font-size: .82rem; font-weight: 500;
+  color: rgba(255,255,255,.55); transition: all .15s;
 }
-.site-nav a:hover, .site-nav a.active { color: var(--white); }
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 4px;
-  background: none;
-  border: none;
+.site-nav a:hover { color: var(--white); background: rgba(255,255,255,.07); }
+.site-nav a.active { color: var(--accent); }
+
+/* ── MOBILE NAV ── */
+.hamburger-btn {
+  display: none; background: none; border: none; color: var(--white);
+  flex-direction: column; gap: 5px; padding: 6px;
 }
-.hamburger span {
-  display: block;
-  width: 24px; height: 2px;
-  background: var(--white);
-  border-radius: 2px;
-  transition: all .3s;
+.hamburger-btn span {
+  display: block; width: 22px; height: 2px;
+  background: currentColor; border-radius: 2px;
+  transition: all .25s;
 }
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .mobile-nav {
-  display: none;
-  position: fixed;
-  top: 64px; left: 0; right: 0; bottom: 0;
-  background: var(--navy);
-  z-index: 190;
-  padding: 2rem 5%;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: none; position: fixed; inset: 0; z-index: 490;
+  background: rgba(10,22,40,.98); backdrop-filter: blur(24px);
+  padding: calc(var(--header-h) + 20px) 5% 40px;
+  flex-direction: column; gap: .35rem;
   overflow-y: auto;
 }
 .mobile-nav.open { display: flex; }
 .mobile-nav a {
-  color: var(--white);
-  font-size: 1.1rem;
-  font-weight: 700;
-  border-bottom: 1px solid rgba(255,255,255,.07);
-  padding-bottom: 1.25rem;
+  display: block; padding: 14px 0;
+  font-size: 1.1rem; font-weight: 700;
+  color: rgba(255,255,255,.7);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  transition: color .15s;
 }
-
-/* ── SECTION COMMONS ── */
-.section { padding: 100px 0; }
-.section-sm { padding: 70px 0; }
-.section-tag {
-  display: inline-block;
-  background: var(--accent);
-  color: #fff;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .1em;
-  padding: 4px 12px;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
+.mobile-nav a:hover { color: var(--accent); }
+.mobile-nav .btn { margin-top: 1.5rem; width: 100%; justify-content: center; }
+.mobile-nav-close {
+  position: fixed; top: 16px; right: 5%;
+  background: rgba(255,255,255,.08); border: none;
+  color: var(--white); width: 38px; height: 38px;
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 1.2rem; z-index: 491;
+  transition: background .15s;
 }
-h2.section-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 800;
-  letter-spacing: -.03em;
-  line-height: 1.15;
-  margin-bottom: 1rem;
-}
-.section-lead {
-  font-size: 1.05rem;
-  color: #556070;
-  line-height: 1.9;
-  max-width: 580px;
-  margin-bottom: 3rem;
-}
-.section-lead.wide { max-width: 720px; }
-
-/* dark variant */
-.bg-navy { background: var(--navy); }
-.bg-navy h2.section-title { color: var(--white); }
-.bg-navy .section-lead { color: var(--gray); }
-.bg-gray { background: #f5f7fa; }
+.mobile-nav-close:hover { background: rgba(255,255,255,.14); }
 
 /* ── PAGE HERO ── */
 .page-hero {
+  padding: calc(var(--header-h) + 60px) 0 70px;
   background: var(--navy);
-  padding: 140px 0 80px;
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
 }
 .page-hero::before {
   content: '';
-  position: absolute;
-  top: -30%; right: -10%;
+  position: absolute; top: -100px; right: -100px;
   width: 500px; height: 500px;
   background: radial-gradient(circle, rgba(255,107,53,.1) 0%, transparent 70%);
+  pointer-events: none;
 }
-.page-hero .section-tag { margin-bottom: 1.2rem; }
+.page-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+.page-hero .container { position: relative; z-index: 2; max-width: 820px; }
 .page-hero h1 {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  font-weight: 800;
-  color: var(--white);
-  letter-spacing: -.03em;
-  line-height: 1.1;
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
+  font-weight: 900; line-height: 1.05;
+  letter-spacing: -.04em; color: var(--white);
   margin-bottom: 1.25rem;
 }
 .page-hero h1 em { font-style: normal; color: var(--accent); }
-.page-hero p {
-  color: rgba(255,255,255,.65);
-  font-size: 1.1rem;
-  line-height: 1.85;
-  max-width: 560px;
+.page-hero .lead {
+  font-size: clamp(.9rem, 1.8vw, 1.05rem);
+  color: rgba(255,255,255,.6); line-height: 1.9;
+  max-width: 560px; margin-bottom: 2.5rem;
 }
-.page-hero .hero-cta { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+.page-hero .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-/* ── FOOTER ── */
-.site-footer {
-  background: var(--navy);
-  border-top: 1px solid rgba(255,255,255,.06);
+/* Breadcrumb */
+.breadcrumb {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 1.5rem; font-size: .78rem;
 }
-.footer-main {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 3rem;
-  padding: 4rem 0 3rem;
-}
-.footer-brand .logo { font-size: 1.4rem; margin-bottom: 1rem; }
-.footer-brand p { font-size: .85rem; color: var(--gray); line-height: 1.8; }
-.footer-col h4 { color: var(--white); font-size: .85rem; font-weight: 700; margin-bottom: 1.2rem; letter-spacing: .05em; }
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
-.footer-col ul a { color: var(--gray); font-size: .84rem; transition: color .2s; }
-.footer-col ul a:hover { color: var(--white); }
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,.06);
-  padding: 1.5rem 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.footer-bottom p { color: rgba(255,255,255,.3); font-size: .78rem; }
-.footer-bottom-links { display: flex; gap: 1.5rem; }
-.footer-bottom-links a { color: rgba(255,255,255,.35); font-size: .78rem; }
-.footer-bottom-links a:hover { color: rgba(255,255,255,.7); }
-
-/* ── FLOATING CTA ── */
-.floating-cta {
-  position: fixed;
-  bottom: 2rem; right: 2rem;
-  z-index: 180;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all .4s;
-  pointer-events: none;
-}
-.floating-cta.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
-.floating-cta .btn { box-shadow: 0 8px 30px rgba(255,107,53,.5); }
+.breadcrumb a { color: rgba(255,255,255,.35); transition: color .15s; }
+.breadcrumb a:hover { color: rgba(255,255,255,.7); }
+.breadcrumb-sep { color: rgba(255,255,255,.2); }
+.breadcrumb-current { color: rgba(255,255,255,.65); }
 
 /* ── CARDS ── */
 .card {
-  background: #fff;
-  border: 1.5px solid var(--gray-lt);
-  border-radius: 14px;
-  padding: 2.5rem;
-  transition: all .3s;
-  position: relative;
-  overflow: hidden;
+  background: var(--navy-3);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius);
+  padding: 2.25rem;
+  transition: all .3s ease;
 }
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .3s;
+.card:hover {
+  border-color: rgba(255,107,53,.25);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,.3);
 }
-.card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,27,42,.12); border-color: var(--accent); }
-.card:hover::before { transform: scaleX(1); }
-
-.card-dark {
-  background: var(--navy-mid);
-  border: 1px solid rgba(255,255,255,.07);
-  border-radius: 14px;
-  padding: 2.5rem;
-  transition: all .3s;
-}
-.card-dark:hover { background: var(--navy-light); transform: translateY(-4px); }
-
-/* ── FEATURE LIST ── */
-.feature-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
-.feature-list li { display: flex; align-items: flex-start; gap: 12px; font-size: .93rem; line-height: 1.65; }
-.feature-list li::before {
-  content: '✓';
-  min-width: 22px; height: 22px;
-  background: var(--accent); color: #fff;
-  border-radius: 50%;
+.card-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: rgba(255,107,53,.1);
   display: flex; align-items: center; justify-content: center;
-  font-size: .7rem; font-weight: 700;
-  margin-top: 1px; flex-shrink: 0;
-}
-
-/* ── PROCESS STEPS ── */
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  position: relative;
-  margin-top: 3rem;
-}
-.steps-grid::before {
-  content: '';
-  position: absolute;
-  top: 32px; left: 12%; right: 12%;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--gray-lt) 100%);
-}
-.step-item { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 1.25rem; }
-.step-num {
-  width: 64px; height: 64px;
-  background: var(--navy); color: var(--white);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif;
-  font-size: 1.3rem; font-weight: 800;
   margin-bottom: 1.25rem;
-  position: relative; z-index: 1;
-  border: 3px solid var(--accent);
 }
-.step-item:last-child .step-num { background: var(--accent); }
-.step-item h3 { font-size: .98rem; font-weight: 700; margin-bottom: .5rem; }
-.step-item p { font-size: .84rem; color: #556070; line-height: 1.7; }
+.card-icon svg { width: 22px; height: 22px; }
+.card h3 {
+  font-size: 1rem; font-weight: 700;
+  color: var(--white); margin-bottom: .6rem;
+}
+.card p { font-size: .87rem; color: var(--gray); line-height: 1.85; }
 
-/* ── FAQ ── */
-.faq-list { display: flex; flex-direction: column; border: 1.5px solid var(--gray-lt); border-radius: 12px; overflow: hidden; }
-.faq-item { border-bottom: 1px solid var(--gray-lt); }
-.faq-item:last-child { border-bottom: none; }
-.faq-q {
-  width: 100%; background: #fff; border: none;
-  padding: 1.4rem 1.75rem;
-  text-align: left;
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: .94rem; font-weight: 700; color: var(--text);
-  cursor: pointer;
-  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-  transition: background .2s;
-}
-.faq-q:hover { background: #fafafa; }
-.faq-q.open { background: #fff8f5; }
-.faq-icon {
-  min-width: 26px; height: 26px;
-  border: 2px solid var(--gray-lt); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem; color: var(--gray); line-height: 1;
-  transition: all .3s; flex-shrink: 0;
-}
-.faq-q.open .faq-icon { background: var(--accent); border-color: var(--accent); color: #fff; transform: rotate(45deg); }
-.faq-a { display: none; padding: 0 1.75rem 1.4rem; font-size: .9rem; color: #556070; line-height: 1.9; background: #fff; }
-.faq-a.open { display: block; }
+/* ── GRID HELPERS ── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
 
-/* ── FORM ── */
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-.form-group label { font-size: .82rem; font-weight: 700; }
-.form-label-dark { color: rgba(255,255,255,.7); }
-.required-mark { color: var(--accent); margin-left: 4px; }
-.form-input, .form-select, .form-textarea {
-  border-radius: 8px;
-  padding: 13px 16px;
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: .9rem;
-  outline: none;
-  transition: border-color .2s, background .2s;
+/* ── DIVIDER GRID (bordered) ── */
+.div-grid {
+  display: grid;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 16px; overflow: hidden;
+  gap: 1px;
 }
-.form-input-dark, .form-select-dark, .form-textarea-dark {
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.12);
-  color: var(--white);
+.div-grid > * { background: var(--navy-2); }
+
+/* ── TAGS / BADGES ── */
+.badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 13px; border-radius: 99px;
+  font-size: .7rem; font-weight: 700; letter-spacing: .08em;
 }
-.form-input-dark::placeholder, .form-textarea-dark::placeholder { color: rgba(255,255,255,.3); }
-.form-input-dark:focus, .form-select-dark:focus, .form-textarea-dark:focus {
-  border-color: var(--accent);
-  background: rgba(255,255,255,.09);
+.badge-accent {
+  background: rgba(255,107,53,.12);
+  border: 1px solid rgba(255,107,53,.3);
+  color: var(--accent);
 }
-.form-select-dark option { background: var(--navy); color: var(--white); }
-.form-textarea { resize: vertical; min-height: 120px; }
-.radio-group { display: flex; gap: 1rem; flex-wrap: wrap; }
-.radio-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: .9rem; }
-.radio-label input { accent-color: var(--accent); }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-.form-stack { display: flex; flex-direction: column; gap: 1.25rem; }
-
-/* ── BADGE ── */
-.badge { padding: 3px 10px; border-radius: 12px; font-size: .72rem; font-weight: 700; }
-.badge-in  { background: rgba(52,211,153,.15); color: #34d399; }
-.badge-out { background: rgba(148,163,184,.15); color: #94a3b8; }
-.badge-new { background: rgba(255,107,53,.15); color: var(--accent); }
-
-/* ── ANIMATIONS ── */
-.fade-up { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-.fade-up:nth-child(2) { transition-delay: .1s; }
-.fade-up:nth-child(3) { transition-delay: .2s; }
-.fade-up:nth-child(4) { transition-delay: .3s; }
-
-/* ── SUCCESS BANNER ── */
-.success-banner {
-  display: none;
-  background: #dcfce7; border: 1.5px solid #86efac;
-  border-radius: 10px; padding: 1.25rem 1.75rem;
-  color: #15803d; font-weight: 700; font-size: .95rem;
-  margin-top: 1.5rem;
+.badge-gold {
+  background: rgba(245,200,66,.1);
+  border: 1px solid rgba(245,200,66,.3);
+  color: var(--gold);
+}
+.badge-mango {
+  background: rgba(255,140,0,.12);
+  border: 1px solid rgba(255,140,0,.3);
+  color: var(--mango);
+}
+.badge-green {
+  background: rgba(34,197,94,.1);
+  border: 1px solid rgba(34,197,94,.3);
+  color: #4ade80;
 }
 
-/* ── BREADCRUMB ── */
-.breadcrumb { display: flex; align-items: center; gap: .5rem; margin-bottom: 1.5rem; }
-.breadcrumb a { color: rgba(255,255,255,.45); font-size: .82rem; }
-.breadcrumb a:hover { color: rgba(255,255,255,.8); }
-.breadcrumb span { color: rgba(255,255,255,.25); font-size: .82rem; }
-.breadcrumb .current { color: rgba(255,255,255,.7); font-size: .82rem; }
+/* ── CHECK LIST ── */
+.check-list { display: flex; flex-direction: column; gap: .6rem; }
+.check-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: .87rem; color: rgba(255,255,255,.8); line-height: 1.7;
+}
+.check-list li::before {
+  content: '';
+  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+  background: rgba(34,197,94,.15)
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9l3.5 3.5L14 5.5' stroke='%2322c55e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E")
+    center / contain;
+}
+.check-list.accent li::before {
+  background: rgba(255,107,53,.12)
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9l3.5 3.5L14 5.5' stroke='%23ff6b35' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E")
+    center / contain;
+}
 
-/* ── NOTICE ── */
-.notice {
-  background: rgba(255,107,53,.08);
+/* ── PULSE DOT ── */
+.pulse-dot {
+  width: 7px; height: 7px; background: var(--accent);
+  border-radius: 50%; flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(255,107,53,.5); }
+  50%      { opacity:.5; box-shadow: 0 0 0 6px rgba(255,107,53,0); }
+}
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+.reveal-delay-4 { transition-delay: .4s; }
+.reveal-delay-5 { transition-delay: .5s; }
+
+/* ── CTA BAND ── */
+.cta-band {
+  padding: 80px 0;
+  background: var(--navy-2);
+}
+.cta-band-inner {
+  background: linear-gradient(135deg, rgba(255,107,53,.14) 0%, rgba(22,40,71,1) 65%);
   border: 1px solid rgba(255,107,53,.2);
-  border-radius: 8px; padding: 1rem 1.25rem;
-  font-size: .88rem; color: #556070; line-height: 1.8;
+  border-radius: 20px; padding: 3.5rem 4rem;
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 2rem; flex-wrap: wrap;
+}
+.cta-band-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+  font-weight: 900; line-height: 1.2;
+  letter-spacing: -.025em; color: var(--white);
+  margin-bottom: .6rem;
+}
+.cta-band-sub { font-size: .9rem; color: var(--gray); line-height: 1.75; }
+.cta-band-btns { display: flex; gap: 1rem; flex-wrap: wrap; flex-shrink: 0; }
+
+/* ── FOOTER ── */
+.site-footer {
+  background: #060e1c;
+  border-top: 1px solid rgba(255,255,255,.05);
+  padding: 4rem 0 0;
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.footer-brand .logo { margin-bottom: 1rem; }
+.footer-brand p { font-size: .82rem; color: var(--gray); line-height: 1.8; }
+.footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.footer-col h4 {
+  font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: rgba(255,255,255,.45);
+  margin-bottom: .9rem;
+}
+.footer-col ul { display: flex; flex-direction: column; gap: .55rem; }
+.footer-col ul li a {
+  font-size: .82rem; color: var(--gray); transition: color .15s;
+}
+.footer-col ul li a:hover { color: var(--accent); }
+.footer-bottom {
+  padding: 1.5rem 0;
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-bottom p { font-size: .73rem; color: rgba(255,255,255,.2); }
+.footer-bottom-links { display: flex; gap: 1.5rem; }
+.footer-bottom-links a {
+  font-size: .73rem; color: rgba(255,255,255,.2); transition: color .15s;
+}
+.footer-bottom-links a:hover { color: var(--gray); }
+
+/* ── MONOSPACE / CODE ── */
+.mono { font-family: 'DM Mono', monospace; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--navy-2); }
+::-webkit-scrollbar-thumb { background: var(--navy-4); border-radius: 3px; }
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .footer-links { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 960px) {
-  .footer-main { grid-template-columns: 1fr 1fr; }
-  .steps-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-  .steps-grid::before { display: none; }
+@media (max-width: 768px) {
+  :root { --header-h: 60px; }
+  .site-nav, .nav-cta { display: none; }
+  .hamburger-btn { display: flex; }
+  .section { padding: 72px 0; }
+  .section-sm { padding: 50px 0; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .cta-band-inner { flex-direction: column; text-align: center; padding: 2.5rem 2rem; }
+  .cta-band-btns { justify-content: center; }
+  .footer-links { grid-template-columns: repeat(2, 1fr); }
+  .page-hero { padding: calc(var(--header-h) + 40px) 0 50px; }
 }
 
-@media (max-width: 680px) {
-  .site-nav { display: none; }
-  .hamburger { display: flex; }
-  .footer-main { grid-template-columns: 1fr; gap: 2rem; }
-  .form-row { grid-template-columns: 1fr; }
-  .steps-grid { grid-template-columns: 1fr 1fr; }
-  .section { padding: 70px 0; }
-  .page-hero { padding: 120px 0 60px; }
+@media (max-width: 480px) {
+  .grid-4 { grid-template-columns: 1fr; }
+  .footer-links { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .btn-lg { padding: 15px 28px; font-size: .95rem; }
+  .page-hero h1 { font-size: clamp(1.9rem, 8vw, 2.8rem); }
+  .section-title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
 }
 
-</style>
-<style>
-.faq-category { margin-bottom: 3rem; }
-.faq-category-title {
-  font-size: 1rem; font-weight: 700; color: var(--gray);
-  letter-spacing: .05em; text-transform: uppercase;
-  margin-bottom: 1.25rem; display: flex; align-items: center; gap: .75rem;
-}
-.faq-category-title::after {
-  content: ''; flex: 1; height: 1px; background: var(--gray-lt);
-}
-/* skeleton */
-.skeleton-faq { border-radius: 12px; overflow: hidden; border: 1.5px solid var(--gray-lt); animation: shimmer 1.5s infinite; }
-@keyframes shimmer { 0%,100%{background:#f9fafb} 50%{background:#f0f0f0} }
-.skeleton-faq-item { height: 60px; border-bottom: 1px solid var(--gray-lt); background: #f9fafb; display: flex; align-items: center; padding: 0 1.75rem; }
-.skeleton-line { height: 14px; background: #e8e8e8; border-radius: 4px; width: 55%; }
-.error-state { text-align:center; padding:4rem 2rem; background:#fef2f2; border-radius:14px; border:1px solid #fecaca; margin-top:2rem; }
-.error-state p { color:#dc2626; margin-bottom:1.5rem; }
+
+.faq-categories{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:3rem}
+.faq-cat-btn{padding:8px 18px;border-radius:99px;font-size:.8rem;font-weight:700;cursor:pointer;border:1.5px solid rgba(255,255,255,.12);color:var(--gray);background:transparent;transition:all .2s;font-family:'Noto Sans JP',sans-serif}
+.faq-cat-btn:hover{color:var(--white);border-color:rgba(255,255,255,.3)}
+.faq-cat-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.faq-grid{max-width:820px;margin:0 auto}
+.faq-section-title{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);margin:2.5rem 0 .75rem;display:flex;align-items:center;gap:8px}
+.faq-section-title::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.06)}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.07)}
+.faq-trigger{width:100%;background:none;border:none;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0;cursor:pointer;font-family:'Noto Sans JP',sans-serif;font-size:.95rem;font-weight:700;color:var(--white);text-align:left;gap:1.5rem;transition:color .15s}
+.faq-trigger:hover{color:var(--accent)}
+.faq-icon{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;line-height:1;transition:all .25s;color:var(--gray)}
+.faq-item.open .faq-trigger{color:var(--accent)}
+.faq-item.open .faq-icon{transform:rotate(45deg);border-color:var(--accent);background:var(--accent);color:#fff}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s;font-size:.9rem;color:var(--gray);line-height:1.9}
+.faq-item.open .faq-answer{max-height:300px;padding-bottom:1.5rem}
+.contact-box{background:var(--navy-3);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:2.5rem;text-align:center;margin-top:3rem}
+.contact-box h3{font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:.75rem}
+.contact-box p{font-size:.88rem;color:var(--gray);line-height:1.8;margin-bottom:1.75rem}
+
 </style>
 </head>
 <body>
-<header class="site-header">
+<header class="site-header" id="site-header">
   <div class="header-inner">
-    <a href="index.html" class="logo">Quick<span>Shift</span> DX</a>
-    <nav class="site-nav">
-      <a href="services.html">サービス</a><a href="product/time-shift.html">勤怠・シフト</a>
-      <a href="process.html">導入の流れ</a><a href="pricing.html">料金</a>
-      <a href="cases.html">事例</a><a href="faq.html">FAQ</a><a href="company.html">会社概要</a>
-      <a href="contact.html" class="btn btn-primary">無料相談する</a>
-    </nav>
-    <button class="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <a href="index.html" class="logo"><div class="logo-mark">Q</div>QuickShift DX</a>
+    <nav class="site-nav">      <a href="services.html">サービス</a>
+      <a href="cases.html">導入事例</a>
+      <a href="pricing.html">料金</a>
+      <a href="process.html">流れ</a>
+      <a href="company.html">会社情報</a>
+      <a href="faq.html" class="active">FAQ</a></nav>
+    <a href="contact.html" class="btn btn-primary nav-cta">無料相談する</a>
+    <button class="hamburger-btn" onclick="openNav()"><span></span><span></span><span></span></button>
   </div>
 </header>
-<nav class="mobile-nav">
-  <a href="index.html">トップ</a><a href="services.html">サービス</a>
-  <a href="product/time-shift.html">勤怠・シフトWeb化パック</a><a href="process.html">導入の流れ</a>
-  <a href="pricing.html">料金</a><a href="cases.html">事例・ユースケース</a>
-  <a href="faq.html">よくある質問</a><a href="company.html">会社概要</a>
-  <a href="contact.html" class="btn btn-primary" style="border-radius:8px;text-align:center;">無料相談する</a>
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" onclick="closeNav()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <a href="index.html">ホーム</a>
+  <a href="services.html">サービス</a>
+  <a href="cases.html">導入事例</a>
+  <a href="pricing.html">料金</a>
+  <a href="process.html">流れ</a>
+  <a href="company.html">会社情報</a>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html" class="btn btn-primary">無料相談する</a>
 </nav>
 
 <section class="page-hero">
   <div class="container">
-    <nav class="breadcrumb"><a href="index.html">トップ</a><span>›</span><span class="current">よくある質問</span></nav>
-    <div class="section-tag">よくある質問</div>
-    <h1>疑問に<em>お答え</em>します</h1>
-    <p>よくいただくご質問をまとめました。ここにない質問はお気軽にお問い合わせください。</p>
+    <nav class="breadcrumb"><a href="index.html">ホーム</a><span class="breadcrumb-sep">/</span><span class="breadcrumb-cur">よくある質問</span></nav>
+    <div class="section-label reveal">よくある質問</div>
+    <h1 class="reveal reveal-delay-1">疑問に<em>お答え</em>します</h1>
+    <p class="lead reveal reveal-delay-2">よくいただくご質問をまとめました。ここにない質問はお気軽にお問い合わせください。</p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container" style="max-width:800px">
+<section class="section bg2">
+  <div class="container">
+    <div class="faq-grid reveal">
+      <div class="faq-section-title">導入・開発</div>
+<div class="faq-item">
+  <button class="faq-trigger">本当に2週間で完成しますか？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">シフト・勤怠管理パックは標準で2週間を目安にしています。内容の複雑さや要件によって前後しますが、まずヒアリングで正確なスケジュールをお伝えします。フルカスタムの場合は1〜2ヶ月程度かかります。</div>
+</div>
+<div class="faq-item">
+  <button class="faq-trigger">スマホに不慣れなスタッフでも使えますか？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">はい。現場スタッフが迷わず使えるよう、シンプルなUIで設計します。導入時には操作説明会も実施しており、実際に60代の方も問題なく使っていただいています。</div>
+</div>
+<div class="faq-item">
+  <button class="faq-trigger">既存のExcelデータは移行できますか？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">はい、対応可能です。Excelの構造を確認した上で、データ移行作業を含めた提案をいたします。移行に別途費用が発生する場合は事前にご案内します。</div>
+</div>
+<div class="faq-item">
+  <button class="faq-trigger">対面での対応は可能ですか？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">基本はオンライン（Zoom等）対応ですが、関東エリアであれば対面での訪問も対応可能です。まずはオンラインでヒアリングを行い、必要に応じて現地訪問をご提案します。</div>
+</div>
+<div class="faq-section-title">機能・仕様</div>
+<div class="faq-item">
+  <button class="faq-trigger">深夜跨ぎシフト（24時以降）に対応していますか？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">はい。居酒屋・夜間営業の現場では必須の機能として標準で対応しています。24時以降のシフト計算・勤務時間の正確な集計も問題なく動作します。</div>
+</div>
+<div class="faq-item">
+  <button class="faq-trigger">複数店舗をまとめて管理できますか？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">はい、オプションで対応可能です。店舗ごとのシフト管理・スタッフ共有・本部ダッシュボードによる一元管理まで実現できます。追加費用については料金ページをご確認ください。</div>
+</div>
+<div class="faq-item">
+  <button class="faq-trigger">給与明細書システムは後から追加できますか？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">はい。シフト・勤怠パックを導入後、タイミングに合わせて明細書システムをオプションで追加できます。過去の作業記録からも明細書を生成できます。</div>
+</div>
+<div class="faq-item">
+  <button class="faq-trigger">データのバックアップはどうなっていますか？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">月次サポートプランにご加入の場合、定期バックアップを実施します。データはクラウドに保存されており、万一の際も復元可能な体制を整えています。</div>
+</div>
+<div class="faq-section-title">料金・契約</div>
+<div class="faq-item">
+  <button class="faq-trigger">相談・見積もりは本当に無料ですか？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">はい、完全無料です。ヒアリング・業務フロー整理・お見積もり提示まで一切費用はかかりません。その後のご契約もご自身のタイミングで判断いただけます。</div>
+</div>
+<div class="faq-item">
+  <button class="faq-trigger">途中でキャンセルはできますか？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">開発開始後は一定の費用が発生する場合がありますが、着手前であればキャンセルは無料です。詳細は個別にご相談ください。</div>
+</div>
+<div class="faq-item">
+  <button class="faq-trigger">月額サポートは必須ですか？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">初期費用のみのご契約も可能です。ただし、納品後のバグ修正・機能追加が必要な場合は月次サポートプランをお勧めしています。</div>
+</div>
+<div class="faq-item">
+  <button class="faq-trigger">支払い方法は何がありますか？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">銀行振込に対応しています。初期費用は着手金50%・納品後50%の分割払いが標準です。月額は月末締め翌月払いとなります。</div>
+</div>
+<div class="faq-section-title">サポート</div>
+<div class="faq-item">
+  <button class="faq-trigger">納品後のサポートはどうなりますか？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">納品後3ヶ月は無償でバグ対応します。その後は月次サポートプランにご加入いただくことで、機能追加・改修・MTGを継続して受けられます。スポット対応も承っています。</div>
+</div>
+<div class="faq-item">
+  <button class="faq-trigger">操作で分からないことがあったら？<span class="faq-icon">+</span></button>
+  <div class="faq-answer">月次サポートプランご加入の場合、チャット・メールでのサポートを平日に対応しています。操作マニュアルも納品時に提供します。</div>
+</div>
 
-    <!-- ローディング -->
-    <div id="loadingState">
-      <div class="skeleton-faq" style="margin-bottom:2.5rem">
-        <div class="skeleton-faq-item"><div class="skeleton-line"></div></div>
-        <div class="skeleton-faq-item"><div class="skeleton-line" style="width:70%"></div></div>
-        <div class="skeleton-faq-item"><div class="skeleton-line" style="width:45%"></div></div>
+      <div class="contact-box">
+        <h3>ここにない質問は？</h3>
+        <p>お気軽にお問い合わせください。<br>メール・フォームにてお答えします（通常24時間以内）。</p>
+        <a href="contact.html" class="btn btn-primary btn-lg">質問・相談をする →</a>
       </div>
-      <div class="skeleton-faq" style="margin-bottom:2.5rem">
-        <div class="skeleton-faq-item"><div class="skeleton-line" style="width:60%"></div></div>
-        <div class="skeleton-faq-item"><div class="skeleton-line"></div></div>
-        <div class="skeleton-faq-item"><div class="skeleton-line" style="width:50%"></div></div>
-        <div class="skeleton-faq-item"><div class="skeleton-line" style="width:65%"></div></div>
-      </div>
-    </div>
-
-    <!-- エラー -->
-    <div id="errorState" class="error-state" style="display:none">
-      <p>⚠️ FAQデータの読み込みに失敗しました。</p>
-      <button onclick="loadFaqs()" class="btn btn-outline-dark">再読み込み</button>
-    </div>
-
-    <!-- データ -->
-    <div id="faqContent" style="display:none"></div>
-
-    <!-- 末尾CTA（常時表示） -->
-    <div id="faqCta" style="display:none; margin-top:4rem; background:#f5f7fa; border-radius:14px; padding:2.5rem; text-align:center">
-      <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:.75rem">ここにない質問は？</h3>
-      <p style="color:#556070; margin-bottom:1.5rem">お気軽にお問い合わせください。通常2営業日以内にご返信します。</p>
-      <a href="contact.html" class="btn btn-primary">質問・相談をする →</a>
     </div>
   </div>
 </section>
 
-<footer class="site-footer"><div class="container">
-  <div class="footer-main">
-    <div class="footer-brand"><a href="index.html" class="logo">Quick<span>Shift</span> DX</a><p>飲食店・美容院の紙・手書き業務を最短2週間でWebに。現場に合わせて作るDX支援。</p></div>
-    <div class="footer-col"><h4>サービス</h4><ul><li><a href="services.html">DX支援サービス</a></li><li><a href="product/time-shift.html">勤怠・シフトWeb化パック</a></li><li><a href="pricing.html">料金</a></li></ul></div>
-    <div class="footer-col"><h4>導入</h4><ul><li><a href="process.html">導入の流れ</a></li><li><a href="cases.html">事例・ユースケース</a></li><li><a href="faq.html">よくある質問</a></li></ul></div>
-    <div class="footer-col"><h4>会社</h4><ul><li><a href="company.html">会社概要</a></li><li><a href="contact.html">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li><li><a href="terms.html">利用規約</a></li></ul></div>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><div class="logo-mark">Q</div>QuickShift DX</a>
+        <p>飲食店・美容院の紙・手書き業務を<br>最短2週間でWebに。現場ファーストのDX。</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col"><h4>サービス</h4><ul><li><a href="services.html">サービス一覧</a></li><li><a href="pricing.html">料金</a></li></ul></div>
+        <div class="footer-col"><h4>導入</h4><ul><li><a href="process.html">導入の流れ</a></li><li><a href="cases.html">導入事例</a></li><li><a href="faq.html">よくある質問</a></li></ul></div>
+        <div class="footer-col"><h4>会社</h4><ul><li><a href="company.html">会社概要</a></li><li><a href="contact.html">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li></ul></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 QuickShift DX. All rights reserved.</p><div class="footer-bottom-links"><a href="privacy.html">プライバシーポリシー</a><a href="terms.html">利用規約</a></div></div>
   </div>
-  <div class="footer-bottom"><p>© 2024 QuickShift DX株式会社</p><div class="footer-bottom-links"><a href="privacy.html">プライバシーポリシー</a><a href="terms.html">利用規約</a></div></div>
-</div></footer>
-<div class="floating-cta"><a href="contact.html" class="btn btn-primary">無料相談する →</a></div>
-
+</footer>
 <script>
-/* ===== QuickShift DX — Shared JS ===== */
-
-document.addEventListener('DOMContentLoaded', () => {
-
-  // ── Active nav link based on current page
-  const currentPath = window.location.pathname.replace(/\/$/, '') || '/index.html';
-  document.querySelectorAll('.site-nav a, .mobile-nav a').forEach(a => {
-    const href = a.getAttribute('href');
-    if (!href) return;
-    const normalized = href.replace(/\/$/, '');
-    if (currentPath.endsWith(normalized) && normalized !== '' && normalized !== '/') {
-      a.classList.add('active');
-    } else if ((currentPath === '/' || currentPath.endsWith('index.html')) && (href === '/' || href === 'index.html' || href === './index.html')) {
-      a.classList.add('active');
-    }
-  });
-
-  // ── Hamburger menu
-  const hamburger = document.querySelector('.hamburger');
-  const mobileNav = document.querySelector('.mobile-nav');
-  if (hamburger && mobileNav) {
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobileNav.classList.toggle('open');
-      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
-    });
-    mobileNav.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        mobileNav.classList.remove('open');
-        document.body.style.overflow = '';
-      });
-    });
-  }
-
-  // ── Scroll: floating CTA
-  const floatingCta = document.querySelector('.floating-cta');
-  if (floatingCta) {
-    window.addEventListener('scroll', () => {
-      floatingCta.classList.toggle('visible', window.scrollY > 500);
-    }, { passive: true });
-  }
-
-  // ── Intersection observer: fade-up
-  const fadeEls = document.querySelectorAll('.fade-up');
-  if (fadeEls.length) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    fadeEls.forEach(el => io.observe(el));
-  }
-
-  // ── FAQ accordion
-  document.querySelectorAll('.faq-q').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const answer = btn.nextElementSibling;
-      const isOpen = btn.classList.contains('open');
-      document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
-      document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
-      if (!isOpen) {
-        btn.classList.add('open');
-        answer.classList.add('open');
-      }
-    });
-  });
-
-  // ── Contact form submit (via Netlify Function)
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = contactForm.querySelector('.submit-btn');
-      const banner = document.getElementById('successBanner');
-      const errBanner = document.getElementById('errorBanner');
-
-      btn.textContent = '送信中...';
-      btn.disabled = true;
-      if (errBanner) errBanner.style.display = 'none';
-
-      const data = {
-        shopName:    contactForm.shopName.value,
-        name:        contactForm.personName.value,
-        email:       contactForm.email.value,
-        phone:       contactForm.phone?.value || '',
-        industry:    contactForm.industry.value,
-        staffCount:  contactForm.staffCount.value,
-        message:     contactForm.message.value,
-        contactPref: contactForm.contactPref.value,
-      };
-
-      try {
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
-        const json = await res.json();
-        if (res.ok && json.success) {
-          btn.textContent = '送信完了 ✓';
-          if (banner) banner.style.display = 'block';
-          contactForm.reset();
-          banner?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        } else {
-          throw new Error(json.error || '送信失敗');
-        }
-      } catch (err) {
-        btn.textContent = '送信する →';
-        btn.disabled = false;
-        if (errBanner) {
-          errBanner.textContent = `⚠️ ${err.message}`;
-          errBanner.style.display = 'block';
-        }
-      }
-    });
-  }
-
-});
-
-</script>
-<script>
-const CATEGORY_ICONS = {
-  '導入・準備':       '📦',
-  '機能・仕様':       '⚙️',
-  'セキュリティ・データ': '🔒',
-  '料金・契約':       '💰',
-  'サポート':         '🛠️',
-};
-
-function esc(str) {
-  if (!str) return '';
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function renderFaqs(faqs) {
-  // カテゴリ別グルーピング
-  const groups = {};
-  faqs.forEach(f => {
-    const cat = f.category || 'その他';
-    if (!groups[cat]) groups[cat] = [];
-    groups[cat].push(f);
-  });
-
-  return Object.entries(groups).map(([cat, items]) => {
-    const icon = CATEGORY_ICONS[cat] || '❓';
-    const itemsHtml = items.map(f => `
-      <div class="faq-item">
-        <button class="faq-q">${esc(f.question)}<span class="faq-icon">+</span></button>
-        <div class="faq-a">${esc(f.answer)}</div>
-      </div>
-    `).join('');
-    return `
-      <div class="faq-category">
-        <div class="faq-category-title">${icon} ${esc(cat)}</div>
-        <div class="faq-list">${itemsHtml}</div>
-      </div>
-    `;
-  }).join('');
-}
-
-async function loadFaqs() {
-  const loadEl    = document.getElementById('loadingState');
-  const errEl     = document.getElementById('errorState');
-  const contentEl = document.getElementById('faqContent');
-  const ctaEl     = document.getElementById('faqCta');
-
-  loadEl.style.display='block'; errEl.style.display='none'; contentEl.style.display='none'; ctaEl.style.display='none';
-
-  try {
-    const res = await fetch('/api/content?type=faqs');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const { faqs } = await res.json();
-
-    loadEl.style.display = 'none';
-
-    if (!faqs || !faqs.length) {
-      contentEl.innerHTML = '<p style="color:#556070; padding:2rem 0">現在、FAQを準備中です。お問い合わせよりご相談ください。</p>';
-    } else {
-      contentEl.innerHTML = renderFaqs(faqs);
-    }
-
-    contentEl.style.display = 'block';
-    ctaEl.style.display = 'block';
-
-    // FAQ accordion を再初期化（main.js の querySelectorAll は DOM 生成前に走るため）
-    contentEl.querySelectorAll('.faq-q').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const answer = btn.nextElementSibling;
-        const isOpen = btn.classList.contains('open');
-        document.querySelectorAll('.faq-q').forEach(q=>q.classList.remove('open'));
-        document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
-        if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
-      });
-    });
-
-  } catch(err) {
-    console.error(err);
-    loadEl.style.display = 'none';
-    errEl.style.display  = 'block';
-    ctaEl.style.display  = 'block';
-  }
-}
-
-loadFaqs();
+const hdr=document.getElementById("site-header");
+window.addEventListener("scroll",()=>hdr.classList.toggle("scrolled",window.scrollY>40),{passive:true});
+function openNav(){document.getElementById("mobile-nav").classList.add("open");document.body.style.overflow="hidden"}
+function closeNav(){document.getElementById("mobile-nav").classList.remove("open");document.body.style.overflow=""}
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible")}),{threshold:.08,rootMargin:"0px 0px -30px 0px"});
+document.querySelectorAll(".reveal").forEach(el=>ro.observe(el));
+document.querySelectorAll("[data-counter]").forEach(el=>{
+  const obs=new IntersectionObserver(([e])=>{if(!e.isIntersecting)return;obs.disconnect();
+  const t=parseFloat(el.dataset.counter),d=el.dataset.counter.includes(".")?1:0;
+  let c=0;const s=t/60;const tm=setInterval(()=>{c=Math.min(c+s,t);el.textContent=d?c.toFixed(1):Math.floor(c);if(c>=t)clearInterval(tm)},16)},{threshold:.5});obs.observe(el)});
+document.querySelectorAll(".faq-trigger").forEach(btn=>{btn.addEventListener("click",()=>{
+  const item=btn.closest(".faq-item"),isOpen=item.classList.contains("open");
+  document.querySelectorAll(".faq-item.open").forEach(i=>i.classList.remove("open"));
+  if(!isOpen)item.classList.add("open")})});
 </script>
 </body>
 </html>

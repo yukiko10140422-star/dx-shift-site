@@ -1,639 +1,691 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>お問い合わせ | QuickShift DX</title>
-<meta name="description" content="QuickShift DXへのお問い合わせ・無料相談・デモ依頼はこちら。飲食店・美容院の業務Web化について、まずはお気軽にご相談ください。">
+<meta name="description" content="QuickShift DXへの無料相談・デモ依頼。24時間以内にご返信します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Syne:wght@700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ===== QuickShift DX — Shared Styles ===== */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Syne:wght@700;800&display=swap');
+/* =====================================================
+   QuickShift DX — Unified Design System 2025
+   Theme: Industrial Warm / Tech-Forward (Dark)
+   Fonts: Syne (display) · Noto Sans JP (body) · DM Mono (code)
+===================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Syne:wght@700;800;900&family=DM+Mono:wght@400;500&display=swap');
 
+/* ── CSS VARIABLES ── */
 :root {
-  --navy:       #0d1b2a;
-  --navy-mid:   #162032;
-  --navy-light: #1e2f45;
-  --accent:     #ff6b35;
-  --accent-lt:  #ff8c5a;
-  --white:      #fafaf8;
-  --gray:       #8a9bb0;
-  --gray-lt:    #e8edf3;
-  --text:       #1a2738;
-  --max-w:      1200px;
+  --navy:      #0a1628;
+  --navy-2:    #0f1f38;
+  --navy-3:    #162847;
+  --navy-4:    #1e3354;
+  --accent:    #ff6b35;
+  --accent-2:  #ff9460;
+  --gold:      #f5c842;
+  --mango:     #ff8c00;
+  --white:     #f8f6f2;
+  --gray:      #7a8fa8;
+  --gray-lt:   #b0c0d4;
+  --green:     #22c55e;
+  --radius:    14px;
+  --radius-sm: 8px;
+  --max-w:     1240px;
+  --header-h:  66px;
 }
 
+/* ── RESET ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 16px; }
 body {
   font-family: 'Noto Sans JP', sans-serif;
-  background: var(--white);
-  color: var(--text);
+  background: var(--navy);
+  color: var(--white);
   overflow-x: hidden;
+  line-height: 1.7;
 }
+a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
-a { text-decoration: none; }
+ul, ol { list-style: none; }
+button { font-family: inherit; cursor: pointer; }
 
-/* ── CONTAINER ── */
-.container { max-width: var(--max-w); margin: 0 auto; padding: 0 5%; }
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: .3;
+}
 
-/* ── BUTTONS ── */
-.btn {
-  display: inline-block;
-  padding: 12px 26px;
-  border-radius: 7px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
-  font-family: 'Noto Sans JP', sans-serif;
-  line-height: 1;
-}
-.btn-primary { background: var(--accent); color: #fff; }
-.btn-primary:hover {
-  background: var(--accent-lt);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255,107,53,.4);
-}
-.btn-outline { background: transparent; border: 1.5px solid rgba(255,255,255,.3); color: var(--white); }
-.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-.btn-outline-dark { background: transparent; border: 1.5px solid var(--gray-lt); color: var(--text); }
-.btn-outline-dark:hover { border-color: var(--accent); color: var(--accent); }
-.btn-white { background: #fff; color: var(--accent); }
-.btn-white:hover { background: var(--navy); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.2); }
-.btn-lg { padding: 16px 36px; font-size: 1.05rem; border-radius: 9px; }
-.btn-block { display: block; text-align: center; width: 100%; }
-
-/* ── HEADER ── */
-.site-header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 200;
-  background: rgba(13,27,42,.96);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  height: 64px;
-}
-.header-inner {
+/* ── LAYOUT ── */
+.container {
   max-width: var(--max-w);
   margin: 0 auto;
   padding: 0 5%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+.section { padding: 100px 0; }
+.section-sm { padding: 70px 0; }
+.bg-navy-2 { background: var(--navy-2); }
+.bg-navy-3 { background: var(--navy-3); }
+
+/* ── TYPOGRAPHY ── */
+.section-label {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: .7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1rem;
+}
+.section-label::before {
+  content: ''; width: 24px; height: 2px;
+  background: var(--accent); flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 900; line-height: 1.08;
+  letter-spacing: -.03em; color: var(--white);
+  margin-bottom: 1.25rem;
+}
+.section-title em { font-style: normal; color: var(--accent); }
+.section-sub {
+  font-size: clamp(.9rem, 1.5vw, 1rem);
+  color: var(--gray); line-height: 1.9;
+  max-width: 560px;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px; border-radius: 9px;
+  font-weight: 700; font-size: .88rem;
+  cursor: pointer; transition: all .2s ease;
+  border: none; font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1; white-space: nowrap;
+}
+.btn-primary {
+  background: var(--accent); color: #fff;
+  box-shadow: 0 4px 20px rgba(255,107,53,.3);
+}
+.btn-primary:hover {
+  background: var(--accent-2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(255,107,53,.5);
+}
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,.2);
+  color: var(--white);
+}
+.btn-outline:hover {
+  border-color: var(--accent); color: var(--accent);
+}
+.btn-gold {
+  background: var(--gold); color: var(--navy);
+  font-weight: 900; box-shadow: 0 4px 20px rgba(245,200,66,.25);
+}
+.btn-gold:hover {
+  background: #ffe06b; transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(245,200,66,.45);
+}
+.btn-ghost {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  color: var(--white);
+}
+.btn-ghost:hover { background: rgba(255,255,255,.1); }
+.btn-lg { padding: 17px 40px; font-size: 1rem; border-radius: 11px; }
+.btn-sm { padding: 9px 18px; font-size: .8rem; border-radius: 7px; }
+
+/* ── HEADER ── */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 500; height: var(--header-h);
+  background: rgba(10,22,40,.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  transition: border-color .3s;
+}
+.site-header.scrolled { border-bottom-color: rgba(255,107,53,.15); }
+.header-inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 0 5%;
+  height: 100%; display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
 }
 .logo {
+  display: flex; align-items: center; gap: 10px;
   font-family: 'Syne', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--white);
-  letter-spacing: -.02em;
+  font-size: 1.1rem; font-weight: 900; color: var(--white);
+  flex-shrink: 0;
 }
-.logo span { color: var(--accent); }
-.site-nav {
-  display: flex;
-  align-items: center;
-  gap: 1.6rem;
+.logo-mark {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: .85rem; font-weight: 900; color: #fff;
 }
+.site-nav { display: flex; align-items: center; gap: .1rem; }
 .site-nav a {
-  color: rgba(255,255,255,.7);
-  font-size: .84rem;
-  font-weight: 500;
-  transition: color .2s;
+  padding: 8px 12px; border-radius: 7px;
+  font-size: .82rem; font-weight: 500;
+  color: rgba(255,255,255,.55); transition: all .15s;
 }
-.site-nav a:hover, .site-nav a.active { color: var(--white); }
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 4px;
-  background: none;
-  border: none;
+.site-nav a:hover { color: var(--white); background: rgba(255,255,255,.07); }
+.site-nav a.active { color: var(--accent); }
+
+/* ── MOBILE NAV ── */
+.hamburger-btn {
+  display: none; background: none; border: none; color: var(--white);
+  flex-direction: column; gap: 5px; padding: 6px;
 }
-.hamburger span {
-  display: block;
-  width: 24px; height: 2px;
-  background: var(--white);
-  border-radius: 2px;
-  transition: all .3s;
+.hamburger-btn span {
+  display: block; width: 22px; height: 2px;
+  background: currentColor; border-radius: 2px;
+  transition: all .25s;
 }
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .mobile-nav {
-  display: none;
-  position: fixed;
-  top: 64px; left: 0; right: 0; bottom: 0;
-  background: var(--navy);
-  z-index: 190;
-  padding: 2rem 5%;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: none; position: fixed; inset: 0; z-index: 490;
+  background: rgba(10,22,40,.98); backdrop-filter: blur(24px);
+  padding: calc(var(--header-h) + 20px) 5% 40px;
+  flex-direction: column; gap: .35rem;
   overflow-y: auto;
 }
 .mobile-nav.open { display: flex; }
 .mobile-nav a {
-  color: var(--white);
-  font-size: 1.1rem;
-  font-weight: 700;
-  border-bottom: 1px solid rgba(255,255,255,.07);
-  padding-bottom: 1.25rem;
+  display: block; padding: 14px 0;
+  font-size: 1.1rem; font-weight: 700;
+  color: rgba(255,255,255,.7);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  transition: color .15s;
 }
-
-/* ── SECTION COMMONS ── */
-.section { padding: 100px 0; }
-.section-sm { padding: 70px 0; }
-.section-tag {
-  display: inline-block;
-  background: var(--accent);
-  color: #fff;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .1em;
-  padding: 4px 12px;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
+.mobile-nav a:hover { color: var(--accent); }
+.mobile-nav .btn { margin-top: 1.5rem; width: 100%; justify-content: center; }
+.mobile-nav-close {
+  position: fixed; top: 16px; right: 5%;
+  background: rgba(255,255,255,.08); border: none;
+  color: var(--white); width: 38px; height: 38px;
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 1.2rem; z-index: 491;
+  transition: background .15s;
 }
-h2.section-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 800;
-  letter-spacing: -.03em;
-  line-height: 1.15;
-  margin-bottom: 1rem;
-}
-.section-lead {
-  font-size: 1.05rem;
-  color: #556070;
-  line-height: 1.9;
-  max-width: 580px;
-  margin-bottom: 3rem;
-}
-.section-lead.wide { max-width: 720px; }
-
-/* dark variant */
-.bg-navy { background: var(--navy); }
-.bg-navy h2.section-title { color: var(--white); }
-.bg-navy .section-lead { color: var(--gray); }
-.bg-gray { background: #f5f7fa; }
+.mobile-nav-close:hover { background: rgba(255,255,255,.14); }
 
 /* ── PAGE HERO ── */
 .page-hero {
+  padding: calc(var(--header-h) + 60px) 0 70px;
   background: var(--navy);
-  padding: 140px 0 80px;
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
 }
 .page-hero::before {
   content: '';
-  position: absolute;
-  top: -30%; right: -10%;
+  position: absolute; top: -100px; right: -100px;
   width: 500px; height: 500px;
   background: radial-gradient(circle, rgba(255,107,53,.1) 0%, transparent 70%);
+  pointer-events: none;
 }
-.page-hero .section-tag { margin-bottom: 1.2rem; }
+.page-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+.page-hero .container { position: relative; z-index: 2; max-width: 820px; }
 .page-hero h1 {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  font-weight: 800;
-  color: var(--white);
-  letter-spacing: -.03em;
-  line-height: 1.1;
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
+  font-weight: 900; line-height: 1.05;
+  letter-spacing: -.04em; color: var(--white);
   margin-bottom: 1.25rem;
 }
 .page-hero h1 em { font-style: normal; color: var(--accent); }
-.page-hero p {
-  color: rgba(255,255,255,.65);
-  font-size: 1.1rem;
-  line-height: 1.85;
-  max-width: 560px;
+.page-hero .lead {
+  font-size: clamp(.9rem, 1.8vw, 1.05rem);
+  color: rgba(255,255,255,.6); line-height: 1.9;
+  max-width: 560px; margin-bottom: 2.5rem;
 }
-.page-hero .hero-cta { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+.page-hero .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-/* ── FOOTER ── */
-.site-footer {
-  background: var(--navy);
-  border-top: 1px solid rgba(255,255,255,.06);
+/* Breadcrumb */
+.breadcrumb {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 1.5rem; font-size: .78rem;
 }
-.footer-main {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 3rem;
-  padding: 4rem 0 3rem;
-}
-.footer-brand .logo { font-size: 1.4rem; margin-bottom: 1rem; }
-.footer-brand p { font-size: .85rem; color: var(--gray); line-height: 1.8; }
-.footer-col h4 { color: var(--white); font-size: .85rem; font-weight: 700; margin-bottom: 1.2rem; letter-spacing: .05em; }
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
-.footer-col ul a { color: var(--gray); font-size: .84rem; transition: color .2s; }
-.footer-col ul a:hover { color: var(--white); }
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,.06);
-  padding: 1.5rem 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.footer-bottom p { color: rgba(255,255,255,.3); font-size: .78rem; }
-.footer-bottom-links { display: flex; gap: 1.5rem; }
-.footer-bottom-links a { color: rgba(255,255,255,.35); font-size: .78rem; }
-.footer-bottom-links a:hover { color: rgba(255,255,255,.7); }
-
-/* ── FLOATING CTA ── */
-.floating-cta {
-  position: fixed;
-  bottom: 2rem; right: 2rem;
-  z-index: 180;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all .4s;
-  pointer-events: none;
-}
-.floating-cta.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
-.floating-cta .btn { box-shadow: 0 8px 30px rgba(255,107,53,.5); }
+.breadcrumb a { color: rgba(255,255,255,.35); transition: color .15s; }
+.breadcrumb a:hover { color: rgba(255,255,255,.7); }
+.breadcrumb-sep { color: rgba(255,255,255,.2); }
+.breadcrumb-current { color: rgba(255,255,255,.65); }
 
 /* ── CARDS ── */
 .card {
-  background: #fff;
-  border: 1.5px solid var(--gray-lt);
-  border-radius: 14px;
-  padding: 2.5rem;
-  transition: all .3s;
-  position: relative;
-  overflow: hidden;
-}
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .3s;
-}
-.card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,27,42,.12); border-color: var(--accent); }
-.card:hover::before { transform: scaleX(1); }
-
-.card-dark {
-  background: var(--navy-mid);
-  border: 1px solid rgba(255,255,255,.07);
-  border-radius: 14px;
-  padding: 2.5rem;
-  transition: all .3s;
-}
-.card-dark:hover { background: var(--navy-light); transform: translateY(-4px); }
-
-/* ── FEATURE LIST ── */
-.feature-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
-.feature-list li { display: flex; align-items: flex-start; gap: 12px; font-size: .93rem; line-height: 1.65; }
-.feature-list li::before {
-  content: '✓';
-  min-width: 22px; height: 22px;
-  background: var(--accent); color: #fff;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: .7rem; font-weight: 700;
-  margin-top: 1px; flex-shrink: 0;
-}
-
-/* ── PROCESS STEPS ── */
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  position: relative;
-  margin-top: 3rem;
-}
-.steps-grid::before {
-  content: '';
-  position: absolute;
-  top: 32px; left: 12%; right: 12%;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--gray-lt) 100%);
-}
-.step-item { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 1.25rem; }
-.step-num {
-  width: 64px; height: 64px;
-  background: var(--navy); color: var(--white);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif;
-  font-size: 1.3rem; font-weight: 800;
-  margin-bottom: 1.25rem;
-  position: relative; z-index: 1;
-  border: 3px solid var(--accent);
-}
-.step-item:last-child .step-num { background: var(--accent); }
-.step-item h3 { font-size: .98rem; font-weight: 700; margin-bottom: .5rem; }
-.step-item p { font-size: .84rem; color: #556070; line-height: 1.7; }
-
-/* ── FAQ ── */
-.faq-list { display: flex; flex-direction: column; border: 1.5px solid var(--gray-lt); border-radius: 12px; overflow: hidden; }
-.faq-item { border-bottom: 1px solid var(--gray-lt); }
-.faq-item:last-child { border-bottom: none; }
-.faq-q {
-  width: 100%; background: #fff; border: none;
-  padding: 1.4rem 1.75rem;
-  text-align: left;
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: .94rem; font-weight: 700; color: var(--text);
-  cursor: pointer;
-  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-  transition: background .2s;
-}
-.faq-q:hover { background: #fafafa; }
-.faq-q.open { background: #fff8f5; }
-.faq-icon {
-  min-width: 26px; height: 26px;
-  border: 2px solid var(--gray-lt); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem; color: var(--gray); line-height: 1;
-  transition: all .3s; flex-shrink: 0;
-}
-.faq-q.open .faq-icon { background: var(--accent); border-color: var(--accent); color: #fff; transform: rotate(45deg); }
-.faq-a { display: none; padding: 0 1.75rem 1.4rem; font-size: .9rem; color: #556070; line-height: 1.9; background: #fff; }
-.faq-a.open { display: block; }
-
-/* ── FORM ── */
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-.form-group label { font-size: .82rem; font-weight: 700; }
-.form-label-dark { color: rgba(255,255,255,.7); }
-.required-mark { color: var(--accent); margin-left: 4px; }
-.form-input, .form-select, .form-textarea {
-  border-radius: 8px;
-  padding: 13px 16px;
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: .9rem;
-  outline: none;
-  transition: border-color .2s, background .2s;
-}
-.form-input-dark, .form-select-dark, .form-textarea-dark {
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.12);
-  color: var(--white);
-}
-.form-input-dark::placeholder, .form-textarea-dark::placeholder { color: rgba(255,255,255,.3); }
-.form-input-dark:focus, .form-select-dark:focus, .form-textarea-dark:focus {
-  border-color: var(--accent);
-  background: rgba(255,255,255,.09);
-}
-.form-select-dark option { background: var(--navy); color: var(--white); }
-.form-textarea { resize: vertical; min-height: 120px; }
-.radio-group { display: flex; gap: 1rem; flex-wrap: wrap; }
-.radio-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: .9rem; }
-.radio-label input { accent-color: var(--accent); }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-.form-stack { display: flex; flex-direction: column; gap: 1.25rem; }
-
-/* ── BADGE ── */
-.badge { padding: 3px 10px; border-radius: 12px; font-size: .72rem; font-weight: 700; }
-.badge-in  { background: rgba(52,211,153,.15); color: #34d399; }
-.badge-out { background: rgba(148,163,184,.15); color: #94a3b8; }
-.badge-new { background: rgba(255,107,53,.15); color: var(--accent); }
-
-/* ── ANIMATIONS ── */
-.fade-up { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-.fade-up:nth-child(2) { transition-delay: .1s; }
-.fade-up:nth-child(3) { transition-delay: .2s; }
-.fade-up:nth-child(4) { transition-delay: .3s; }
-
-/* ── SUCCESS BANNER ── */
-.success-banner {
-  display: none;
-  background: #dcfce7; border: 1.5px solid #86efac;
-  border-radius: 10px; padding: 1.25rem 1.75rem;
-  color: #15803d; font-weight: 700; font-size: .95rem;
-  margin-top: 1.5rem;
-}
-
-/* ── BREADCRUMB ── */
-.breadcrumb { display: flex; align-items: center; gap: .5rem; margin-bottom: 1.5rem; }
-.breadcrumb a { color: rgba(255,255,255,.45); font-size: .82rem; }
-.breadcrumb a:hover { color: rgba(255,255,255,.8); }
-.breadcrumb span { color: rgba(255,255,255,.25); font-size: .82rem; }
-.breadcrumb .current { color: rgba(255,255,255,.7); font-size: .82rem; }
-
-/* ── NOTICE ── */
-.notice {
-  background: rgba(255,107,53,.08);
-  border: 1px solid rgba(255,107,53,.2);
-  border-radius: 8px; padding: 1rem 1.25rem;
-  font-size: .88rem; color: #556070; line-height: 1.8;
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 960px) {
-  .footer-main { grid-template-columns: 1fr 1fr; }
-  .steps-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-  .steps-grid::before { display: none; }
-}
-
-@media (max-width: 680px) {
-  .site-nav { display: none; }
-  .hamburger { display: flex; }
-  .footer-main { grid-template-columns: 1fr; gap: 2rem; }
-  .form-row { grid-template-columns: 1fr; }
-  .steps-grid { grid-template-columns: 1fr 1fr; }
-  .section { padding: 70px 0; }
-  .page-hero { padding: 120px 0 60px; }
-}
-
-</style>
-<style>
-.contact-layout {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 5rem;
-  align-items: start;
-}
-.contact-sidebar {
-  position: sticky;
-  top: 90px;
-}
-.sidebar-box {
-  background: var(--navy-mid);
+  background: var(--navy-3);
   border: 1px solid rgba(255,255,255,.08);
-  border-radius: 14px;
-  padding: 2rem;
-  margin-bottom: 1.5rem;
+  border-radius: var(--radius);
+  padding: 2.25rem;
+  transition: all .3s ease;
 }
-.sidebar-box h3 { color: var(--white); font-size: 1rem; font-weight: 700; margin-bottom: 1rem; }
-.sidebar-box p, .sidebar-box li { color: var(--gray); font-size: .88rem; line-height: 1.8; }
-.sidebar-box ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; padding: 0; }
-.sidebar-box ul li { display: flex; align-items: flex-start; gap: 8px; }
-.sidebar-box ul li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
-.error-banner {
-  display: none;
-  background: #fef2f2; border: 1.5px solid #fca5a5;
-  border-radius: 10px; padding: 1.25rem 1.75rem;
-  color: #dc2626; font-weight: 700; font-size: .9rem;
-  margin-top: 1.5rem;
+.card:hover {
+  border-color: rgba(255,107,53,.25);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,.3);
+}
+.card-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: rgba(255,107,53,.1);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.25rem;
+}
+.card-icon svg { width: 22px; height: 22px; }
+.card h3 {
+  font-size: 1rem; font-weight: 700;
+  color: var(--white); margin-bottom: .6rem;
+}
+.card p { font-size: .87rem; color: var(--gray); line-height: 1.85; }
+
+/* ── GRID HELPERS ── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+
+/* ── DIVIDER GRID (bordered) ── */
+.div-grid {
+  display: grid;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 16px; overflow: hidden;
+  gap: 1px;
+}
+.div-grid > * { background: var(--navy-2); }
+
+/* ── TAGS / BADGES ── */
+.badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 13px; border-radius: 99px;
+  font-size: .7rem; font-weight: 700; letter-spacing: .08em;
+}
+.badge-accent {
+  background: rgba(255,107,53,.12);
+  border: 1px solid rgba(255,107,53,.3);
+  color: var(--accent);
+}
+.badge-gold {
+  background: rgba(245,200,66,.1);
+  border: 1px solid rgba(245,200,66,.3);
+  color: var(--gold);
+}
+.badge-mango {
+  background: rgba(255,140,0,.12);
+  border: 1px solid rgba(255,140,0,.3);
+  color: var(--mango);
+}
+.badge-green {
+  background: rgba(34,197,94,.1);
+  border: 1px solid rgba(34,197,94,.3);
+  color: #4ade80;
 }
 
-  .contact-sidebar { position: static; }
+/* ── CHECK LIST ── */
+.check-list { display: flex; flex-direction: column; gap: .6rem; }
+.check-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: .87rem; color: rgba(255,255,255,.8); line-height: 1.7;
 }
+.check-list li::before {
+  content: '';
+  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+  background: rgba(34,197,94,.15)
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9l3.5 3.5L14 5.5' stroke='%2322c55e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E")
+    center / contain;
+}
+.check-list.accent li::before {
+  background: rgba(255,107,53,.12)
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9l3.5 3.5L14 5.5' stroke='%23ff6b35' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E")
+    center / contain;
+}
+
+/* ── PULSE DOT ── */
+.pulse-dot {
+  width: 7px; height: 7px; background: var(--accent);
+  border-radius: 50%; flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(255,107,53,.5); }
+  50%      { opacity:.5; box-shadow: 0 0 0 6px rgba(255,107,53,0); }
+}
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+.reveal-delay-4 { transition-delay: .4s; }
+.reveal-delay-5 { transition-delay: .5s; }
+
+/* ── CTA BAND ── */
+.cta-band {
+  padding: 80px 0;
+  background: var(--navy-2);
+}
+.cta-band-inner {
+  background: linear-gradient(135deg, rgba(255,107,53,.14) 0%, rgba(22,40,71,1) 65%);
+  border: 1px solid rgba(255,107,53,.2);
+  border-radius: 20px; padding: 3.5rem 4rem;
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 2rem; flex-wrap: wrap;
+}
+.cta-band-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+  font-weight: 900; line-height: 1.2;
+  letter-spacing: -.025em; color: var(--white);
+  margin-bottom: .6rem;
+}
+.cta-band-sub { font-size: .9rem; color: var(--gray); line-height: 1.75; }
+.cta-band-btns { display: flex; gap: 1rem; flex-wrap: wrap; flex-shrink: 0; }
+
+/* ── FOOTER ── */
+.site-footer {
+  background: #060e1c;
+  border-top: 1px solid rgba(255,255,255,.05);
+  padding: 4rem 0 0;
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.footer-brand .logo { margin-bottom: 1rem; }
+.footer-brand p { font-size: .82rem; color: var(--gray); line-height: 1.8; }
+.footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.footer-col h4 {
+  font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: rgba(255,255,255,.45);
+  margin-bottom: .9rem;
+}
+.footer-col ul { display: flex; flex-direction: column; gap: .55rem; }
+.footer-col ul li a {
+  font-size: .82rem; color: var(--gray); transition: color .15s;
+}
+.footer-col ul li a:hover { color: var(--accent); }
+.footer-bottom {
+  padding: 1.5rem 0;
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-bottom p { font-size: .73rem; color: rgba(255,255,255,.2); }
+.footer-bottom-links { display: flex; gap: 1.5rem; }
+.footer-bottom-links a {
+  font-size: .73rem; color: rgba(255,255,255,.2); transition: color .15s;
+}
+.footer-bottom-links a:hover { color: var(--gray); }
+
+/* ── MONOSPACE / CODE ── */
+.mono { font-family: 'DM Mono', monospace; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--navy-2); }
+::-webkit-scrollbar-thumb { background: var(--navy-4); border-radius: 3px; }
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .footer-links { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  :root { --header-h: 60px; }
+  .site-nav, .nav-cta { display: none; }
+  .hamburger-btn { display: flex; }
+  .section { padding: 72px 0; }
+  .section-sm { padding: 50px 0; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .cta-band-inner { flex-direction: column; text-align: center; padding: 2.5rem 2rem; }
+  .cta-band-btns { justify-content: center; }
+  .footer-links { grid-template-columns: repeat(2, 1fr); }
+  .page-hero { padding: calc(var(--header-h) + 40px) 0 50px; }
+}
+
+@media (max-width: 480px) {
+  .grid-4 { grid-template-columns: 1fr; }
+  .footer-links { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .btn-lg { padding: 15px 28px; font-size: .95rem; }
+  .page-hero h1 { font-size: clamp(1.9rem, 8vw, 2.8rem); }
+  .section-title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+}
+
+
+.contact-layout{display:grid;grid-template-columns:1fr 400px;gap:4rem;align-items:start}
+.contact-form-card{background:var(--navy-3);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:2.5rem}
+.form-group{margin-bottom:1.5rem}
+.form-label{display:block;font-size:.82rem;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:.6rem;letter-spacing:.04em}
+.form-label .required{color:var(--accent);margin-left:4px;font-size:.7rem}
+.form-input,.form-textarea,.form-select{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:9px;padding:12px 16px;font-size:.9rem;color:var(--white);font-family:'Noto Sans JP',sans-serif;transition:border-color .2s;outline:none;-webkit-appearance:none}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent)}
+.form-input::placeholder,.form-textarea::placeholder{color:rgba(255,255,255,.2)}
+.form-textarea{resize:vertical;min-height:120px}
+.form-select option{background:var(--navy-3)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-submit{width:100%;padding:16px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Noto Sans JP',sans-serif}
+.form-submit:hover{background:var(--accent-2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,53,.4)}
+.form-note{font-size:.75rem;color:var(--gray);text-align:center;margin-top:.75rem;line-height:1.7}
+.contact-info-card{background:var(--navy-3);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:2rem;margin-bottom:1.5rem}
+.contact-info-card h3{font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.contact-info-card h3 svg{width:18px;height:18px;stroke:var(--accent);flex-shrink:0}
+.contact-info-card ul{display:flex;flex-direction:column;gap:.65rem}
+.contact-info-card ul li{font-size:.87rem;color:var(--gray);line-height:1.7;display:flex;align-items:flex-start;gap:8px}
+.contact-info-card ul li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:7px}
+.success-box{display:none;background:rgba(34,197,94,.08);border:1.5px solid rgba(34,197,94,.25);border-radius:12px;padding:1.5rem;text-align:center;margin-top:1.5rem}
+.success-box h4{font-size:1rem;font-weight:700;color:#4ade80;margin-bottom:.5rem}
+.success-box p{font-size:.87rem;color:var(--gray)}
+@media(max-width:900px){.contact-layout{grid-template-columns:1fr;gap:2.5rem}}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
-
-<header class="site-header">
+<header class="site-header" id="site-header">
   <div class="header-inner">
-    <a href="index.html" class="logo">Quick<span>Shift</span> DX</a>
-    <nav class="site-nav">
-      <a href="services.html">サービス</a>
-      <a href="product/time-shift.html">勤怠・シフト</a>
-      <a href="process.html">導入の流れ</a>
+    <a href="index.html" class="logo"><div class="logo-mark">Q</div>QuickShift DX</a>
+    <nav class="site-nav">      <a href="services.html">サービス</a>
+      <a href="cases.html">導入事例</a>
       <a href="pricing.html">料金</a>
-      <a href="cases.html">事例</a>
-      <a href="faq.html">FAQ</a>
-      <a href="company.html">会社概要</a>
-      <a href="contact.html" class="btn btn-primary">無料相談する</a>
-    </nav>
-    <button class="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
+      <a href="process.html">流れ</a>
+      <a href="company.html">会社情報</a>
+      <a href="faq.html">FAQ</a></nav>
+    <a href="contact.html" class="btn btn-primary nav-cta">無料相談する</a>
+    <button class="hamburger-btn" onclick="openNav()"><span></span><span></span><span></span></button>
   </div>
 </header>
-<nav class="mobile-nav">
-  <a href="index.html">トップ</a>
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" onclick="closeNav()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <a href="index.html">ホーム</a>
   <a href="services.html">サービス</a>
-  <a href="product/time-shift.html">勤怠・シフトWeb化パック</a>
-  <a href="process.html">導入の流れ</a>
+  <a href="cases.html">導入事例</a>
   <a href="pricing.html">料金</a>
-  <a href="cases.html">事例・ユースケース</a>
-  <a href="faq.html">よくある質問</a>
-  <a href="company.html">会社概要</a>
-  <a href="contact.html" class="btn btn-primary" style="border-radius:8px; text-align:center;">無料相談する</a>
+  <a href="process.html">流れ</a>
+  <a href="company.html">会社情報</a>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html" class="btn btn-primary">無料相談する</a>
 </nav>
 
 <section class="page-hero">
   <div class="container">
-    <nav class="breadcrumb">
-      <a href="index.html">トップ</a><span>›</span>
-      <span class="current">お問い合わせ</span>
-    </nav>
-    <div class="section-tag">お問い合わせ</div>
-    <h1>無料相談・<br>デモ依頼はこちら</h1>
-    <p>まずは現状を聞かせてください。通常2営業日以内にご返信します。<br>「これって対応できる？」という確認だけでも歓迎です。</p>
+    <nav class="breadcrumb"><a href="index.html">ホーム</a><span class="breadcrumb-sep">/</span><span class="breadcrumb-cur">お問い合わせ</span></nav>
+    <div class="section-label reveal">お問い合わせ</div>
+    <h1 class="reveal reveal-delay-1">無料相談・<br><em>デモ依頼はこちら</em></h1>
+    <p class="lead reveal reveal-delay-2">まずは話だけでも大丈夫です。現場の困りごとをお聞かせください。</p>
   </div>
 </section>
 
-<section class="section bg-navy">
+<section class="section bg2">
   <div class="container">
     <div class="contact-layout">
-      <!-- FORM -->
-      <div>
-        <form class="form-stack" id="contactForm" novalidate>
+      <div class="contact-form-card reveal">
+        <h2 style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:900;color:var(--white);margin-bottom:1.75rem;letter-spacing:-.02em">お問い合わせフォーム</h2>
+        <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="submitForm(event)">
+          <input type="hidden" name="form-name" value="contact">
+          <p style="display:none"><label>Do not fill: <input name="bot-field"></label></p>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label-dark">会社・店舗名<span class="required-mark">*</span></label>
-              <input class="form-input form-input-dark" type="text" name="shopName" placeholder="〇〇居酒屋 渋谷店" required>
+              <label class="form-label">お名前<span class="required">必須</span></label>
+              <input class="form-input" type="text" name="name" placeholder="山田 太郎" required>
             </div>
             <div class="form-group">
-              <label class="form-label-dark">担当者名<span class="required-mark">*</span></label>
-              <input class="form-input form-input-dark" type="text" name="personName" placeholder="山田 太郎" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label-dark">メールアドレス<span class="required-mark">*</span></label>
-              <input class="form-input form-input-dark" type="email" name="email" placeholder="your@email.com" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label-dark">電話番号（任意）</label>
-              <input class="form-input form-input-dark" type="tel" name="phone" placeholder="090-1234-5678">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label-dark">業種<span class="required-mark">*</span></label>
-              <select class="form-select form-select-dark" name="industry" required>
-                <option value="">選択してください</option>
-                <option value="飲食店">飲食店（居酒屋・レストランなど）</option>
-                <option value="美容院">美容院・サロン</option>
-                <option value="小売">小売・販売</option>
-                <option value="その他">その他</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label-dark">スタッフ人数<span class="required-mark">*</span></label>
-              <select class="form-select form-select-dark" name="staffCount" required>
-                <option value="">選択してください</option>
-                <option value="5名未満">5名未満</option>
-                <option value="5〜10名">5〜10名</option>
-                <option value="11〜30名">11〜30名</option>
-                <option value="31〜50名">31〜50名</option>
-                <option value="51名以上">51名以上</option>
-              </select>
+              <label class="form-label">会社・店舗名</label>
+              <input class="form-input" type="text" name="company" placeholder="〇〇飲食店">
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label-dark">相談内容<span class="required-mark">*</span></label>
-            <textarea class="form-textarea form-textarea-dark" name="message" placeholder="現在の課題、導入を検討しているツール、ご質問など、自由にお書きください。" required></textarea>
+            <label class="form-label">メールアドレス<span class="required">必須</span></label>
+            <input class="form-input" type="email" name="email" placeholder="example@mail.com" required>
           </div>
           <div class="form-group">
-            <label class="form-label-dark">ご希望の連絡方法</label>
-            <div class="radio-group">
-              <label class="radio-label" style="color:rgba(255,255,255,.7)">
-                <input type="radio" name="contactPref" value="email" checked> メール
-              </label>
-              <label class="radio-label" style="color:rgba(255,255,255,.7)">
-                <input type="radio" name="contactPref" value="phone"> 電話
-              </label>
-              <label class="radio-label" style="color:rgba(255,255,255,.7)">
-                <input type="radio" name="contactPref" value="online"> オンライン面談
-              </label>
-            </div>
+            <label class="form-label">業種</label>
+            <select class="form-select" name="industry">
+              <option value="">選択してください</option>
+              <option>飲食店・居酒屋</option>
+              <option>美容院・サロン</option>
+              <option>物流・梱包業</option>
+              <option>小売・販売</option>
+              <option>その他</option>
+            </select>
           </div>
-          <div>
-            <button type="submit" class="btn btn-primary btn-lg submit-btn">送信する →</button>
+          <div class="form-group">
+            <label class="form-label">ご相談内容<span class="required">必須</span></label>
+            <select class="form-select" name="type" style="margin-bottom:.75rem">
+              <option value="">相談の種類を選択</option>
+              <option>シフト・勤怠管理のWeb化</option>
+              <option>外注さん管理システム</option>
+              <option>給与・明細書の自動化</option>
+              <option>フルカスタム開発のご相談</option>
+              <option>料金・見積もりについて</option>
+              <option>その他</option>
+            </select>
+            <textarea class="form-textarea" name="message" placeholder="現在の業務の状況・困っていることをできるだけ具体的にお書きください。" required></textarea>
           </div>
-          <div class="success-banner" id="successBanner">
-            ✅ お問い合わせを受け付けました。2営業日以内にご連絡いたします。ありがとうございます。
-          </div>
-          <div class="error-banner" id="errorBanner"></div>
+          <button type="submit" class="form-submit">送信する →</button>
+          <p class="form-note">送信後24時間以内にご返信します。<br>相談・見積もりは完全無料です。</p>
         </form>
+        <div class="success-box" id="success-box">
+          <h4>送信しました！</h4>
+          <p>お問い合わせありがとうございます。<br>24時間以内にご連絡いたします。</p>
+        </div>
       </div>
 
-      <!-- SIDEBAR -->
-      <div class="contact-sidebar">
-        <div class="sidebar-box">
-          <h3>📞 こんなご相談に対応します</h3>
+      <div class="reveal reveal-delay-2">
+        <div class="contact-info-card">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.33 2 2 0 0 1 3.06 1.1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+            こんなご相談に対応します
+          </h3>
           <ul>
-            <li>勤怠・シフトのWeb化を検討したい</li>
-            <li>今の運用をどう改善すればいいか整理したい</li>
-            <li>SaaSを入れたが定着しなかった</li>
+            <li>紙・Excelの業務をWebに移行したい</li>
+            <li>LINEでのシフト管理をやめたい</li>
+            <li>外注さんへの明細書作成を自動化したい</li>
+            <li>給与計算の集計作業をなくしたい</li>
             <li>複数店舗をまとめて管理したい</li>
-            <li>費用感・納期を知りたい</li>
-            <li>まずデモを見てみたい</li>
+            <li>まず何から始めればいいか相談したい</li>
           </ul>
         </div>
-        <div class="sidebar-box">
-          <h3>⏱️ 対応について</h3>
-          <p>通常2営業日以内にご返信します。<br><br>面談は<strong style="color:var(--white)">オンライン（Zoom等）</strong>で対応しています。<br><br>相談料は<strong style="color:var(--accent)">無料</strong>です。</p>
+        <div class="contact-info-card">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            対応について
+          </h3>
+          <ul>
+            <li>返信は通常24時間以内（平日）</li>
+            <li>相談・見積もりは完全無料</li>
+            <li>オンライン（Zoom等）での対応が基本</li>
+            <li>関東エリアは対面訪問も対応可</li>
+          </ul>
         </div>
-        <div class="sidebar-box">
-          <h3>📧 直接メールでも</h3>
-          <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f666169604f7e7a666c647c6766697b226b7721657f">[email&#160;protected]</a><br><br>件名に「相談希望」とご記入ください。</p>
+        <div class="contact-info-card">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            メールでも受け付けています
+          </h3>
+          <ul>
+            <li><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b3dbd6dfdfdcf3c2c6dad0d8c0dbdad5c79ed7cb9dd0dcde">[email&#160;protected]</a></li>
+            <li>件名に「相談」と入れていただけるとスムーズです</li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </section>
+<script>
+async function submitForm(e) {
+  e.preventDefault();
+  const form = document.getElementById('contact-form');
+  const btn = form.querySelector('.form-submit');
+
+  // ボタンをローディング状態に
+  btn.disabled = true;
+  btn.textContent = '送信中...';
+
+  const data = new FormData(form);
+
+  try {
+    const res = await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString()
+    });
+
+    if (res.ok) {
+      // 成功
+      form.style.display = 'none';
+      document.getElementById('success-box').style.display = 'block';
+    } else {
+      throw new Error('送信失敗');
+    }
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = '送信する →';
+    alert('送信に失敗しました。メールでお問い合わせください。');
+  }
+}
+</script>
 
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-main">
-      <div class="footer-brand"><a href="index.html" class="logo">Quick<span>Shift</span> DX</a><p>飲食店・美容院の紙・手書き業務を最短2週間でWebに。現場に合わせて作るDX支援。</p></div>
-      <div class="footer-col"><h4>サービス</h4><ul><li><a href="services.html">DX支援サービス</a></li><li><a href="product/time-shift.html">勤怠・シフトWeb化パック</a></li><li><a href="pricing.html">料金</a></li></ul></div>
-      <div class="footer-col"><h4>導入</h4><ul><li><a href="process.html">導入の流れ</a></li><li><a href="cases.html">事例・ユースケース</a></li><li><a href="faq.html">よくある質問</a></li></ul></div>
-      <div class="footer-col"><h4>会社</h4><ul><li><a href="company.html">会社概要</a></li><li><a href="contact.html">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li><li><a href="terms.html">利用規約</a></li></ul></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><div class="logo-mark">Q</div>QuickShift DX</a>
+        <p>飲食店・美容院の紙・手書き業務を<br>最短2週間でWebに。現場ファーストのDX。</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col"><h4>サービス</h4><ul><li><a href="services.html">サービス一覧</a></li><li><a href="pricing.html">料金</a></li></ul></div>
+        <div class="footer-col"><h4>導入</h4><ul><li><a href="process.html">導入の流れ</a></li><li><a href="cases.html">導入事例</a></li><li><a href="faq.html">よくある質問</a></li></ul></div>
+        <div class="footer-col"><h4>会社</h4><ul><li><a href="company.html">会社概要</a></li><li><a href="contact.html">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li></ul></div>
+      </div>
     </div>
-    <div class="footer-bottom">
-      <p>© 2024 QuickShift DX株式会社</p>
-      <div class="footer-bottom-links"><a href="privacy.html">プライバシーポリシー</a><
+    <div class="footer-bottom"><p>© 2025 QuickShift DX. All rights reserved.</p><div class="footer-bottom-links"><a href="privacy.html">プライバシーポリシー</a><a href="terms.html">利用規約</a></div></div>
+  </div>
+</footer>
+<script>
+const hdr=document.getElementById("site-header");
+window.addEventListener("scroll",()=>hdr.classList.toggle("scrolled",window.scrollY>40),{passive:true});
+function openNav(){document.getElementById("mobile-nav").classList.add("open");document.body.style.overflow="hidden"}
+function closeNav(){document.getElementById("mobile-nav").classList.remove("open");document.body.style.overflow=""}
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible")}),{threshold:.08,rootMargin:"0px 0px -30px 0px"});
+document.querySelectorAll(".reveal").forEach(el=>ro.observe(el));
+document.querySelectorAll("[data-counter]").forEach(el=>{
+  const obs=new IntersectionObserver(([e])=>{if(!e.isIntersecting)return;obs.disconnect();
+  const t=parseFloat(el.dataset.counter),d=el.dataset.counter.includes(".")?1:0;
+  let c=0;const s=t/60;const tm=setInterval(()=>{c=Math.min(c+s,t);el.textContent=d?c.toFixed(1):Math.floor(c);if(c>=t)clearInterval(tm)},16)},{threshold:.5});obs.observe(el)});
+document.querySelectorAll(".faq-trigger").forEach(btn=>{btn.addEventListener("click",()=>{

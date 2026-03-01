@@ -243,3 +243,27 @@ h2.section-title{font-family:'Syne',sans-serif;font-size:clamp(1.7rem,4vw,2.8rem
   .hero-stats{flex-direction:column;gap:.85rem}
   .stat-num{font-size:1.75rem}
 }
+/* ======== 追加：全体スマホ補強 ======== */
+@media (max-width:680px) {
+  /* services */
+  .service-grid{grid-template-columns:1fr !important}
+  .can-cannot{grid-template-columns:1fr !important}
+  /* pricing */
+  .pricing-grid{grid-template-columns:1fr !important}
+  .compare-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table{min-width:480px}
+  /* cases */
+  .cases-full,.loading-grid{grid-template-columns:1fr !important}
+  .before-after{grid-template-columns:1fr !important}
+  .case-header,.case-body{padding:1.25rem}
+  /* 全体 */
+  .section-lead{max-width:100%}
+  .card{padding:1.25rem}
+  p{word-break:break-word}
+}
+@media (max-width:400px) {
+  .steps-grid{grid-template-columns:1fr}
+  .hero-stats{flex-direction:row;flex-wrap:wrap;gap:.85rem}
+  .stat-num{font-size:1.75rem}
+  .hero-stats>div{flex:1;min-width:110px}
+}

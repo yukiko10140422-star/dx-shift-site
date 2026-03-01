@@ -4,1059 +4,1178 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QuickShift DX | 手書き業務を、2週間でWebに。</title>
-<meta name="description" content="飲食店・美容院の紙・手書き業務を最短2週間でWeb化。現場に合わせて作るDX支援サービス。勤怠・シフト管理のWeb化パックで始める、小さく速いDX。">
+<meta name="description" content="飲食店・美容院の紙・手書き業務を最短2週間でWeb化。現場に合わせて作るDX支援サービス。">
 <meta property="og:title" content="QuickShift DX | 手書き業務を、2週間でWebに。">
-<meta property="og:description" content="飲食店・美容院の紙・手書き業務を最短2週間でWeb化。現場に合わせて作るDX支援サービス。">
 <meta property="og:type" content="website">
-<style>
-/* ===== QuickShift DX — Shared Styles ===== */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Syne:wght@700;800&display=swap');
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Syne:wght@700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<style>
+/* ========================================
+   QuickShift DX — 2025 Redesign
+   Theme: Industrial Warm / Tech-Forward
+======================================== */
 :root {
-  --navy:       #0d1b2a;
-  --navy-mid:   #162032;
-  --navy-light: #1e2f45;
-  --accent:     #ff6b35;
-  --accent-lt:  #ff8c5a;
-  --white:      #fafaf8;
-  --gray:       #8a9bb0;
-  --gray-lt:    #e8edf3;
-  --text:       #1a2738;
-  --max-w:      1200px;
+  --navy:      #0a1628;
+  --navy-2:    #0f1f38;
+  --navy-3:    #162847;
+  --accent:    #ff6b35;
+  --accent-2:  #ff9460;
+  --gold:      #f5c842;
+  --mango:     #ff8c00;
+  --white:     #f8f6f2;
+  --ink:       #0a1628;
+  --gray:      #7a8fa8;
+  --gray-lt:   #dde4ed;
+  --green:     #22c55e;
+  --max-w:     1240px;
+  --radius:    14px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
   font-family: 'Noto Sans JP', sans-serif;
-  background: var(--white);
-  color: var(--text);
+  background: var(--navy);
+  color: var(--white);
   overflow-x: hidden;
 }
+a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
-a { text-decoration: none; }
 
-/* ── CONTAINER ── */
-.container { max-width: var(--max-w); margin: 0 auto; padding: 0 5%; }
+/* noise overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: .35;
+}
 
-/* ── BUTTONS ── */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 5%; position: relative; z-index: 1; }
+
+/* BUTTONS */
 .btn {
-  display: inline-block;
-  padding: 12px 26px;
-  border-radius: 7px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
-  font-family: 'Noto Sans JP', sans-serif;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px; border-radius: 9px;
+  font-weight: 700; font-size: .9rem;
+  cursor: pointer; transition: all .2s;
+  border: none; font-family: 'Noto Sans JP', sans-serif;
   line-height: 1;
 }
-.btn-primary { background: var(--accent); color: #fff; }
-.btn-primary:hover {
-  background: var(--accent-lt);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255,107,53,.4);
-}
-.btn-outline { background: transparent; border: 1.5px solid rgba(255,255,255,.3); color: var(--white); }
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 24px rgba(255,107,53,.35); }
+.btn-primary:hover { background: var(--accent-2); transform: translateY(-2px); box-shadow: 0 8px 36px rgba(255,107,53,.5); }
+.btn-outline { background: transparent; border: 1.5px solid rgba(255,255,255,.22); color: var(--white); }
 .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-.btn-outline-dark { background: transparent; border: 1.5px solid var(--gray-lt); color: var(--text); }
-.btn-outline-dark:hover { border-color: var(--accent); color: var(--accent); }
-.btn-white { background: #fff; color: var(--accent); }
-.btn-white:hover { background: var(--navy); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.2); }
-.btn-lg { padding: 16px 36px; font-size: 1.05rem; border-radius: 9px; }
-.btn-block { display: block; text-align: center; width: 100%; }
+.btn-gold { background: var(--gold); color: var(--ink); box-shadow: 0 4px 20px rgba(245,200,66,.3); }
+.btn-gold:hover { background: #ffe06b; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,200,66,.5); }
+.btn-lg { padding: 17px 40px; font-size: 1.05rem; border-radius: 11px; }
 
-/* ── HEADER ── */
+/* HEADER */
 .site-header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 200;
-  background: rgba(13,27,42,.96);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  height: 64px;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  background: rgba(10,22,40,.92); backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,.06); height: 66px;
+  transition: border-color .3s;
 }
 .header-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 5%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  max-width: var(--max-w); margin: 0 auto; padding: 0 5%;
+  height: 100%; display: flex; align-items: center; justify-content: space-between;
 }
 .logo {
   font-family: 'Syne', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--white);
-  letter-spacing: -.02em;
+  font-size: 1.15rem; font-weight: 900; color: var(--white);
+  display: flex; align-items: center; gap: 10px;
 }
-.logo span { color: var(--accent); }
-.site-nav {
-  display: flex;
-  align-items: center;
-  gap: 1.6rem;
+.logo-mark {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-size: .85rem; font-weight: 900; color: #fff; flex-shrink: 0;
 }
+.site-nav { display: flex; align-items: center; gap: .2rem; }
 .site-nav a {
-  color: rgba(255,255,255,.7);
-  font-size: .84rem;
-  font-weight: 500;
-  transition: color .2s;
+  padding: 8px 14px; border-radius: 7px;
+  font-size: .84rem; font-weight: 500; color: rgba(255,255,255,.6);
+  transition: all .15s;
 }
-.site-nav a:hover, .site-nav a.active { color: var(--white); }
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 4px;
-  background: none;
-  border: none;
-}
-.hamburger span {
-  display: block;
-  width: 24px; height: 2px;
-  background: var(--white);
-  border-radius: 2px;
-  transition: all .3s;
-}
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-.mobile-nav {
-  display: none;
-  position: fixed;
-  top: 64px; left: 0; right: 0; bottom: 0;
-  background: var(--navy);
-  z-index: 190;
-  padding: 2rem 5%;
-  flex-direction: column;
-  gap: 1.5rem;
-  overflow-y: auto;
-}
-.mobile-nav.open { display: flex; }
-.mobile-nav a {
-  color: var(--white);
-  font-size: 1.1rem;
-  font-weight: 700;
-  border-bottom: 1px solid rgba(255,255,255,.07);
-  padding-bottom: 1.25rem;
-}
+.site-nav a:hover { color: var(--white); background: rgba(255,255,255,.07); }
 
-/* ── SECTION COMMONS ── */
-.section { padding: 100px 0; }
-.section-sm { padding: 70px 0; }
-.section-tag {
-  display: inline-block;
-  background: var(--accent);
-  color: #fff;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .1em;
-  padding: 4px 12px;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-}
-h2.section-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 800;
-  letter-spacing: -.03em;
-  line-height: 1.15;
-  margin-bottom: 1rem;
-}
-.section-lead {
-  font-size: 1.05rem;
-  color: #556070;
-  line-height: 1.9;
-  max-width: 580px;
-  margin-bottom: 3rem;
-}
-.section-lead.wide { max-width: 720px; }
-
-/* dark variant */
-.bg-navy { background: var(--navy); }
-.bg-navy h2.section-title { color: var(--white); }
-.bg-navy .section-lead { color: var(--gray); }
-.bg-gray { background: #f5f7fa; }
-
-/* ── PAGE HERO ── */
-.page-hero {
-  background: var(--navy);
-  padding: 140px 0 80px;
-  position: relative;
-  overflow: hidden;
-}
-.page-hero::before {
-  content: '';
-  position: absolute;
-  top: -30%; right: -10%;
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(255,107,53,.1) 0%, transparent 70%);
-}
-.page-hero .section-tag { margin-bottom: 1.2rem; }
-.page-hero h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  font-weight: 800;
-  color: var(--white);
-  letter-spacing: -.03em;
-  line-height: 1.1;
-  margin-bottom: 1.25rem;
-}
-.page-hero h1 em { font-style: normal; color: var(--accent); }
-.page-hero p {
-  color: rgba(255,255,255,.65);
-  font-size: 1.1rem;
-  line-height: 1.85;
-  max-width: 560px;
-}
-.page-hero .hero-cta { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
-
-/* ── FOOTER ── */
-.site-footer {
-  background: var(--navy);
-  border-top: 1px solid rgba(255,255,255,.06);
-}
-.footer-main {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 3rem;
-  padding: 4rem 0 3rem;
-}
-.footer-brand .logo { font-size: 1.4rem; margin-bottom: 1rem; }
-.footer-brand p { font-size: .85rem; color: var(--gray); line-height: 1.8; }
-.footer-col h4 { color: var(--white); font-size: .85rem; font-weight: 700; margin-bottom: 1.2rem; letter-spacing: .05em; }
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
-.footer-col ul a { color: var(--gray); font-size: .84rem; transition: color .2s; }
-.footer-col ul a:hover { color: var(--white); }
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,.06);
-  padding: 1.5rem 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.footer-bottom p { color: rgba(255,255,255,.3); font-size: .78rem; }
-.footer-bottom-links { display: flex; gap: 1.5rem; }
-.footer-bottom-links a { color: rgba(255,255,255,.35); font-size: .78rem; }
-.footer-bottom-links a:hover { color: rgba(255,255,255,.7); }
-
-/* ── FLOATING CTA ── */
-.floating-cta {
-  position: fixed;
-  bottom: 2rem; right: 2rem;
-  z-index: 180;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all .4s;
-  pointer-events: none;
-}
-.floating-cta.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
-.floating-cta .btn { box-shadow: 0 8px 30px rgba(255,107,53,.5); }
-
-/* ── CARDS ── */
-.card {
-  background: #fff;
-  border: 1.5px solid var(--gray-lt);
-  border-radius: 14px;
-  padding: 2.5rem;
-  transition: all .3s;
-  position: relative;
-  overflow: hidden;
-}
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .3s;
-}
-.card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,27,42,.12); border-color: var(--accent); }
-.card:hover::before { transform: scaleX(1); }
-
-.card-dark {
-  background: var(--navy-mid);
-  border: 1px solid rgba(255,255,255,.07);
-  border-radius: 14px;
-  padding: 2.5rem;
-  transition: all .3s;
-}
-.card-dark:hover { background: var(--navy-light); transform: translateY(-4px); }
-
-/* ── FEATURE LIST ── */
-.feature-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
-.feature-list li { display: flex; align-items: flex-start; gap: 12px; font-size: .93rem; line-height: 1.65; }
-.feature-list li::before {
-  content: '✓';
-  min-width: 22px; height: 22px;
-  background: var(--accent); color: #fff;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: .7rem; font-weight: 700;
-  margin-top: 1px; flex-shrink: 0;
-}
-
-/* ── PROCESS STEPS ── */
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  position: relative;
-  margin-top: 3rem;
-}
-.steps-grid::before {
-  content: '';
-  position: absolute;
-  top: 32px; left: 12%; right: 12%;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--gray-lt) 100%);
-}
-.step-item { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 1.25rem; }
-.step-num {
-  width: 64px; height: 64px;
-  background: var(--navy); color: var(--white);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif;
-  font-size: 1.3rem; font-weight: 800;
-  margin-bottom: 1.25rem;
-  position: relative; z-index: 1;
-  border: 3px solid var(--accent);
-}
-.step-item:last-child .step-num { background: var(--accent); }
-.step-item h3 { font-size: .98rem; font-weight: 700; margin-bottom: .5rem; }
-.step-item p { font-size: .84rem; color: #556070; line-height: 1.7; }
-
-/* ── FAQ ── */
-.faq-list { display: flex; flex-direction: column; border: 1.5px solid var(--gray-lt); border-radius: 12px; overflow: hidden; }
-.faq-item { border-bottom: 1px solid var(--gray-lt); }
-.faq-item:last-child { border-bottom: none; }
-.faq-q {
-  width: 100%; background: #fff; border: none;
-  padding: 1.4rem 1.75rem;
-  text-align: left;
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: .94rem; font-weight: 700; color: var(--text);
-  cursor: pointer;
-  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-  transition: background .2s;
-}
-.faq-q:hover { background: #fafafa; }
-.faq-q.open { background: #fff8f5; }
-.faq-icon {
-  min-width: 26px; height: 26px;
-  border: 2px solid var(--gray-lt); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem; color: var(--gray); line-height: 1;
-  transition: all .3s; flex-shrink: 0;
-}
-.faq-q.open .faq-icon { background: var(--accent); border-color: var(--accent); color: #fff; transform: rotate(45deg); }
-.faq-a { display: none; padding: 0 1.75rem 1.4rem; font-size: .9rem; color: #556070; line-height: 1.9; background: #fff; }
-.faq-a.open { display: block; }
-
-/* ── FORM ── */
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-.form-group label { font-size: .82rem; font-weight: 700; }
-.form-label-dark { color: rgba(255,255,255,.7); }
-.required-mark { color: var(--accent); margin-left: 4px; }
-.form-input, .form-select, .form-textarea {
-  border-radius: 8px;
-  padding: 13px 16px;
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: .9rem;
-  outline: none;
-  transition: border-color .2s, background .2s;
-}
-.form-input-dark, .form-select-dark, .form-textarea-dark {
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.12);
-  color: var(--white);
-}
-.form-input-dark::placeholder, .form-textarea-dark::placeholder { color: rgba(255,255,255,.3); }
-.form-input-dark:focus, .form-select-dark:focus, .form-textarea-dark:focus {
-  border-color: var(--accent);
-  background: rgba(255,255,255,.09);
-}
-.form-select-dark option { background: var(--navy); color: var(--white); }
-.form-textarea { resize: vertical; min-height: 120px; }
-.radio-group { display: flex; gap: 1rem; flex-wrap: wrap; }
-.radio-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: .9rem; }
-.radio-label input { accent-color: var(--accent); }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-.form-stack { display: flex; flex-direction: column; gap: 1.25rem; }
-
-/* ── BADGE ── */
-.badge { padding: 3px 10px; border-radius: 12px; font-size: .72rem; font-weight: 700; }
-.badge-in  { background: rgba(52,211,153,.15); color: #34d399; }
-.badge-out { background: rgba(148,163,184,.15); color: #94a3b8; }
-.badge-new { background: rgba(255,107,53,.15); color: var(--accent); }
-
-/* ── ANIMATIONS ── */
-.fade-up { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-.fade-up:nth-child(2) { transition-delay: .1s; }
-.fade-up:nth-child(3) { transition-delay: .2s; }
-.fade-up:nth-child(4) { transition-delay: .3s; }
-
-/* ── SUCCESS BANNER ── */
-.success-banner {
-  display: none;
-  background: #dcfce7; border: 1.5px solid #86efac;
-  border-radius: 10px; padding: 1.25rem 1.75rem;
-  color: #15803d; font-weight: 700; font-size: .95rem;
-  margin-top: 1.5rem;
-}
-
-/* ── BREADCRUMB ── */
-.breadcrumb { display: flex; align-items: center; gap: .5rem; margin-bottom: 1.5rem; }
-.breadcrumb a { color: rgba(255,255,255,.45); font-size: .82rem; }
-.breadcrumb a:hover { color: rgba(255,255,255,.8); }
-.breadcrumb span { color: rgba(255,255,255,.25); font-size: .82rem; }
-.breadcrumb .current { color: rgba(255,255,255,.7); font-size: .82rem; }
-
-/* ── NOTICE ── */
-.notice {
-  background: rgba(255,107,53,.08);
-  border: 1px solid rgba(255,107,53,.2);
-  border-radius: 8px; padding: 1rem 1.25rem;
-  font-size: .88rem; color: #556070; line-height: 1.8;
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 960px) {
-  .footer-main { grid-template-columns: 1fr 1fr; }
-  .steps-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-  .steps-grid::before { display: none; }
-}
-
-@media (max-width: 680px) {
-  .site-nav { display: none; }
-  .hamburger { display: flex; }
-  .footer-main { grid-template-columns: 1fr; gap: 2rem; }
-  .form-row { grid-template-columns: 1fr; }
-  .steps-grid { grid-template-columns: 1fr 1fr; }
-  .section { padding: 70px 0; }
-  .page-hero { padding: 120px 0 60px; }
-}
-
-</style>
-<style>
-/* ── Hero ── */
+/* HERO */
 .hero {
-  background: var(--navy);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 80px 0;
-  position: relative;
-  overflow: hidden;
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 90px 0 60px; position: relative; overflow: hidden;
 }
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -20%; right: -10%;
-  width: 650px; height: 650px;
-  background: radial-gradient(circle, rgba(255,107,53,.12) 0%, transparent 70%);
-  pointer-events: none;
+.hero-orb {
+  position: absolute; border-radius: 50%;
+  pointer-events: none; filter: blur(80px);
 }
+.orb-1 { width: 700px; height: 700px; background: radial-gradient(circle, rgba(255,107,53,.18) 0%, transparent 70%); top: -200px; right: -150px; animation: orb1 12s ease-in-out infinite alternate; }
+.orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,140,0,.12) 0%, transparent 70%); bottom: -100px; left: -100px; animation: orb2 9s ease-in-out infinite alternate; }
+.orb-3 { width: 350px; height: 350px; background: radial-gradient(circle, rgba(245,200,66,.08) 0%, transparent 70%); top: 30%; left: 35%; animation: orb3 15s ease-in-out infinite alternate; }
+@keyframes orb1 { to{transform:translate(-80px,60px)scale(1.1)} }
+@keyframes orb2 { to{transform:translate(60px,-40px)scale(.9)} }
+@keyframes orb3 { to{transform:translate(40px,60px)scale(1.15)} }
+
 .hero::after {
   content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,107,53,.4), transparent);
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+  background-size: 60px 60px; pointer-events: none;
 }
+
+.hero-content { position: relative; z-index: 2; max-width: 780px; }
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,107,53,.1);
-  border: 1px solid rgba(255,107,53,.3);
-  color: var(--accent);
-  padding: 6px 14px; border-radius: 20px;
-  font-size: .8rem; font-weight: 700; letter-spacing: .05em;
+  background: rgba(255,107,53,.1); border: 1px solid rgba(255,107,53,.3);
+  color: var(--accent); padding: 7px 16px; border-radius: 99px;
+  font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
   margin-bottom: 2rem; width: fit-content;
 }
-.hero-eyebrow::before {
-  content: ''; width: 6px; height: 6px;
-  background: var(--accent); border-radius: 50%;
-  animation: blink 2s infinite;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+.pulse-dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; flex-shrink: 0; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(255,107,53,.5)} 50%{opacity:.5;box-shadow:0 0 0 6px rgba(255,107,53,0)} }
+
 .hero h1 {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(2.8rem, 6vw, 5rem);
-  font-weight: 800; color: var(--white);
-  line-height: 1.05; letter-spacing: -.03em;
-  margin-bottom: 1.5rem; max-width: 820px;
+  font-size: clamp(2.8rem, 6.5vw, 5.2rem);
+  font-weight: 900; line-height: 1.0; letter-spacing: -.035em;
+  color: var(--white); margin-bottom: 1.75rem;
 }
-.hero h1 em { font-style: normal; color: var(--accent); }
-.hero-sub {
-  font-size: clamp(1rem,2vw,1.2rem);
-  color: rgba(255,255,255,.65); line-height: 1.85;
-  max-width: 560px; margin-bottom: 2.5rem;
-}
-.hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 5rem; }
-.hero-stats {
-  display: flex; gap: 3rem; flex-wrap: wrap;
-  padding-top: 3rem;
-  border-top: 1px solid rgba(255,255,255,.08);
-}
-.stat-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 2.4rem; font-weight: 800; color: var(--white); line-height: 1;
-}
-.stat-num span { font-size: 1.1rem; color: var(--accent); }
-.stat-label { font-size: .8rem; color: var(--gray); margin-top: 4px; }
+.hero h1 .ac { color: var(--accent); }
+.hero h1 .gd { color: var(--gold); }
+.hero-sub { font-size: clamp(.95rem,2vw,1.15rem); color: rgba(255,255,255,.6); line-height: 1.9; max-width: 540px; margin-bottom: 2.75rem; }
+.hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4.5rem; }
+.hero-stats { display: flex; gap: 3.5rem; flex-wrap: wrap; padding-top: 3rem; border-top: 1px solid rgba(255,255,255,.07); }
+.stat-num { font-family: 'Syne', sans-serif; font-size: 2.6rem; font-weight: 900; color: var(--white); line-height: 1; }
+.stat-num .unit { font-size: 1.1rem; color: var(--accent); }
+.stat-label { font-size: .78rem; color: var(--gray); margin-top: 5px; }
 
-/* ── Problem grid ── */
-.problems-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-  gap: 1px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: 12px; overflow: hidden;
+/* Hero floating demo card */
+.hero-demo {
+  position: absolute; right: 4%; top: 50%; transform: translateY(-50%);
+  width: 360px; z-index: 10; animation: float-card 6s ease-in-out infinite;
 }
-.problem-card {
-  background: var(--navy-mid); padding: 2.25rem;
-  transition: background .3s;
-}
-.problem-card:hover { background: var(--navy-light); }
-.problem-icon { font-size: 2rem; margin-bottom: 1rem; }
-.problem-card h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: .5rem; }
-.problem-card p { font-size: .87rem; color: var(--gray); line-height: 1.75; }
+@keyframes float-card { 0%,100%{transform:translateY(-50%) translateY(0)} 50%{transform:translateY(-50%) translateY(-16px)} }
 
-/* ── Strengths ── */
-.strengths-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
-  gap: 2rem;
+.demo-card {
+  background: rgba(22,40,71,.85); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 18px; backdrop-filter: blur(20px); overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,107,53,.08);
 }
-.strength-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 3.5rem; font-weight: 800; color: var(--gray-lt); line-height: 1; margin-bottom: .75rem;
-}
-.card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .75rem; }
-.card p { font-size: .9rem; color: #556070; line-height: 1.8; }
-
-/* ── Product preview ── */
-.product-preview {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: center;
-}
-.mock-screen {
-  background: var(--navy-mid); border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.08); overflow: hidden;
-}
-.mock-bar {
-  background: var(--navy-light); padding: 10px 16px;
+.demo-card-bar {
+  background: rgba(255,255,255,.05); padding: 12px 16px;
   display: flex; align-items: center; gap: 8px;
   border-bottom: 1px solid rgba(255,255,255,.06);
 }
-.mock-dot { width: 8px; height: 8px; border-radius: 50%; }
-.mock-title { font-size: .75rem; color: rgba(255,255,255,.4); margin-left: 8px; }
-.mock-content { padding: 1.25rem; }
-.mock-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 10px 12px; border-radius: 8px; margin-bottom: 8px; font-size: .82rem;
-}
-.mock-row:nth-child(odd) { background: rgba(255,255,255,.04); }
-.mock-name { color: rgba(255,255,255,.8); font-weight: 500; }
-.mock-time { color: var(--gray); font-size: .78rem; }
-.mock-summary {
-  margin-top: 1rem; padding: 1rem;
-  background: rgba(255,107,53,.08); border: 1px solid rgba(255,107,53,.2); border-radius: 8px;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.mock-summary-label { font-size: .78rem; color: var(--gray); }
-.mock-summary-val { font-family: 'Syne',sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--accent); }
+.demo-dot { width: 9px; height: 9px; border-radius: 50%; }
+.demo-dot.r{background:#ff5f57;} .demo-dot.y{background:#febc2e;} .demo-dot.g{background:#28c840;}
+.demo-url { flex: 1; background: rgba(255,255,255,.07); border-radius: 5px; padding: 4px 10px; font-family: 'DM Mono', monospace; font-size: .62rem; color: rgba(255,255,255,.35); margin-left: 4px; }
+.demo-body { padding: 16px; }
+.dsm { display: flex; gap: 10px; margin-bottom: 12px; }
+.dsm-nav { width: 90px; background: rgba(230,92,0,.85); border-radius: 10px; padding: 10px 8px; display: flex; flex-direction: column; gap: 4px; }
+.dsm-brand { font-size: .5rem; font-weight: 900; color: #fff; margin-bottom: 6px; line-height: 1.3; }
+.dsm-item { background: rgba(255,255,255,.1); border-radius: 4px; height: 22px; display: flex; align-items: center; padding: 0 6px; font-size: .45rem; color: rgba(255,255,255,.7); font-weight: 500; gap: 4px; }
+.dsm-item.a { background: rgba(255,255,255,.22); color: #fff; }
+.dsm-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.6); flex-shrink: 0; }
+.dsm-main { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.dsm-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); border-radius: 7px; padding: 8px 10px; }
+.dsm-label { font-size: .42rem; color: var(--accent); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; }
+.dsm-row { display: flex; align-items: center; gap: 4px; }
+.dsm-chip { background: rgba(255,140,0,.15); border: 1px solid rgba(255,140,0,.3); border-radius: 99px; padding: 2px 7px; font-size: .38rem; color: #ffb347; font-weight: 700; }
+.dsm-chip.sel { background: rgba(255,140,0,.45); }
+.dsm-total { background: linear-gradient(135deg,rgba(230,92,0,.85),rgba(255,140,0,.85)); border-radius: 8px; padding: 8px 10px; display: flex; justify-content: space-between; align-items: center; }
+.dsm-total-label { font-size: .44rem; color: rgba(255,255,255,.7); }
+.dsm-total-val { font-family: 'DM Mono', monospace; font-size: .9rem; font-weight: 700; color: #fff; }
+.demo-badge { display: flex; align-items: center; gap: 6px; margin-top: 10px; padding: 8px 12px; background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.2); border-radius: 8px; font-size: .62rem; color: #4ade80; }
 
-/* ── Cases preview ── */
-.cases-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-  gap: 2rem; margin-top: 3rem;
+.hero-tag {
+  position: absolute; background: rgba(22,40,71,.9); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 10px; padding: 8px 14px; font-size: .7rem; font-weight: 700; color: var(--white);
+  backdrop-filter: blur(12px); box-shadow: 0 8px 32px rgba(0,0,0,.3); white-space: nowrap;
 }
-.case-tag {
-  display: inline-block;
-  background: rgba(255,107,53,.15); color: var(--accent);
-  border: 1px solid rgba(255,107,53,.3);
-  padding: 4px 12px; border-radius: 4px; font-size: .75rem; font-weight: 700; margin-bottom: 1.25rem;
+.tag-1 { right: 375px; top: 15%; animation: float-tag 8s ease-in-out infinite; }
+.tag-2 { right: 365px; bottom: 18%; animation: float-tag 8s ease-in-out infinite 3s; }
+.tag-3 { right: 2%; top: 22%; animation: float-tag 8s ease-in-out infinite 5s; }
+@keyframes float-tag { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+.tag-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 5px; }
+
+/* SECTION COMMONS */
+.section-label {
+  font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;
 }
-.card-dark h3 { color: var(--white); font-size: 1.05rem; font-weight: 700; margin-bottom: 1.25rem; line-height: 1.55; }
-.metrics { display: flex; gap: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.07); flex-wrap: wrap; }
-.metric-val { font-family: 'Syne',sans-serif; font-size: 1.7rem; font-weight: 800; color: var(--accent); line-height: 1; }
-.metric-label { font-size: .78rem; color: var(--gray); margin-top: 4px; }
-
-/* ── CTA band ── */
-.cta-band { background: var(--accent); padding: 90px 0; text-align: center; }
-.cta-band h2 { font-family: 'Syne',sans-serif; font-size: clamp(1.8rem,4vw,3rem); color: #fff; font-weight: 800; margin-bottom: 1rem; }
-.cta-band p { color: rgba(255,255,255,.85); font-size: 1.05rem; margin-bottom: 2.5rem; }
-
-
-  .hero-stats { gap: 2rem; }
+.section-label::before { content: ''; width: 24px; height: 2px; background: var(--accent); }
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem,4vw,3rem); font-weight: 900; line-height: 1.1; letter-spacing: -.03em;
+  color: var(--white); margin-bottom: 1.2rem;
 }
+.section-title em { font-style: normal; color: var(--accent); }
+.section-sub { font-size: .95rem; color: rgba(255,255,255,.55); line-height: 1.9; max-width: 540px; }
 
-/* ── Mobile fixes for index ── */
+/* TICKER */
+.ticker-wrap { background: var(--accent); padding: 11px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(255,255,255,.1); }
+.ticker-track { display: flex; animation: ticker 28s linear infinite; white-space: nowrap; }
+.ticker-item { display: inline-flex; align-items: center; gap: 12px; padding: 0 32px; font-size: .8rem; font-weight: 700; color: #fff; letter-spacing: .04em; }
+.ticker-sep { opacity: .5; }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-  .hero h1 { font-size: clamp(2rem, 8vw, 3rem); margin-bottom: 1.2rem; }
-  .hero-sub { font-size: .95rem; margin-bottom: 1.75rem; }
-  .hero-cta { flex-direction: column; gap: .75rem; margin-bottom: 3rem; }
-  .hero-cta .btn { width: 100%; text-align: center; padding: 15px 20px; font-size: 1rem; }
-  .hero-stats { gap: 1.5rem; padding-top: 2rem; margin-top: 0; flex-wrap: wrap; }
-  .stat-num { font-size: 2rem; }
-  .problem-card { padding: 1.5rem; }
-  .problem-card h3 { font-size: .95rem; }
-  .strength-num { font-size: 2.5rem; }
-  .cta-band { padding: 60px 0; }
+/* PROBLEMS */
+.problems { background: var(--navy); padding: 100px 0; }
+.problems-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.06);
+  border-radius: 16px; overflow: hidden; margin-top: 4rem;
 }
-@media (max-width: 400px) {
-  .hero-stats { flex-direction: row; flex-wrap: wrap; gap: 1rem; }
-  .hero-stats > div { flex: 1; min-width: 100px; }
+.problem-card {
+  background: var(--navy-2); padding: 2.5rem; transition: background .25s;
+  position: relative; overflow: hidden;
+}
+.problem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg,var(--accent),transparent); opacity: 0; transition: opacity .25s; }
+.problem-card:hover { background: var(--navy-3); }
+.problem-card:hover::before { opacity: 1; }
+.prob-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(255,107,53,.1); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; font-size: 1.3rem; }
+.problem-card h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: .6rem; }
+.problem-card p { font-size: .85rem; color: var(--gray); line-height: 1.8; }
+
+/* SERVICES */
+.services { padding: 100px 0; background: linear-gradient(180deg,var(--navy),var(--navy-2)); }
+.services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; flex-wrap: wrap; gap: 1.5rem; }
+.services-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
+.service-card {
+  background: var(--navy-3); border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius); padding: 2.25rem; position: relative; overflow: hidden; transition: all .3s;
+}
+.service-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--accent),var(--gold)); opacity: 0; transition: opacity .3s; }
+.service-card:hover { border-color: rgba(255,107,53,.25); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.3); }
+.service-card:hover::after { opacity: 1; }
+.service-card.featured { background: linear-gradient(135deg,rgba(255,107,53,.12) 0%,rgba(22,40,71,1) 60%); border-color: rgba(255,107,53,.3); }
+.service-tag { display: inline-block; font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: rgba(255,107,53,.15); color: var(--accent); border: 1px solid rgba(255,107,53,.3); padding: 3px 10px; border-radius: 4px; margin-bottom: 1.25rem; }
+.service-tag.gold { background: rgba(245,200,66,.12); color: var(--gold); border-color: rgba(245,200,66,.3); }
+.service-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--white); margin-bottom: .85rem; line-height: 1.45; }
+.service-card p { font-size: .87rem; color: var(--gray); line-height: 1.8; margin-bottom: 1.5rem; }
+.service-price { font-family: 'DM Mono', monospace; font-size: .82rem; color: var(--gray); padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,.07); display: flex; align-items: baseline; gap: .4rem; flex-wrap: wrap; }
+.price-main { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 900; color: var(--accent); }
+.service-list { list-style: none; display: flex; flex-direction: column; gap: .55rem; margin-bottom: 1.5rem; }
+.service-list li { display: flex; align-items: flex-start; gap: 10px; font-size: .87rem; color: rgba(255,255,255,.75); }
+.service-list li::before { content: ''; width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; background: rgba(34,197,94,.15) url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 8l3 3 7-7' stroke='%2322c55e' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") center/contain; }
+
+/* GMS SHOWCASE */
+.showcase { padding: 100px 0; background: var(--navy-2); overflow: hidden; }
+.showcase-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.showcase-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,140,0,.12); border: 1px solid rgba(255,140,0,.3); color: var(--mango); padding: 6px 14px; border-radius: 99px; font-size: .73rem; font-weight: 700; letter-spacing: .06em; margin-bottom: 1.25rem; }
+.showcase-title { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem,3.5vw,2.6rem); font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 1.25rem; letter-spacing: -.03em; }
+.showcase-title .mn { color: var(--mango); }
+.showcase-desc { font-size: .9rem; color: var(--gray); line-height: 1.9; margin-bottom: 2rem; }
+.sf-item { display: flex; align-items: center; gap: 12px; padding: .7rem 1rem; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06); border-radius: 10px; font-size: .85rem; color: rgba(255,255,255,.8); margin-bottom: .65rem; }
+.sf-icon { width: 32px; height: 32px; border-radius: 8px; background: rgba(255,140,0,.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: .9rem; }
+.sf-item strong { color: var(--mango); }
+.showcase-metrics { display: flex; gap: 2rem; flex-wrap: wrap; padding-top: 1.75rem; border-top: 1px solid rgba(255,255,255,.07); margin-top: 2rem; }
+.sm-val { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--mango); }
+.sm-label { font-size: .72rem; color: var(--gray); margin-top: 3px; }
+
+/* GMS Mockup */
+.gms-mockup { background: rgba(255,140,0,.04); border: 1px solid rgba(255,140,0,.12); border-radius: 20px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,.5); }
+.gms-topbar { background: linear-gradient(90deg,#e65c00,#ff8c00); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+.gms-brand { display: flex; align-items: center; gap: 7px; font-weight: 900; font-size: .82rem; color: #fff; }
+.gms-sync { font-size: .55rem; color: rgba(255,255,255,.6); display: flex; align-items: center; gap: 4px; }
+.gms-sync-dot { width: 5px; height: 5px; border-radius: 50%; background: #4ade80; }
+.gms-shell { display: flex; min-height: 360px; }
+.gms-sidebar { width: 108px; background: linear-gradient(180deg,#e65c00,#ff8c00 50%,#ffa000); padding: 10px 7px; display: flex; flex-direction: column; gap: 3px; }
+.gms-ns { font-size: .38rem; font-weight: 700; letter-spacing: .12em; color: rgba(255,255,255,.45); text-transform: uppercase; margin: 6px 0 3px 3px; }
+.gms-nb { display: flex; align-items: center; gap: 4px; padding: 5px 7px; border-radius: 5px; font-size: .48rem; font-weight: 500; color: rgba(255,255,255,.7); }
+.gms-nb.a { background: rgba(255,255,255,.22); color: #fff; font-weight: 700; }
+.gms-main { flex: 1; background: #fff8f0; padding: 12px; overflow: hidden; }
+.gms-pt { font-size: .63rem; font-weight: 900; color: #2d1a00; margin-bottom: 8px; }
+.gms-wrow { display: flex; gap: 4px; margin-bottom: 8px; }
+.gms-chip { display: flex; align-items: center; gap: 3px; padding: 3px 8px; border-radius: 99px; background: #fff3e0; border: 1.5px solid #f0d9b5; font-size: .43rem; font-weight: 500; color: #8a6a40; }
+.gms-chip.s { background: #ff8c00; border-color: #e65c00; color: #fff; font-weight: 700; }
+.gms-av { width: 11px; height: 11px; border-radius: 50%; background: linear-gradient(135deg,#ffc107,#ff8c00); display: flex; align-items: center; justify-content: center; font-size: .33rem; color: #fff; font-weight: 900; }
+.gms-ph { display: grid; grid-template-columns: 1fr 42px 38px 46px; gap: 3px; font-size: .4rem; font-weight: 700; color: #8a6a40; margin-bottom: 3px; }
+.gms-pr { display: grid; grid-template-columns: 1fr 42px 38px 46px; gap: 3px; align-items: center; padding: 3px 2px; border-radius: 4px; }
+.gms-pr:nth-child(odd) { background: rgba(255,140,0,.07); }
+.gms-pn { font-size: .48rem; font-weight: 500; color: #2d1a00; }
+.gms-pp { font-size: .42rem; color: #8a6a40; text-align: center; font-family: 'DM Mono',monospace; }
+.gms-pq { background: #fff; border: 1px solid #f0d9b5; border-radius: 3px; height: 13px; display: flex; align-items: center; justify-content: center; font-size: .42rem; font-family: 'DM Mono',monospace; color: #2d1a00; }
+.gms-ps { font-size: .42rem; text-align: right; font-family: 'DM Mono',monospace; color: #8a6a40; }
+.gms-ps.a { color: #e65c00; font-weight: 700; }
+.gms-total { background: linear-gradient(135deg,#e65c00,#ff8c00,#ffa000); border-radius: 7px; padding: 9px 11px; margin-top: 7px; display: flex; justify-content: space-between; align-items: center; }
+.gms-tl { font-size: .48rem; font-weight: 700; color: rgba(255,255,255,.75); }
+.gms-tv { font-family: 'DM Mono',monospace; font-size: .92rem; font-weight: 700; color: #fff; }
+.gms-sbtn { background: #ff8c00; color: #fff; border: none; border-radius: 5px; padding: 5px 10px; font-size: .48rem; font-weight: 700; cursor: default; margin-top: 5px; }
+
+/* PAYSLIP */
+.payslip-section { padding: 100px 0; background: linear-gradient(180deg,var(--navy-2),var(--navy)); position: relative; overflow: hidden; }
+.payslip-section::before { content: ''; position: absolute; top: -150px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle,rgba(245,200,66,.1) 0%,transparent 70%); pointer-events: none; }
+.payslip-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.payslip-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(245,200,66,.1); border: 1px solid rgba(245,200,66,.3); color: var(--gold); padding: 6px 14px; border-radius: 99px; font-size: .73rem; font-weight: 700; letter-spacing: .06em; margin-bottom: 1.25rem; }
+.payslip-preview { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,.5); color: #000; }
+.pp-hdr { background: linear-gradient(135deg,#e65c00,#ff8c00); padding: 14px 18px; display: flex; justify-content: space-between; align-items: flex-start; }
+.pp-title { font-size: .92rem; font-weight: 900; color: #fff; letter-spacing: 3px; }
+.pp-docno { font-size: .52rem; color: rgba(255,255,255,.65); margin-top: 2px; font-family: 'DM Mono',monospace; }
+.pp-company { text-align: right; font-size: .58rem; color: rgba(255,255,255,.8); font-weight: 700; }
+.pp-body { padding: 14px 16px; }
+.pp-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+.pp-mb { background: #fff8f0; border: 1px solid #f0d9b5; border-radius: 4px; padding: 6px 8px; }
+.pp-ml { font-size: .4rem; color: #aaa; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 2px; }
+.pp-mv { font-size: .68rem; font-weight: 700; color: #2d1a00; }
+.pp-sl { display: block; background: #ff8c00; color: #fff; padding: 2px 7px; font-size: .48rem; font-weight: 700; letter-spacing: .06em; border-radius: 2px; margin-bottom: 5px; }
+.pp-tbl { width: 100%; border-collapse: collapse; font-size: .5rem; margin-bottom: 7px; }
+.pp-tbl th { background: #fff3e0; border: 1px solid #f0d9b5; padding: 2px 4px; font-weight: 700; text-align: center; color: #8a6a40; }
+.pp-tbl td { border: 1px solid #f0d9b5; padding: 2px 4px; color: #2d1a00; }
+.pp-tbl td.r { text-align: right; font-family: 'DM Mono',monospace; }
+.pp-tbl tr.sub td { background: #fff3e0; font-weight: 700; }
+.pp-tots { display: flex; justify-content: flex-end; margin-bottom: 6px; }
+.pp-tbox { width: 130px; border: 1px solid #f0d9b5; border-radius: 3px; overflow: hidden; }
+.pp-tr { display: flex; justify-content: space-between; padding: 2px 6px; font-size: .48rem; border-bottom: 1px solid #f0d9b5; }
+.pp-tr.g { background: #ff8c00; color: #fff; font-weight: 700; font-size: .57rem; border-bottom: none; }
+.pp-banks { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 5px; }
+.pp-bank { border: 1px solid #f0d9b5; border-radius: 3px; padding: 5px 7px; }
+.pp-bnl { font-size: .4rem; color: #aaa; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 1px; font-weight: 700; }
+.pp-bnn { font-size: .55rem; font-weight: 700; color: #2d1a00; }
+.pp-bnd { font-size: .46rem; color: #8a6a40; font-family: 'DM Mono',monospace; }
+.pp-stamps { display: flex; justify-content: flex-end; gap: 6px; }
+.pp-stamp { text-align: center; }
+.pp-sc { width: 28px; height: 28px; border: 1px solid #ccc; border-radius: 50%; margin: 0 auto 2px; }
+.pp-sl2 { font-size: .36rem; color: #aaa; }
+.pp-foot { background: #fff8f0; border-top: 1px solid #f0d9b5; padding: 4px 16px; text-align: center; font-size: .4rem; color: #ccc; }
+
+.pf-item { display: flex; gap: 14px; margin-bottom: 1.25rem; }
+.pf-icon { width: 42px; height: 42px; border-radius: 10px; background: rgba(245,200,66,.1); border: 1px solid rgba(245,200,66,.2); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.pf-text h4 { font-size: .92rem; font-weight: 700; color: var(--white); margin-bottom: .3rem; }
+.pf-text p { font-size: .82rem; color: var(--gray); line-height: 1.75; }
+.hl { color: var(--gold); font-weight: 700; }
+
+/* CASES */
+.cases { padding: 100px 0; background: var(--navy); }
+.cases-tabs { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.case-tab { padding: 8px 20px; border-radius: 99px; font-size: .82rem; font-weight: 700; cursor: pointer; border: 1.5px solid rgba(255,255,255,.12); color: var(--gray); background: transparent; transition: all .2s; font-family: 'Noto Sans JP',sans-serif; }
+.case-tab:hover { border-color: rgba(255,255,255,.3); color: var(--white); }
+.case-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.cases-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+.case-card { background: var(--navy-3); border: 1px solid rgba(255,255,255,.07); border-radius: var(--radius); padding: 2rem; transition: all .3s; }
+.case-card:hover { border-color: rgba(255,107,53,.25); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.3); }
+.case-industry { display: inline-block; font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: rgba(255,107,53,.1); color: var(--accent); border: 1px solid rgba(255,107,53,.2); padding: 3px 10px; border-radius: 4px; margin-bottom: 1.25rem; }
+.case-card h3 { font-size: .95rem; font-weight: 700; color: var(--white); margin-bottom: 1rem; line-height: 1.55; }
+.case-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,.06); }
+.case-metric-val { font-family: 'Syne',sans-serif; font-size: 1.6rem; font-weight: 900; color: var(--accent); line-height: 1; }
+.case-metric-label { font-size: .7rem; color: var(--gray); margin-top: 3px; }
+
+/* PRICING CTA */
+.pricing-cta { padding: 80px 0; background: var(--navy-2); }
+.pricing-cta-inner { background: linear-gradient(135deg,rgba(255,107,53,.15) 0%,rgba(22,40,71,1) 60%); border: 1px solid rgba(255,107,53,.2); border-radius: 20px; padding: 3.5rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; }
+.pricing-cta-title { font-family: 'Syne',sans-serif; font-size: clamp(1.5rem,3vw,2.2rem); font-weight: 900; color: var(--white); line-height: 1.2; margin-bottom: .75rem; letter-spacing: -.02em; }
+.pricing-cta-sub { font-size: .9rem; color: var(--gray); line-height: 1.7; }
+.pricing-cta-btns { display: flex; gap: 1rem; flex-wrap: wrap; flex-shrink: 0; }
+
+/* PROCESS */
+.process { padding: 100px 0; background: var(--navy); }
+.steps-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; overflow: hidden; margin-top: 4rem; }
+.step-card { background: var(--navy-2); padding: 2.25rem; position: relative; }
+.step-num { font-family: 'Syne',sans-serif; font-size: 3rem; font-weight: 900; color: rgba(255,255,255,.06); line-height: 1; margin-bottom: .75rem; }
+.step-week { font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+.step-card h3 { font-size: .95rem; font-weight: 700; color: var(--white); margin-bottom: .6rem; }
+.step-card p { font-size: .82rem; color: var(--gray); line-height: 1.8; }
+.step-arrow { position: absolute; right: -1px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .55rem; color: #fff; z-index: 10; }
+
+/* TESTIMONIALS */
+.testimonials { padding: 100px 0; background: var(--navy-2); }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 4rem; }
+.testimonial-card { background: var(--navy-3); border: 1px solid rgba(255,255,255,.07); border-radius: var(--radius); padding: 2rem; }
+.testimonial-stars { color: var(--gold); font-size: .9rem; margin-bottom: 1rem; letter-spacing: 2px; }
+.testimonial-text { font-size: .9rem; color: rgba(255,255,255,.8); line-height: 1.85; margin-bottom: 1.5rem; }
+.testimonial-author { display: flex; align-items: center; gap: .75rem; }
+.author-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg,var(--accent),var(--gold)); display: flex; align-items: center; justify-content: center; font-size: .85rem; font-weight: 900; color: #fff; flex-shrink: 0; }
+.author-name { font-size: .85rem; font-weight: 700; color: var(--white); }
+.author-role { font-size: .73rem; color: var(--gray); }
+
+/* FAQ */
+.faq { padding: 100px 0; background: var(--navy); }
+.faq-grid { max-width: 760px; margin: 4rem auto 0; }
+.faq-item { border-bottom: 1px solid rgba(255,255,255,.07); }
+.faq-q { width: 100%; background: none; border: none; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 0; cursor: pointer; font-family: 'Noto Sans JP',sans-serif; font-size: .95rem; font-weight: 700; color: var(--white); text-align: left; gap: 1rem; }
+.faq-q:hover { color: var(--accent); }
+.faq-icon { width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; transition: transform .25s; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease,padding .3s; font-size: .88rem; color: var(--gray); line-height: 1.85; }
+.faq-item.open .faq-a { max-height: 200px; padding-bottom: 1.4rem; }
+
+/* CONTACT CTA */
+.contact-cta { padding: 120px 0; background: linear-gradient(135deg,var(--navy-2),var(--navy)); position: relative; overflow: hidden; text-align: center; }
+.contact-cta::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,107,53,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,107,53,.03) 1px,transparent 1px); background-size: 40px 40px; }
+.contact-cta .section-label { justify-content: center; }
+.contact-cta .section-title { max-width: 700px; margin: 0 auto 1.25rem; }
+.contact-cta .section-sub { max-width: 480px; margin: 0 auto 3rem; text-align: center; }
+.contact-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.contact-note { margin-top: 1.5rem; font-size: .78rem; color: var(--gray); }
+
+/* FOOTER */
+.site-footer { background: #060e1c; border-top: 1px solid rgba(255,255,255,.05); padding: 3.5rem 0; }
+.footer-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 3rem; flex-wrap: wrap; }
+.footer-brand .logo { margin-bottom: .75rem; }
+.footer-brand p { font-size: .8rem; color: var(--gray); line-height: 1.75; max-width: 260px; }
+.footer-links { display: flex; gap: 3.5rem; flex-wrap: wrap; }
+.footer-col h4 { font-size: .72rem; font-weight: 700; color: var(--white); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .9rem; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+.footer-col ul li a { font-size: .82rem; color: var(--gray); transition: color .15s; }
+.footer-col ul li a:hover { color: var(--accent); }
+.footer-bottom { max-width: var(--max-w); margin: 2rem auto 0; padding: 1.5rem 5% 0; border-top: 1px solid rgba(255,255,255,.04); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-bottom p { font-size: .75rem; color: rgba(255,255,255,.25); }
+
+/* MOBILE NAV */
+.mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 6px; color: var(--white); flex-direction: column; gap: 5px; }
+.mobile-menu-btn span { display: block; width: 22px; height: 2px; background: currentColor; border-radius: 2px; }
+.mobile-nav { display: none; position: fixed; inset: 0; z-index: 450; background: rgba(10,22,40,.98); backdrop-filter: blur(20px); padding: 80px 5% 5%; flex-direction: column; gap: .5rem; }
+.mobile-nav.open { display: flex; }
+.mobile-nav a { display: block; padding: 14px 0; font-size: 1.15rem; font-weight: 700; color: rgba(255,255,255,.75); border-bottom: 1px solid rgba(255,255,255,.06); }
+.mobile-nav a:hover { color: var(--accent); }
+.mobile-nav-close { position: absolute; top: 18px; right: 5%; background: rgba(255,255,255,.08); border: none; color: var(--white); width: 38px; height: 38px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; }
+
+/* SCROLL ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+.reveal-delay-4 { transition-delay: .4s; }
+
+@media(max-width:1100px){
+  .hero-demo,.hero-tag{display:none;}
+}
+@media(max-width:900px){
+  .site-nav,.nav-cta{display:none;}
+  .mobile-menu-btn{display:flex;}
+  .showcase-inner,.payslip-inner{grid-template-columns:1fr;gap:3rem;}
+  .services-grid,.cases-grid,.testimonials-grid{grid-template-columns:1fr;}
+  .problems-grid{grid-template-columns:1fr;}
+  .steps-grid{grid-template-columns:1fr 1fr;}
+  .step-arrow{display:none;}
+}
+@media(max-width:600px){
+  .steps-grid{grid-template-columns:1fr;}
+  .pricing-cta-inner{flex-direction:column;}
+  .hero-stats{gap:2rem;}
+  section{padding:70px 0!important;}
+  .hero{padding:80px 0 50px!important;}
+  .footer-links{gap:2rem;}
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" onclick="closeMobileNav()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <a href="index.html" onclick="closeMobileNav()">ホーム</a>
+  <a href="services.html" onclick="closeMobileNav()">サービス</a>
+  <a href="cases.html" onclick="closeMobileNav()">導入事例</a>
+  <a href="pricing.html" onclick="closeMobileNav()">料金</a>
+  <a href="process.html" onclick="closeMobileNav()">流れ</a>
+  <a href="company.html" onclick="closeMobileNav()">会社情報</a>
+  <div style="margin-top:1rem;"><a href="contact.html" onclick="closeMobileNav()" class="btn btn-primary" style="display:block;text-align:center;">無料相談する →</a></div>
+</nav>
+
 <header class="site-header">
   <div class="header-inner">
-    <a href="index.html" class="logo">Quick<span>Shift</span> DX</a>
+    <a href="index.html" class="logo">
+      <div class="logo-mark">Q</div>
+      QuickShift DX
+    </a>
     <nav class="site-nav">
       <a href="services.html">サービス</a>
-      <a href="product/time-shift.html">勤怠・シフト</a>
-      <a href="process.html">導入の流れ</a>
+      <a href="cases.html">導入事例</a>
       <a href="pricing.html">料金</a>
-      <a href="cases.html">事例</a>
+      <a href="process.html">流れ</a>
+      <a href="company.html">会社情報</a>
       <a href="faq.html">FAQ</a>
-      <a href="company.html">会社概要</a>
-      <a href="contact.html" class="btn btn-primary">無料相談する</a>
     </nav>
-    <button class="hamburger" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="contact.html" class="btn btn-primary nav-cta">無料相談する →</a>
+    <button class="mobile-menu-btn" onclick="openMobileNav()"><span></span><span></span><span></span></button>
   </div>
 </header>
 
-<!-- MOBILE NAV -->
-<nav class="mobile-nav">
-  <a href="index.html">トップ</a>
-  <a href="services.html">サービス</a>
-  <a href="product/time-shift.html">勤怠・シフトWeb化パック</a>
-  <a href="process.html">導入の流れ</a>
-  <a href="pricing.html">料金</a>
-  <a href="cases.html">事例・ユースケース</a>
-  <a href="faq.html">よくある質問</a>
-  <a href="company.html">会社概要</a>
-  <a href="contact.html" class="btn btn-primary" style="border-radius:8px; text-align:center;">無料相談する</a>
-</nav>
-
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+  <div class="hero-orb orb-3"></div>
   <div class="container">
-    <div class="hero-eyebrow">中小企業向けDX支援</div>
-    <h1>手書き業務を、<em>2週間</em>でWebに。<br>現場に合わせて作るDX。</h1>
-    <p class="hero-sub">
-      IT担当不要。SaaS導入の失敗なし。<br>
-      飲食店・美容院の紙・口頭・手書き運用を、<br>
-      あなたの現場に合わせて最短2週間で"動く"状態にします。
-    </p>
-    <div class="hero-cta">
-      <a href="contact.html" class="btn btn-primary btn-lg">無料相談する →</a>
-      <a href="product/time-shift.html" class="btn btn-outline btn-lg">デモを見る</a>
-    </div>
-    <div class="hero-stats">
-      <div>
-        <div class="stat-num">2<span>週間</span></div>
-        <div class="stat-label">最短導入期間</div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="pulse-dot"></span>
+        最短2週間で納品 — 現場ファーストのDX
       </div>
-      <div>
-        <div class="stat-num">0<span>円</span></div>
-        <div class="stat-label">初回相談料</div>
+      <h1>
+        手書き業務を、<br>
+        <span class="ac">2週間</span>で<br>
+        <span class="gd">Web化</span>する。
+      </h1>
+      <p class="hero-sub">
+        飲食店・美容院・物流など、紙とExcelで回っている現場の業務をそのままWebシステムに置き換えます。シフト・勤怠・精算・給与明細まで、まるごとDX。
+      </p>
+      <div class="hero-cta">
+        <a href="contact.html" class="btn btn-primary btn-lg">無料相談する →</a>
+        <a href="cases.html" class="btn btn-outline btn-lg">導入事例を見る</a>
       </div>
-      <div>
-        <div class="stat-num">5<span>〜</span>50<span>名</span></div>
-        <div class="stat-label">対応スタッフ規模</div>
-      </div>
-      <div>
-        <div class="stat-num">80<span>%</span></div>
-        <div class="stat-label">集計作業の削減目安</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROBLEM -->
-<section class="section bg-navy">
-  <div class="container">
-    <div class="section-tag">こんな現場のお悩みに</div>
-    <h2 class="section-title">紙・口頭・手書きで<br>毎日どこかがミスる</h2>
-    <p class="section-lead">IT化しようとしたけどSaaSが合わなかった。現場が使わなかった。そんな経験、ありませんか？</p>
-    <div class="problems-grid">
-      <div class="problem-card fade-up">
-        <div class="problem-icon">📋</div>
-        <h3>紙の出勤票が行方不明</h3>
-        <p>月末に集計しようとしたら紙が足りない。書き忘れや捺印漏れで毎月修正作業が発生する。</p>
-      </div>
-      <div class="problem-card fade-up">
-        <div class="problem-icon">📱</div>
-        <h3>シフトはLINEで口頭確認</h3>
-        <p>希望シフトのやりとりがLINEに埋もれる。誰が何日に入れるのか把握しきれず、ダブルブッキングも。</p>
-      </div>
-      <div class="problem-card fade-up">
-        <div class="problem-icon">⏰</div>
-        <h3>集計・給与計算に2〜3時間</h3>
-        <p>月末に手書き出勤票をExcelに転記して時給計算。この作業だけで何時間も潰れる。</p>
-      </div>
-      <div class="problem-card fade-up">
-        <div class="problem-icon">❌</div>
-        <h3>SaaS導入したが誰も使わなかった</h3>
-        <p>便利そうなアプリを入れても、現場スタッフが馴染まず3ヶ月で元の紙運用に逆戻り。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STRENGTHS -->
-<section class="section">
-  <div class="container">
-    <div class="section-tag">私たちの強み</div>
-    <h2 class="section-title">「SaaSを売る」より、<br>現場に合わせて作る。</h2>
-    <p class="section-lead">汎用ツールを押し付けるのではなく、あなたの現場の運用に合わせて小さく作り、早く改善します。</p>
-    <div class="strengths-grid">
-      <div class="card fade-up">
-        <div class="strength-num">01</div>
-        <h3>最短2週間で"動く"状態に</h3>
-        <p>完璧を目指さず、まず現場が使える最低限の状態（MVP）を2週間で納品。完成してから改善するのではなく、動かしながら育てます。</p>
-      </div>
-      <div class="card fade-up">
-        <div class="strength-num">02</div>
-        <h3>現場の運用に合わせて設計</h3>
-        <p>深夜営業・複数店舗・スタッフの年齢層…すべての現場は違います。ヒアリングして「やること/やらないこと」を一緒に決めます。</p>
-      </div>
-      <div class="card fade-up">
-        <div class="strength-num">03</div>
-        <h3>月次で改善サイクルを回す</h3>
-        <p>導入して終わりではありません。運用データを見ながら毎月少しずつ改善。現場のフィードバックを素早く反映し続けます。</p>
-      </div>
-    </div>
-    <div style="margin-top:2.5rem">
-      <a href="services.html" class="btn btn-outline-dark">サービス詳細を見る →</a>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUCT PREVIEW -->
-<section class="section bg-gray">
-  <div class="container">
-    <div class="product-preview">
-      <div>
-        <div class="section-tag">最初の商品</div>
-        <h2 class="section-title">勤怠・シフト<br>Web化パック</h2>
-        <p class="section-lead" style="margin-bottom:1.5rem">居酒屋・美容院などシフト制の現場向け。紙の出勤票とLINEシフト連絡を2週間でWebアプリに置き換えます。</p>
-        <ul class="feature-list">
-          <li>スマホからワンタップで出勤・退勤打刻</li>
-          <li>シフト希望をWeb入力（LINEから卒業）</li>
-          <li>管理者がリアルタイムで勤怠確認</li>
-          <li>月次集計・給与用CSV出力</li>
-        </ul>
-        <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap">
-          <a href="product/time-shift.html" class="btn btn-primary">詳細・デモを見る →</a>
-          <a href="pricing.html" class="btn btn-outline-dark">料金を確認する</a>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num"><span class="counter" data-target="23">0</span><span class="unit">+</span></div>
+          <div class="stat-label">導入社数</div>
+        </div>
+        <div>
+          <div class="stat-num"><span class="counter" data-target="14">0</span><span class="unit">日</span></div>
+          <div class="stat-label">最短納品日数</div>
+        </div>
+        <div>
+          <div class="stat-num"><span class="counter" data-target="98">0</span><span class="unit">%</span></div>
+          <div class="stat-label">顧客継続率</div>
         </div>
       </div>
-      <div style="background:var(--navy); border-radius:16px; padding:2rem; position:relative; overflow:hidden">
-        <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--accent),transparent)"></div>
-        <p style="font-size:.75rem; color:var(--gray); margin-bottom:1rem; font-weight:700; letter-spacing:.08em">DEMO — 管理者ダッシュボード</p>
-        <div class="mock-screen">
-          <div class="mock-bar">
-            <div class="mock-dot" style="background:#ff5f57"></div>
-            <div class="mock-dot" style="background:#febc2e"></div>
-            <div class="mock-dot" style="background:#28c840"></div>
-            <span class="mock-title">本日の勤怠状況</span>
+    </div>
+  </div>
+
+  <!-- Floating Demo Card -->
+  <div class="hero-demo">
+    <div class="hero-tag tag-1"><span class="tag-dot" style="background:#4ade80;"></span>クラウド同期済み</div>
+    <div class="hero-tag tag-3"><span class="tag-dot" style="background:#f5c842;"></span>スマホ対応</div>
+    <div class="demo-card">
+      <div class="demo-card-bar">
+        <div class="demo-dot r"></div><div class="demo-dot y"></div><div class="demo-dot g"></div>
+        <div class="demo-url">gms.quickshift.app</div>
+      </div>
+      <div class="demo-body">
+        <div class="dsm">
+          <div class="dsm-nav">
+            <div class="dsm-brand">GMS<br>System</div>
+            <div class="dsm-item a"><div class="dsm-dot"></div>作業入力</div>
+            <div class="dsm-item"><div class="dsm-dot"></div>シフト</div>
+            <div class="dsm-item"><div class="dsm-dot"></div>マイページ</div>
+            <div style="border-top:1px solid rgba(255,255,255,.15);margin:4px 0;"></div>
+            <div class="dsm-item" style="font-size:.4rem;"><div class="dsm-dot"></div>管理者</div>
           </div>
-          <div class="mock-content">
-            <div class="mock-row"><span class="mock-name">田中 さくら</span><span class="mock-time">17:02 出勤</span><span class="badge badge-in">出勤中</span></div>
-            <div class="mock-row"><span class="mock-name">鈴木 健太</span><span class="mock-time">16:55 出勤</span><span class="badge badge-in">出勤中</span></div>
-            <div class="mock-row"><span class="mock-name">山田 花音</span><span class="mock-time">14:00〜17:00</span><span class="badge badge-out">退勤済</span></div>
-            <div class="mock-row"><span class="mock-name">佐藤 大輝</span><span class="mock-time">19:00 予定</span><span class="badge badge-new">未打刻</span></div>
-            <div class="mock-row"><span class="mock-name">中村 あゆみ</span><span class="mock-time">18:30 出勤</span><span class="badge badge-in">出勤中</span></div>
-            <div class="mock-summary">
-              <div>
-                <div class="mock-summary-label">今月の総勤務時間</div>
-                <div class="mock-summary-val">1,284h</div>
+          <div class="dsm-main">
+            <div class="dsm-card">
+              <div class="dsm-label">作業者を選択</div>
+              <div class="dsm-row">
+                <div class="dsm-chip">田中</div>
+                <div class="dsm-chip sel">山田</div>
+                <div class="dsm-chip">佐藤</div>
               </div>
-              <div style="color:var(--accent); font-size:.85rem; font-weight:700; cursor:pointer">↓ CSV出力</div>
+            </div>
+            <div class="dsm-card">
+              <div class="dsm-label">加工内容</div>
+              <div style="font-size:.38rem;color:rgba(255,255,255,.5);margin-bottom:2px;">箱に入れる × 142個</div>
+              <div style="font-size:.38rem;color:rgba(255,255,255,.5);">防水袋 × 87個</div>
+            </div>
+            <div class="dsm-total">
+              <div class="dsm-total-label">今回合計</div>
+              <div class="dsm-total-val">¥8,767</div>
             </div>
           </div>
         </div>
+        <div class="demo-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> クラウドに自動保存 — リアルタイム同期
+        </div>
+      </div>
+    </div>
+    <div class="hero-tag tag-2"><span class="tag-dot" style="background:#ff8c00;"></span>GMS 実稼働中</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <div class="ticker-item">シフト管理 Web化 <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">勤怠記録 デジタル化 <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">給与明細 自動生成 <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">外注管理 クラウド化 <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">最短2週間で納品 <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">飲食店 DX <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">美容院 DX <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">物流 DX <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">シフト管理 Web化 <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">勤怠記録 デジタル化 <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">給与明細 自動生成 <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">外注管理 クラウド化 <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">最短2週間で納品 <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">飲食店 DX <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">美容院 DX <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+    <div class="ticker-item">物流 DX <span class="ticker-sep"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="opacity:.6"><circle cx="4" cy="4" r="3"/></svg></span></div>
+  </div>
+</div>
+
+<!-- PROBLEMS -->
+<section class="problems">
+  <div class="container">
+    <div class="section-label reveal">こんな悩み、ありませんか？</div>
+    <h2 class="section-title reveal reveal-delay-1">紙・手書きのまま<br>仕事していませんか？</h2>
+    <div class="problems-grid">
+      <div class="problem-card reveal reveal-delay-1">
+        <div class="prob-icon"></div>
+        <h3>紙のシフト表で管理が大変</h3>
+        <p>手書きや紙での連絡で間違いが多く、差し替えのたびに全員へLINEで再送。毎月の作業が憂鬱です。</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-2">
+        <div class="prob-icon"></div>
+        <h3>給与計算にExcelを使っている</h3>
+        <p>手入力のミスが多く、修正対応で残業続き。外注さんへの明細書作成も毎月数時間かかっています。</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-3">
+        <div class="prob-icon"></div>
+        <h3>外注さんの作業記録がバラバラ</h3>
+        <p>誰がいつ何をやったか把握できず、支払い確認に時間がかかる。口頭やLINEで済ませていませんか？</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROCESS PREVIEW -->
-<section class="section">
+<!-- SERVICES -->
+<section class="services">
   <div class="container">
-    <div class="section-tag">導入の流れ</div>
-    <h2 class="section-title">4ステップで現場が変わる</h2>
-    <p class="section-lead">相談から運用開始まで、最短3〜4週間。IT担当がいなくても大丈夫です。</p>
+    <div class="services-header">
+      <div>
+        <div class="section-label reveal">サービス</div>
+        <h2 class="section-title reveal reveal-delay-1">現場ごとに<br><em>作ります。</em></h2>
+        <p class="section-sub reveal reveal-delay-2">汎用パッケージではなく、あなたの現場に合わせてゼロから構築。まず「シフト＋勤怠パック」で始めて、後から拡張できます。</p>
+      </div>
+      <a href="services.html" class="btn btn-outline reveal reveal-delay-2">全サービスを見る →</a>
+    </div>
+    <div class="services-grid">
+      <div class="service-card featured reveal reveal-delay-1">
+        <div class="service-tag"> 人気No.1</div>
+        <h3>シフト・勤怠 Web化パック</h3>
+        <p>紙のシフト表・タイムカードをクラウドWebアプリに置き換え。スマホから申請・承認ができます。外注さん用の作業入力フォームも標準装備。</p>
+        <ul class="service-list">
+          <li>シフト希望提出・承認・ガントチャート</li>
+          <li>作業記録入力（外注さん向け）</li>
+          <li>リアルタイムクラウド同期</li>
+          <li>スマホ完全対応</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-main">¥98,000</span>
+          <span>〜（税別）/ 初期構築</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-tag gold"> 新サービス</div>
+        <h3>給与・支払明細書 自動生成システム</h3>
+        <p>作業記録から月次の支払明細書をワンクリックで生成・印刷。外注さんの口座情報管理から振込確認印まで、明細書業務をまるごと自動化します。</p>
+        <ul class="service-list">
+          <li>A4フォーマット明細書出力</li>
+          <li>消費税・上乗せ率の自動計算</li>
+          <li>外注さん口座情報の一元管理</li>
+          <li>CSV出力・会計ソフト連携</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-main">+¥30,000</span>
+          <span>〜（税別）/ 上記パックへのオプション</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-tag">フルカスタム</div>
+        <h3>業務システム フルスクラッチ</h3>
+        <p>受発注・在庫・顧客管理など、より複雑な業務フローもゼロからWebシステムで構築。既存のExcel業務をそのままWebに移行します。</p>
+        <ul class="service-list">
+          <li>ヒアリング・要件定義から</li>
+          <li>既存Excelデータの移行支援</li>
+          <li>継続的なアップデート対応</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-main">¥200,000</span>
+          <span>〜（税別）/ 個別見積もり</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-4">
+        <div class="service-tag">保守・運用</div>
+        <h3>月次サポート・機能追加プラン</h3>
+        <p>納品後も現場の変化に合わせて機能を追加・改修。電話・チャットでのサポートと月1回のオンラインMTGが含まれます。</p>
+        <ul class="service-list">
+          <li>毎月の機能改修・バグ修正</li>
+          <li>月1回のオンライン定例MTG</li>
+          <li>データバックアップ管理</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-main">¥15,000</span>
+          <span>〜（税別）/ 月</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GMS SHOWCASE -->
+<section class="showcase">
+  <div class="container">
+    <div class="showcase-inner">
+      <div>
+        <div class="showcase-badge reveal">実稼働事例 — Global Mango System</div>
+        <h2 class="showcase-title reveal reveal-delay-1">
+          外注管理システム<br><span class="mn">「GMS」</span><br>実際に動いています。
+        </h2>
+        <p class="showcase-desc reveal reveal-delay-2">
+          物流・梱包業の外注さん管理に特化したWebシステム。作業記録の入力から支払明細書の発行まで、紙ゼロで完結。リアルタイムでクラウドに同期し、管理者はどこからでも確認できます。
+        </p>
+        <div class="reveal reveal-delay-3">
+          <div class="sf-item"><div class="sf-icon"></div><div>外注さんがスマホから<strong>作業記録を入力</strong> → 管理者が即確認・承認</div></div>
+          <div class="sf-item"><div class="sf-icon"></div><div>シフト希望の提出・承認・<strong>ガントチャート表示</strong>で一覧管理</div></div>
+          <div class="sf-item"><div class="sf-icon"></div><div>月次で<strong>支払明細書を自動生成</strong>・印刷。口座情報も一元管理</div></div>
+          <div class="sf-item"><div class="sf-icon"></div><div>マイページで自分の<strong>稼ぎ・作業日数をグラフ確認</strong></div></div>
+        </div>
+        <div class="showcase-metrics reveal reveal-delay-4">
+          <div><div class="sm-val">0枚</div><div class="sm-label">紙の使用量</div></div>
+          <div><div class="sm-val">100%</div><div class="sm-label">作業のデジタル化率</div></div>
+          <div><div class="sm-val">3h/月</div><div class="sm-label">管理工数の削減</div></div>
+        </div>
+        <div style="margin-top:2rem;" class="reveal reveal-delay-4">
+          <a href="cases.html" class="btn btn-outline">GMS詳細を見る →</a>
+        </div>
+      </div>
+
+      <!-- GMS App Mockup -->
+      <div class="gms-mockup reveal reveal-delay-2">
+        <div class="gms-topbar">
+          <div class="gms-brand">Global Mango System</div>
+          <div class="gms-sync"><div class="gms-sync-dot"></div>クラウド同期済み</div>
+        </div>
+        <div class="gms-shell">
+          <div class="gms-sidebar">
+            <div style="border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:7px;margin-bottom:3px;">
+              <div style="font-size:.45rem;font-weight:700;color:rgba(255,255,255,.5);">GMS v2.0</div>
+            </div>
+            <div class="gms-ns">外注さん用</div>
+            <div class="gms-nb a">作業入力</div>
+            <div class="gms-nb">シフト</div>
+            <div class="gms-nb">マイページ</div>
+            <div class="gms-ns">管理者用</div>
+            <div class="gms-nb"> 履歴</div>
+            <div class="gms-nb"> シフト管理</div>
+            <div class="gms-nb">️ 設定</div>
+          </div>
+          <div class="gms-main">
+            <div class="gms-pt">作業を入力する</div>
+            <div style="font-size:.4rem;font-weight:700;color:#8a6a40;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;">あなたは誰ですか？</div>
+            <div class="gms-wrow">
+              <div class="gms-chip"><div class="gms-av">田</div>田中</div>
+              <div class="gms-chip s"><div class="gms-av">山</div>山田</div>
+              <div class="gms-chip"><div class="gms-av">佐</div>佐藤</div>
+            </div>
+            <div style="font-size:.4rem;font-weight:700;color:#8a6a40;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;margin-top:7px;"> 加工内容</div>
+            <div class="gms-ph"><span>種別</span><span style="text-align:center;">単価</span><span style="text-align:center;">個数</span><span style="text-align:right;">小計</span></div>
+            <div class="gms-pr">
+              <div class="gms-pn">箱に入れる</div>
+              <div class="gms-pp">¥50</div>
+              <div class="gms-pq">142</div>
+              <div class="gms-ps a">¥7,100</div>
+            </div>
+            <div class="gms-pr">
+              <div class="gms-pn">防水袋/プチプチ</div>
+              <div class="gms-pp">¥10</div>
+              <div class="gms-pq">87</div>
+              <div class="gms-ps a">¥870</div>
+            </div>
+            <div class="gms-pr">
+              <div class="gms-pn">プチプチロール</div>
+              <div class="gms-pp">¥30</div>
+              <div class="gms-pq">0</div>
+              <div class="gms-ps">¥0</div>
+            </div>
+            <div class="gms-pr">
+              <div class="gms-pn">セット梱包</div>
+              <div class="gms-pp">¥50</div>
+              <div class="gms-pq">0</div>
+              <div class="gms-ps">¥0</div>
+            </div>
+            <div class="gms-total">
+              <div>
+                <div class="gms-tl">今回合計</div>
+                <div style="font-size:.33rem;color:rgba(255,255,255,.5);margin-top:1px;">＋10% 上乗せ込み</div>
+              </div>
+              <div class="gms-tv">¥8,767</div>
+            </div>
+            <div class="gms-sbtn">提出する</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYSLIP CROSS-SELL -->
+<section class="payslip-section">
+  <div class="container">
+    <div class="payslip-inner">
+      <!-- Preview -->
+      <div class="payslip-preview reveal">
+        <div class="pp-hdr">
+          <div>
+            <div class="pp-title">支 払 明 細 書</div>
+            <div class="pp-docno">文書番号：202503-YamadaHanako</div>
+          </div>
+          <div class="pp-company">Global Mango System<br>担当：田中 太郎</div>
+        </div>
+        <div class="pp-body">
+          <div class="pp-meta">
+            <div class="pp-mb"><div class="pp-ml">支払先</div><div class="pp-mv">山田 花子 様</div></div>
+            <div class="pp-mb"><div class="pp-ml">対象期間</div><div class="pp-mv">2025年3月分</div></div>
+          </div>
+          <span class="pp-sl">■ 加工作業明細</span>
+          <table class="pp-tbl">
+            <thead><tr><th>作業日</th><th>加工の種類</th><th>単価</th><th>数量</th><th>金額</th><th>消費税</th></tr></thead>
+            <tbody>
+              <tr><td>03/05</td><td>箱に入れる</td><td class="r">¥50</td><td class="r">142個</td><td class="r">¥7,100</td><td class="r">¥710</td></tr>
+              <tr><td></td><td>防水袋</td><td class="r">¥10</td><td class="r">87個</td><td class="r">¥870</td><td class="r">¥87</td></tr>
+              <tr class="sub"><td>03/05</td><td colspan="3">日計</td><td class="r">¥8,767</td><td class="r">¥876</td></tr>
+              <tr><td>03/12</td><td>セット梱包</td><td class="r">¥50</td><td class="r">63個</td><td class="r">¥3,150</td><td class="r">¥315</td></tr>
+              <tr class="sub"><td>03/12</td><td colspan="3">日計</td><td class="r">¥3,465</td><td class="r">¥346</td></tr>
+            </tbody>
+          </table>
+          <div class="pp-tots">
+            <div class="pp-tbox">
+              <div class="pp-tr"><span>税抜合計</span><span>¥12,232</span></div>
+              <div class="pp-tr"><span>消費税10%</span><span>¥1,223</span></div>
+              <div class="pp-tr g"><span>税込合計</span><span>¥13,455</span></div>
+            </div>
+          </div>
+          <div class="pp-banks">
+            <div class="pp-bank"><div class="pp-bnl">振込先（外注さん）</div><div class="pp-bnn">〇〇銀行 △△支店</div><div class="pp-bnd">普通 1234567 / ヤマダ ハナコ</div></div>
+            <div class="pp-bank"><div class="pp-bnl">振込元（自社）</div><div class="pp-bnn">〇〇銀行 □□支店</div><div class="pp-bnd">普通 7654321 / グローバルマンゴー</div></div>
+          </div>
+          <div class="pp-stamps">
+            <div class="pp-stamp"><div class="pp-sc"></div><div class="pp-sl2">確認印</div></div>
+            <div class="pp-stamp"><div class="pp-sc"></div><div class="pp-sl2">承認印</div></div>
+          </div>
+        </div>
+        <div class="pp-foot">本明細書は2025年3月31日に発行されました。| Global Mango System</div>
+      </div>
+
+      <!-- Copy -->
+      <div>
+        <div class="payslip-badge reveal">オプション — 給与・支払明細書システム</div>
+        <h2 class="section-title reveal reveal-delay-1" style="font-size:clamp(1.5rem,3.5vw,2.5rem);">
+          明細書作成、<br><em>ワンクリック</em>で。
+        </h2>
+        <p class="section-sub reveal reveal-delay-2">
+          作業記録が蓄積されるので、月末にボタン一つで支払明細書を自動生成。印刷・PDF化もその場で完結。
+        </p>
+        <div style="margin-top:1.75rem;" class="reveal reveal-delay-3">
+          <div class="pf-item">
+            <div class="pf-icon"></div>
+            <div class="pf-text">
+              <h4>A4明細書を自動生成</h4>
+              <p>消費税・上乗せ率の計算から印鑑欄まで自動。<span class="hl">月末作業が3時間→5分に。</span></p>
+            </div>
+          </div>
+          <div class="pf-item">
+            <div class="pf-icon"></div>
+            <div class="pf-text">
+              <h4>口座情報を一元管理</h4>
+              <p>振込先・振込元を登録すると明細書に自動印字。<span class="hl">毎月の入力作業ゼロ。</span></p>
+            </div>
+          </div>
+          <div class="pf-item">
+            <div class="pf-icon"></div>
+            <div class="pf-text">
+              <h4>CSVエクスポート対応</h4>
+              <p>全記録をCSVで出力して会計ソフトに一括取り込み。<span class="hl">経理連携もスムーズ。</span></p>
+            </div>
+          </div>
+          <div class="pf-item">
+            <div class="pf-icon"></div>
+            <div class="pf-text">
+              <h4>作業時間タイマー連携</h4>
+              <p>タイマー計測の時間が明細書に自動記載。<span class="hl">税務調査にも対応した記録が残ります。</span></p>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;" class="reveal reveal-delay-4">
+          <a href="contact.html" class="btn btn-gold btn-lg">明細書システムについて相談する →</a>
+        </div>
+        <p style="margin-top:1rem;font-size:.78rem;color:var(--gray);" class="reveal reveal-delay-4">シフト管理パックへの追加オプション ¥30,000〜（税別）</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="cases">
+  <div class="container">
+    <div class="section-label reveal">導入事例</div>
+    <h2 class="section-title reveal reveal-delay-1">現場が<em>変わった</em>、<br>リアルな数字。</h2>
+    <div class="cases-tabs reveal reveal-delay-2">
+      <button class="case-tab active" onclick="filterCases('all',this)">すべて</button>
+      <button class="case-tab" onclick="filterCases('butsuryu',this)">物流・梱包</button>
+      <button class="case-tab" onclick="filterCases('biyoin',this)">美容院</button>
+      <button class="case-tab" onclick="filterCases('inshoku',this)">飲食店</button>
+    </div>
+    <div class="cases-grid" id="cases-grid">
+      <div class="case-card reveal reveal-delay-1" data-cat="butsuryu">
+        <div class="case-industry">物流・梱包業</div>
+        <h3>外注さん10名の作業記録・精算を完全Web化。月次明細書も自動生成。</h3>
+        <div class="case-metrics">
+          <div><div class="case-metric-val">95%</div><div class="case-metric-label">事務作業を削減</div></div>
+          <div><div class="case-metric-val">0枚</div><div class="case-metric-label">紙の使用量</div></div>
+        </div>
+      </div>
+      <div class="case-card reveal reveal-delay-2" data-cat="biyoin">
+        <div class="case-industry">美容院（スタッフ8名）</div>
+        <h3>LINEでのシフト管理から脱却。希望集計・確定・共有がWebで完結。</h3>
+        <div class="case-metrics">
+          <div><div class="case-metric-val">3h</div><div class="case-metric-label">月のシフト作業削減</div></div>
+          <div><div class="case-metric-val">100%</div><div class="case-metric-label">スタッフ利用率</div></div>
+        </div>
+      </div>
+      <div class="case-card reveal reveal-delay-3" data-cat="inshoku">
+        <div class="case-industry">飲食店（3店舗）</div>
+        <h3>店舗間のシフト共有・人員調整をリアルタイムで。タイムカードもWeb化。</h3>
+        <div class="case-metrics">
+          <div><div class="case-metric-val">2週</div><div class="case-metric-label">導入期間</div></div>
+          <div><div class="case-metric-val">¥0</div><div class="case-metric-label">追加ソフト費用</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:3rem;" class="reveal">
+      <a href="cases.html" class="btn btn-outline btn-lg">全ての事例を見る →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING CTA -->
+<section class="pricing-cta">
+  <div class="container">
+    <div class="pricing-cta-inner reveal">
+      <div>
+        <div class="pricing-cta-title">まずは<em>無料</em>で<br>ヒアリングから。</div>
+        <p class="pricing-cta-sub">現場の困りごとをお聞かせください。最適な構成とお見積もりをご提案します。</p>
+      </div>
+      <div class="pricing-cta-btns">
+        <a href="contact.html" class="btn btn-primary btn-lg">無料相談する →</a>
+        <a href="pricing.html" class="btn btn-outline btn-lg">料金を見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="container">
+    <div class="section-label reveal">導入の流れ</div>
+    <h2 class="section-title reveal reveal-delay-1"><em>最短2週間</em>で<br>本番運用まで。</h2>
     <div class="steps-grid">
-      <div class="step-item fade-up">
-        <div class="step-num">1</div>
-        <h3>無料相談</h3>
-        <p>現在の運用フローと課題を確認。オンライン面談で進めます。</p>
+      <div class="step-card reveal reveal-delay-1">
+        <div class="step-num">01</div>
+        <div class="step-week">Week 1前半</div>
+        <h3>ヒアリング</h3>
+        <p>現場の業務フローをお聞きし、何をどうWeb化するかを一緒に決めます。</p>
+        <div class="step-arrow">→</div>
       </div>
-      <div class="step-item fade-up">
-        <div class="step-num">2</div>
-        <h3>要件確定</h3>
-        <p>やること・やらないことを明確に1枚にまとめます。</p>
+      <div class="step-card reveal reveal-delay-2">
+        <div class="step-num">02</div>
+        <div class="step-week">Week 1後半</div>
+        <h3>設計・開発</h3>
+        <p>UIデザインから実装まで一気通貫で進め、毎日進捗を共有します。</p>
+        <div class="step-arrow">→</div>
       </div>
-      <div class="step-item fade-up">
-        <div class="step-num">3</div>
-        <h3>MVP開発（2週間）</h3>
-        <p>アプリ・管理画面・マニュアルを納品します。</p>
+      <div class="step-card reveal reveal-delay-3">
+        <div class="step-num">03</div>
+        <div class="step-week">Week 2前半</div>
+        <h3>テスト・修正</h3>
+        <p>実際のスタッフに触ってもらいながらフィードバックを即座に反映。</p>
+        <div class="step-arrow">→</div>
       </div>
-      <div class="step-item fade-up">
-        <div class="step-num">4</div>
-        <h3>運用 + 月次改善</h3>
-        <p>現場フィードバックをもとに毎月改善を続けます。</p>
+      <div class="step-card reveal reveal-delay-4">
+        <div class="step-num">04</div>
+        <div class="step-week">Week 2後半</div>
+        <h3>本番リリース</h3>
+        <p>Webへ公開・全員に案内。操作説明会も実施します。運用開始！</p>
       </div>
-    </div>
-    <div style="text-align:center; margin-top:3rem">
-      <a href="process.html" class="btn btn-outline-dark">詳しい導入の流れを見る →</a>
     </div>
   </div>
 </section>
 
-<!-- CASES PREVIEW -->
-<section class="section bg-navy">
+<!-- TESTIMONIALS -->
+<section class="testimonials">
   <div class="container">
-    <div class="section-tag">導入事例</div>
-    <h2 class="section-title">現場が変わった Before / After</h2>
-    <p class="section-lead">※以下は想定ケースです。実際の導入後の変化をイメージいただくための参考としてご覧ください。</p>
-    <div class="cases-grid">
-      <div class="card-dark fade-up">
-        <div class="case-tag">居酒屋（スタッフ18名）</div>
-        <h3>紙の出勤票＋LINEシフトを<br>スマホアプリに一本化</h3>
-        <p style="color:rgba(255,255,255,.55); font-size:.88rem; line-height:1.8; margin-bottom:1.5rem">月末の集計が最長3時間かかっていた。シフト連絡ミスも月2〜3件あったが、導入後はほぼゼロに。</p>
-        <div class="metrics">
-          <div><div class="metric-val">3h→30分</div><div class="metric-label">月次集計時間</div></div>
-          <div><div class="metric-val">80%↓</div><div class="metric-label">連絡ミス削減</div></div>
+    <div class="section-label reveal">お客様の声</div>
+    <h2 class="section-title reveal reveal-delay-1">現場から<em>届いた声。</em></h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-stars"></div>
+        <p class="testimonial-text">「毎月、外注さんへの明細書作成に3〜4時間かけていたのが、ボタン一つで出るようになって感動しました。口座情報も全部入ってるので入力ゼロです。」</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">G</div>
+          <div><div class="author-name">Global Mango 代表</div><div class="author-role">物流・梱包業 / 外注10名</div></div>
         </div>
       </div>
-      <div class="card-dark fade-up">
-        <div class="case-tag">美容院（スタッフ8名）</div>
-        <h3>シフト提出がLINEからWebフォームに。<br>店長の負担が激減</h3>
-        <p style="color:rgba(255,255,255,.55); font-size:.88rem; line-height:1.8; margin-bottom:1.5rem">シフト確定まで1日かかっていた作業が2〜3時間に短縮。スタッフ全員が初日から問題なく使用。</p>
-        <div class="metrics">
-          <div><div class="metric-val">1日→2h</div><div class="metric-label">シフト確定時間</div></div>
-          <div><div class="metric-val">100%</div><div class="metric-label">スタッフ定着率</div></div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-stars"></div>
+        <p class="testimonial-text">「LINEでシフト集めていたので、漏れや重複が毎月ありました。Web化してから一度もトラブルがない。スタッフみんなスマホで使えているのも助かります。」</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#ff6b35,#f5c842);">B</div>
+          <div><div class="author-name">美容院 オーナー</div><div class="author-role">美容院 / スタッフ8名</div></div>
         </div>
       </div>
-      <div class="card-dark fade-up">
-        <div class="case-tag">飲食チェーン（3店舗・35名）</div>
-        <h3>複数店舗の勤怠を<br>本部で一元管理</h3>
-        <p style="color:rgba(255,255,255,.55); font-size:.88rem; line-height:1.8; margin-bottom:1.5rem">店舗ごとExcelが分かれていた集計を本部で一元化。給与計算ソフトへのCSV連携も自動化。</p>
-        <div class="metrics">
-          <div><div class="metric-val">5h→30分</div><div class="metric-label">全店舗集計時間</div></div>
-          <div><div class="metric-val">3店舗</div><div class="metric-label">同時対応</div></div>
+      <div class="testimonial-card reveal reveal-delay-3">
+        <div class="testimonial-stars"></div>
+        <p class="testimonial-text">「最初は2週間で本当にできるか半信半疑でしたが、本当に2週間で使えるものが出てきて驚きました。修正対応も早くて、相談しやすいです。」</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#22c55e,#3b82f6);">R</div>
+          <div><div class="author-name">居酒屋 店長</div><div class="author-role">飲食店 / 3店舗運営</div></div>
         </div>
       </div>
-    </div>
-    <div style="text-align:center; margin-top:3rem">
-      <a href="cases.html" class="btn btn-outline" style="color:var(--white); border-color:rgba(255,255,255,.3)">全事例を見る →</a>
     </div>
   </div>
 </section>
 
-<!-- CTA BAND -->
-<section class="cta-band">
+<!-- FAQ -->
+<section class="faq">
   <div class="container">
-    <h2>まずは現状を聞かせてください</h2>
-    <p>相談は無料です。現場の課題を30分話すだけでも、整理のお役に立てます。</p>
-    <a href="contact.html" class="btn btn-white btn-lg">無料相談する →</a>
+    <div style="text-align:center;">
+      <div class="section-label reveal" style="justify-content:center;">よくある質問</div>
+      <h2 class="section-title reveal reveal-delay-1">FAQ</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">本当に2週間で完成しますか？<span class="faq-icon">+</span></button>
+        <div class="faq-a">シフト・勤怠管理パックは標準で2週間を目安にしています。内容の複雑さや要件によって前後しますが、まずヒアリングで正確なスケジュールをお伝えします。フルカスタムの場合は1〜2ヶ月程度かかります。</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-1">
+        <button class="faq-q" onclick="toggleFaq(this)">スマホに不慣れなスタッフでも使えますか？<span class="faq-icon">+</span></button>
+        <div class="faq-a">はい。現場スタッフが迷わず使えるよう、シンプルなUIで設計します。導入時には操作説明会も実施しており、実際に60代の方も問題なく使っていただいています。</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-2">
+        <button class="faq-q" onclick="toggleFaq(this)">既存のExcelデータは移行できますか？<span class="faq-icon">+</span></button>
+        <div class="faq-a">はい、対応可能です。Excelの構造を確認した上で、データ移行作業を含めた提案をいたします。移行に別途費用が発生する場合は事前にご案内します。</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-3">
+        <button class="faq-q" onclick="toggleFaq(this)">給与明細書システムは後から追加できますか？<span class="faq-icon">+</span></button>
+        <div class="faq-a">はい。シフト・勤怠パックを導入後、タイミングに合わせて明細書システムをオプションで追加できます。データは蓄積されているため、後から追加しても過去分の記録から明細書を生成できます。</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-4">
+        <button class="faq-q" onclick="toggleFaq(this)">契約後のサポートはどうなりますか？<span class="faq-icon">+</span></button>
+        <div class="faq-a">納品後3ヶ月は無償でバグ対応します。その後は月次サポートプランにご加入いただくことで、機能追加・改修・MTGを継続して受けられます。スポット対応も承っています。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="contact-cta">
+  <div class="container">
+    <div class="section-label reveal">お問い合わせ</div>
+    <h2 class="section-title reveal reveal-delay-1">まず話だけでも、<br><em>大丈夫です。</em></h2>
+    <p class="section-sub reveal reveal-delay-2">「何から始めていいかわからない」という段階でも歓迎です。現場の困りごとをお聞かせください。</p>
+    <div class="contact-btns reveal reveal-delay-3">
+      <a href="contact.html" class="btn btn-primary btn-lg">無料相談する →</a>
+      <a href="pricing.html" class="btn btn-outline btn-lg">料金を確認する</a>
+    </div>
+    <p class="contact-note reveal reveal-delay-4">相談・見積もりは完全無料 ／ 返信は24時間以内</p>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-main">
+    <div class="footer-inner">
       <div class="footer-brand">
-        <a href="index.html" class="logo">Quick<span>Shift</span> DX</a>
-        <p>飲食店・美容院の紙・手書き業務を<br>最短2週間でWebに。現場に合わせて作るDX支援。</p>
+        <a href="index.html" class="logo">
+          <div class="logo-mark">Q</div>
+          QuickShift DX
+        </a>
+        <p>現場ファーストのDX支援。手書き業務を最短2週間でWeb化します。</p>
       </div>
-      <div class="footer-col">
-        <h4>サービス</h4>
-        <ul>
-          <li><a href="services.html">DX支援サービス</a></li>
-          <li><a href="product/time-shift.html">勤怠・シフトWeb化パック</a></li>
-          <li><a href="pricing.html">料金</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>導入</h4>
-        <ul>
-          <li><a href="process.html">導入の流れ</a></li>
-          <li><a href="cases.html">事例・ユースケース</a></li>
-          <li><a href="faq.html">よくある質問</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>会社</h4>
-        <ul>
-          <li><a href="company.html">会社概要</a></li>
-          <li><a href="contact.html">お問い合わせ</a></li>
-          <li><a href="privacy.html">プライバシーポリシー</a></li>
-          <li><a href="terms.html">利用規約</a></li>
-        </ul>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>サービス</h4>
+          <ul>
+            <li><a href="services.html">サービス一覧</a></li>
+            <li><a href="product/time-shift.html">Time-Shift</a></li>
+            <li><a href="pricing.html">料金</a></li>
+            <li><a href="process.html">導入の流れ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>事例・情報</h4>
+          <ul>
+            <li><a href="cases.html">導入事例</a></li>
+            <li><a href="faq.html">よくある質問</a></li>
+            <li><a href="company.html">会社情報</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>お問い合わせ</h4>
+          <ul>
+            <li><a href="contact.html">無料相談</a></li>
+            <li><a href="privacy.html">プライバシーポリシー</a></li>
+            <li><a href="terms.html">利用規約</a></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2024 QuickShift DX株式会社</p>
-      <div class="footer-bottom-links">
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="terms.html">利用規約</a>
-        <a href="contact.html">お問い合わせ</a>
-      </div>
+      <p>© 2025 QuickShift DX. All rights reserved.</p>
+      <p>Powered by Claude + Netlify</p>
     </div>
   </div>
 </footer>
 
-<div class="floating-cta">
-  <a href="contact.html" class="btn btn-primary">無料相談する →</a>
-</div>
-
 <script>
-/* ===== QuickShift DX — Shared JS ===== */
+function openMobileNav(){ document.getElementById('mobile-nav').classList.add('open'); }
+function closeMobileNav(){ document.getElementById('mobile-nav').classList.remove('open'); }
 
-document.addEventListener('DOMContentLoaded', () => {
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObs.observe(el));
 
-  // ── Active nav link based on current page
-  const currentPath = window.location.pathname.replace(/\/$/, '') || '/index.html';
-  document.querySelectorAll('.site-nav a, .mobile-nav a').forEach(a => {
-    const href = a.getAttribute('href');
-    if (!href) return;
-    const normalized = href.replace(/\/$/, '');
-    if (currentPath.endsWith(normalized) && normalized !== '' && normalized !== '/') {
-      a.classList.add('active');
-    } else if ((currentPath === '/' || currentPath.endsWith('index.html')) && (href === '/' || href === 'index.html' || href === './index.html')) {
-      a.classList.add('active');
+// Counter animation
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  if(!target) return;
+  let current = 0;
+  const step = target / 60;
+  const timer = setInterval(() => {
+    current = Math.min(current + step, target);
+    el.textContent = Math.floor(current);
+    if(current >= target) clearInterval(timer);
+  }, 16);
+}
+const counterEls = document.querySelectorAll('.counter');
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting && !e.target.dataset.done){
+      e.target.dataset.done = '1';
+      animateCounter(e.target);
     }
   });
+}, { threshold: 0.5 });
+counterEls.forEach(el => counterObs.observe(el));
 
-  // ── Hamburger menu
-  const hamburger = document.querySelector('.hamburger');
-  const mobileNav = document.querySelector('.mobile-nav');
-  if (hamburger && mobileNav) {
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobileNav.classList.toggle('open');
-      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
-    });
-    mobileNav.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        mobileNav.classList.remove('open');
-        document.body.style.overflow = '';
-      });
-    });
-  }
+// FAQ
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
 
-  // ── Scroll: floating CTA
-  const floatingCta = document.querySelector('.floating-cta');
-  if (floatingCta) {
-    window.addEventListener('scroll', () => {
-      floatingCta.classList.toggle('visible', window.scrollY > 500);
-    }, { passive: true });
-  }
-
-  // ── Intersection observer: fade-up
-  const fadeEls = document.querySelectorAll('.fade-up');
-  if (fadeEls.length) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    fadeEls.forEach(el => io.observe(el));
-  }
-
-  // ── FAQ accordion
-  document.querySelectorAll('.faq-q').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const answer = btn.nextElementSibling;
-      const isOpen = btn.classList.contains('open');
-      document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
-      document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
-      if (!isOpen) {
-        btn.classList.add('open');
-        answer.classList.add('open');
-      }
-    });
+// Case filter
+function filterCases(cat, btn) {
+  document.querySelectorAll('.case-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.case-card').forEach(card => {
+    if(cat === 'all' || card.dataset.cat === cat){
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
   });
+}
 
-  // ── Contact form submit (via Netlify Function)
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = contactForm.querySelector('.submit-btn');
-      const banner = document.getElementById('successBanner');
-      const errBanner = document.getElementById('errorBanner');
-
-      btn.textContent = '送信中...';
-      btn.disabled = true;
-      if (errBanner) errBanner.style.display = 'none';
-
-      const data = {
-        shopName:    contactForm.shopName.value,
-        name:        contactForm.personName.value,
-        email:       contactForm.email.value,
-        phone:       contactForm.phone?.value || '',
-        industry:    contactForm.industry.value,
-        staffCount:  contactForm.staffCount.value,
-        message:     contactForm.message.value,
-        contactPref: contactForm.contactPref.value,
-      };
-
-      try {
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
-        const json = await res.json();
-        if (res.ok && json.success) {
-          btn.textContent = '送信完了 ✓';
-          if (banner) banner.style.display = 'block';
-          contactForm.reset();
-          banner?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        } else {
-          throw new Error(json.error || '送信失敗');
-        }
-      } catch (err) {
-        btn.textContent = '送信する →';
-        btn.disabled = false;
-        if (errBanner) {
-          errBanner.textContent = `⚠️ ${err.message}`;
-          errBanner.style.display = 'block';
-        }
-      }
-    });
-  }
-
+// Header scroll
+window.addEventListener('scroll', () => {
+  document.querySelector('.site-header').style.borderBottomColor =
+    window.scrollY > 50 ? 'rgba(255,107,53,.15)' : 'rgba(255,255,255,.06)';
 });
-
 </script>
 </body>
 </html>
