@@ -633,30 +633,28 @@ async function submitForm(e) {
   const form = document.getElementById('contact-form');
   const btn = form.querySelector('.form-submit');
 
-  // ボタンをローディング状態に
   btn.disabled = true;
   btn.textContent = '送信中...';
 
-  const data = new FormData(form);
-
   try {
-    const res = await fetch('/', {
+    const res = await fetch('/contact.html', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(data).toString()
+      body: new URLSearchParams(new FormData(form)).toString()
     });
 
     if (res.ok) {
-      // 成功
       form.style.display = 'none';
       document.getElementById('success-box').style.display = 'block';
+      window.scrollTo({ top: document.getElementById('success-box').offsetTop - 100, behavior: 'smooth' });
     } else {
-      throw new Error('送信失敗');
+      throw new Error('status ' + res.status);
     }
   } catch (err) {
     btn.disabled = false;
     btn.textContent = '送信する →';
-    alert('送信に失敗しました。メールでお問い合わせください。');
+    alert('送信に失敗しました。しばらく経ってから再度お試しください。');
+    console.error('Form error:', err);
   }
 }
 </script>
